@@ -25,7 +25,7 @@ npm start
 ```
 
 ## Bước 4 : Kiểm thử
-Mở terminal khác nữa
+Mở terminal khác nữa (lệnh này cho Windows)
 ```powershell
 Invoke-RestMethod -Uri "http://localhost:5070/chat" `
   -Method POST `
