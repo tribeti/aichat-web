@@ -1,0 +1,31 @@
+import React from "react";
+
+const deals = [
+  { name: "Smart Watch giảm giá", price: "1.900.000 VND", image: "https://cdn.tgdd.vn/Products/Images/2162/305659/TimerThumb/smart-watch.jpg" },
+  { name: "Áo thun sale", price: "150.000 VND", image: "https://cdn.tgdd.vn/Products/Images/2162/305659/TimerThumb/ao-thun-sale.jpg" },
+  { name: "Bình giữ nhiệt khuyến mãi", price: "120.000 VND", image: "https://cdn.tgdd.vn/Products/Images/2162/305659/TimerThumb/binh-giu-nhiet-sale.jpg" },
+  { name: "Tai nghe giảm giá", price: "200.000 VND", image: "https://cdn.tgdd.vn/Products/Images/2162/305659/TimerThumb/tai-nghe-sale.jpg" },
+  { name: "Son môi khuyến mãi", price: "90.000 VND", image: "https://cdn.tgdd.vn/Products/Images/2162/305659/TimerThumb/son-moi-sale.jpg" },
+  { name: "Áo khoác giảm giá", price: "300.000 VND", image: "https://cdn.tgdd.vn/Products/Images/2162/305659/TimerThumb/ao-khoac-sale.jpg" },
+];
+
+export default function Deals() {
+  return (
+    <div className="page-container">
+      <div style={{background:'linear-gradient(135deg,#f7971e 0%,#ffd200 100%)',borderRadius:'12px',padding:'2rem',marginBottom:'2rem',boxShadow:'0 2px 12px rgba(0,0,0,0.08)',textAlign:'center'}}>
+        <h2 style={{color:'#fff',fontWeight:'bold',fontSize:'2rem'}}>Khuyến mãi HOT</h2>
+        <p style={{color:'#fff',fontSize:'1.1rem'}}>Săn ngay các sản phẩm giảm giá, ưu đãi cực lớn hôm nay!</p>
+      </div>
+      <div className="product-list">
+        {deals.map((item, idx) => (
+          <div className="product-card" key={idx}>
+            <img src={item.image} alt={item.name} className="product-image" />
+            <h3>{item.name}</h3>
+            <p className="product-price">{item.price}</p>
+            <button className="buy-btn">Mua ngay</button>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
