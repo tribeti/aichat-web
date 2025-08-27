@@ -1,11 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react'
 import { FaRobot, FaPaperPlane, FaTimes, FaCommentDots } from 'react-icons/fa'
 
-<<<<<<< HEAD
-const ChatWidget = () => {
-=======
 const ChatWidget = ({ products }) => {
->>>>>>> master
   const [isOpen, setIsOpen] = useState(false)
   const [messages, setMessages] = useState([])
   const [inputValue, setInputValue] = useState('')
@@ -50,11 +46,8 @@ const ChatWidget = ({ products }) => {
     setMessages(prevMessages => [...prevMessages, message])
     setInputValue("")
 
-<<<<<<< HEAD
-=======
-    // Check if the message contains a product recommendation request
     if (inputValue.toLowerCase().includes("recommend") && products && products.length > 0) {
-      const recommendedProduct = products[0]; // Recommend the first product
+      const recommendedProduct = products[0];
       const agentResponse = {
         text: `I recommend ${recommendedProduct.name} for you! Price: ${recommendedProduct.price} VND.`,
         isAgent: true,
@@ -63,7 +56,6 @@ const ChatWidget = ({ products }) => {
       return;
     }
 
->>>>>>> master
     const endpoint = threadId ? `http://localhost:5070/chat/${threadId}` : 'http://localhost:5070/chat'
 
     try {
@@ -77,32 +69,23 @@ const ChatWidget = ({ products }) => {
         }),
       })
 
-      // Check if response status indicates success (200-299 range)
       if (!response.ok) {
-        // Throw error if response status indicates failure
         throw new Error(`HTTP error! status: ${response.status}`)
       }
 
-      // Parse JSON response from server
       const data = await response.json()
-      // Log successful response for debugging
       console.log('Success:', data)
       
-      // Create message object for AI agent's response
       const agentResponse = {
         text: data.response,    // AI's response text
         isAgent: true,          // Flag indicating this is from AI agent
         threadId: data.threadId // Thread ID for conversation continuity
       }
       
-      // Add AI response to messages array
       setMessages(prevMessages => [...prevMessages, agentResponse])
-      // Update thread ID for future messages in this conversation
       setThreadId(data.threadId)
-      // Log updated messages for debugging
       console.log(messages)
     } catch (error) {
-      // Log any errors that occur during API call
       console.error('Error:', error)
     }
   }

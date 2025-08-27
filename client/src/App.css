@@ -56,6 +56,7 @@
   background: #1769aa;
 }
 
+/* Reset and base styles */
 * {
   box-sizing: border-box;
   margin: 0;

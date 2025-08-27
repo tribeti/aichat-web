@@ -1,9 +1,3 @@
-<<<<<<< HEAD
-import { FaSearch, FaShoppingCart, FaUser, FaHeart } from 'react-icons/fa'
-import ChatWidget from './ChatWidget'
-
-const EcommerceStore = () => {
-=======
 import React, { useState } from 'react';
 import { FaSearch, FaShoppingCart, FaUser, FaHeart } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
@@ -32,22 +26,12 @@ const EcommerceStore = () => {
     );
   };
 
->>>>>>> master
   return (
     <>
       <header className="header">
         <div className="container">
           <div className="top-bar">
             <div className="logo">ShopSmart</div>
-<<<<<<< HEAD
-            <div className="search-bar">
-              <input type="text" placeholder="Search for products..." />
-              <button>
-                <FaSearch />
-              </button>
-            </div>
-
-=======
             <form className="search-bar" onSubmit={handleSearch}>
               <input
                 type="text"
@@ -59,7 +43,6 @@ const EcommerceStore = () => {
                 <FaSearch />
               </button>
             </form>
->>>>>>> master
             <div className="nav-icons">
               <a href="#account">
                 <FaUser size={20} />
@@ -74,18 +57,6 @@ const EcommerceStore = () => {
               </a>
             </div>
           </div>
-<<<<<<< HEAD
-
-          <nav className="nav-bar">
-            <ul>
-              <li><a href="#" className="active">Home</a></li>
-              <li><a href="#">Electronics</a></li>
-              <li><a href="#">Clothing</a></li>
-              <li><a href="#">Home & Kitchen</a></li>
-              <li><a href="#">Beauty</a></li>
-              <li><a href="#">Sports</a></li>
-              <li><a href="#">Deals</a></li>
-=======
           <nav className="nav-bar">
             <ul>
               <li><Link to="/" className="active">Home</Link></li>
@@ -95,33 +66,19 @@ const EcommerceStore = () => {
               <li><Link to="/beauty">Beauty</Link></li>
               <li><Link to="/sports">Sports</Link></li>
               <li><Link to="/deals">Deals</Link></li>
->>>>>>> master
             </ul>
           </nav>
         </div>
       </header>
-<<<<<<< HEAD
-
       <main>
         <div className="hero">
           <div className="container">
-            <h1>Summer Sale is Live!</h1>
-            <p>Get up to 50% off on selected items. Limited time offer.</p>
-            <button>Shop Now</button>
-          </div>
-        </div>
-      </main>
-
-=======
-      <main>
-        <div className="hero">
-          <div className="container">
-            <h1 style={{fontWeight:'bold',fontSize:'2.5rem'}}>Chào mừng đến ShopSmart!</h1>
-            <p style={{fontSize:'1.2rem'}}>Mua sắm dễ dàng, hiện đại, giá tốt mỗi ngày.</p>
-            <button style={{background:'#e91e63',color:'#fff',border:'none',borderRadius:'30px',padding:'12px 32px',fontSize:'1.1rem',fontWeight:'bold',marginTop:'1rem',boxShadow:'0 2px 8px rgba(0,0,0,0.12)'}}>Khám phá ngay</button>
-            <div style={{marginTop:'2rem',background:'#fff',borderRadius:'12px',padding:'1.5rem',boxShadow:'0 2px 12px rgba(0,0,0,0.08)',maxWidth:'600px',marginLeft:'auto',marginRight:'auto'}}>
-              <h3 style={{color:'#4a00e0'}}>Hướng dẫn sử dụng:</h3>
-              <ul style={{fontSize:'1rem',color:'#333',marginTop:'1rem',lineHeight:'2'}}>
+            <h1 style={{ fontWeight: 'bold', fontSize: '2.5rem' }}>Chào mừng đến ShopSmart!</h1>
+            <p style={{ fontSize: '1.2rem' }}>Mua sắm dễ dàng, hiện đại, giá tốt mỗi ngày.</p>
+            <button style={{ background: '#e91e63', color: '#fff', border: 'none', borderRadius: '30px', padding: '12px 32px', fontSize: '1.1rem', fontWeight: 'bold', marginTop: '1rem', boxShadow: '0 2px 8px rgba(0,0,0,0.12)' }}>Khám phá ngay</button>
+            <div style={{ marginTop: '2rem', background: '#fff', borderRadius: '12px', padding: '1.5rem', boxShadow: '0 2px 12px rgba(0,0,0,0.08)', maxWidth: '600px', marginLeft: 'auto', marginRight: 'auto' }}>
+              <h3 style={{ color: '#4a00e0' }}>Hướng dẫn sử dụng:</h3>
+              <ul style={{ fontSize: '1rem', color: '#333', marginTop: '1rem', lineHeight: '2' }}>
                 <li>Chọn danh mục ở menu trên để xem sản phẩm.</li>
                 <li>Nhấn vào <b>Mua ngay</b> để đặt hàng nhanh.</li>
                 <li>Dùng khung chat để hỏi đáp hoặc hỗ trợ.</li>
@@ -131,10 +88,10 @@ const EcommerceStore = () => {
           </div>
         </div>
         <div className="container">
-          <h2 style={{marginTop: '2rem',textAlign:'center',color:'#4a00e0'}}>Sản phẩm nổi bật</h2>
-          <div className="product-list" style={{display: 'flex', gap: '2rem', flexWrap: 'wrap', justifyContent: 'center'}}>
+          <h2 style={{ marginTop: '2rem', textAlign: 'center', color: '#4a00e0' }}>Sản phẩm nổi bật</h2>
+          <div className="product-list" style={{ display: 'flex', gap: '2rem', flexWrap: 'wrap', justifyContent: 'center' }}>
             {results.length === 0 ? (
-              <div style={{textAlign:'center',width:'100%',color:'#e91e63',fontWeight:'bold',fontSize:'1.2rem'}}>Không tìm thấy sản phẩm phù hợp.</div>
+              <div style={{ textAlign: 'center', width: '100%', color: '#e91e63', fontWeight: 'bold', fontSize: '1.2rem' }}>Không tìm thấy sản phẩm phù hợp.</div>
             ) : (
               results.map((p, idx) => (
                 <div className="product-card" key={idx}>
@@ -148,7 +105,6 @@ const EcommerceStore = () => {
           </div>
         </div>
       </main>
->>>>>>> master
       <footer className="footer">
         <div className="container">
           <div className="footer-content">
@@ -204,14 +160,7 @@ const EcommerceStore = () => {
       </footer>
       <ChatWidget />
     </>
-<<<<<<< HEAD
-  )
-}
-
-export default EcommerceStore
-=======
   );
 }
 
 export default EcommerceStore;
->>>>>>> master

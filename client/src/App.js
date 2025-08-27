@@ -1,14 +1,5 @@
-<<<<<<< HEAD
-import logo from './logo.svg';
 import './App.css';
 import EcommerceStore from './components/Store';
-
-function App() {
-  return (
-    <div className="App">
-      <EcommerceStore />
-    </div>
-=======
 import './App.css';
 import {
   BrowserRouter as Router,
@@ -23,6 +14,7 @@ import Beauty from './pages/Beauty';
 import Sports from './pages/Sports';
 import Deals from './pages/Deals';
 
+
 function App() {
   return (
     <Router>
@@ -36,7 +28,6 @@ function App() {
         <Route path="/deals" element={<Deals />} />
       </Routes>
     </Router>
->>>>>>> master
   );
 }
 
