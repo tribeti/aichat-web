@@ -1,6 +1,3 @@
-<<<<<<< HEAD
-=======
-/* Style cho các trang chuyên mục và khung sản phẩm */
 .page-container {
   max-width: 1200px;
   margin: 0 auto;
@@ -18,15 +15,17 @@
 .product-card {
   background: #fff;
   border-radius: 8px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
   padding: 1rem;
   width: 220px;
   text-align: center;
   transition: box-shadow 0.2s;
 }
+
 .product-card:hover {
-  box-shadow: 0 4px 16px rgba(0,0,0,0.15);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
 }
+
 .product-image {
   width: 150px;
   height: 150px;
@@ -34,11 +33,13 @@
   border-radius: 6px;
   margin-bottom: 1rem;
 }
+
 .product-price {
   color: #e91e63;
   font-weight: bold;
   margin: 0.5rem 0;
 }
+
 .buy-btn {
   background: #2196f3;
   color: #fff;
@@ -50,11 +51,11 @@
   margin-top: 0.5rem;
   transition: background 0.2s;
 }
+
 .buy-btn:hover {
   background: #1769aa;
 }
->>>>>>> master
-/* Reset and base styles */
+
 * {
   box-sizing: border-box;
   margin: 0;
