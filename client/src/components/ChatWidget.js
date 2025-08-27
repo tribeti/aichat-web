@@ -1,7 +1,11 @@
 import React, { useState, useEffect, useRef } from 'react'
 import { FaRobot, FaPaperPlane, FaTimes, FaCommentDots } from 'react-icons/fa'
 
+<<<<<<< HEAD
 const ChatWidget = () => {
+=======
+const ChatWidget = ({ products }) => {
+>>>>>>> master
   const [isOpen, setIsOpen] = useState(false)
   const [messages, setMessages] = useState([])
   const [inputValue, setInputValue] = useState('')
@@ -46,6 +50,20 @@ const ChatWidget = () => {
     setMessages(prevMessages => [...prevMessages, message])
     setInputValue("")
 
+<<<<<<< HEAD
+=======
+    // Check if the message contains a product recommendation request
+    if (inputValue.toLowerCase().includes("recommend") && products && products.length > 0) {
+      const recommendedProduct = products[0]; // Recommend the first product
+      const agentResponse = {
+        text: `I recommend ${recommendedProduct.name} for you! Price: ${recommendedProduct.price} VND.`,
+        isAgent: true,
+      };
+      setMessages(prevMessages => [...prevMessages, agentResponse]);
+      return;
+    }
+
+>>>>>>> master
     const endpoint = threadId ? `http://localhost:5070/chat/${threadId}` : 'http://localhost:5070/chat'
 
     try {
