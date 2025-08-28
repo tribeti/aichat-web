@@ -1,12 +1,12 @@
 import React from "react";
 
 const sports = [
-  { name: "Giày chạy bộ", price: "650.000 VND", image: "https://cdn.tgdd.vn/Products/Images/2162/305659/TimerThumb/giay-chay-bo.jpg" },
-  { name: "Vợt cầu lông", price: "300.000 VND", image: "https://cdn.tgdd.vn/Products/Images/2162/305659/TimerThumb/vot-cau-long.jpg" },
-  { name: "Bóng đá", price: "120.000 VND", image: "https://cdn.tgdd.vn/Products/Images/2162/305659/TimerThumb/bong-da.jpg" },
-  { name: "Áo thể thao", price: "250.000 VND", image: "https://cdn.tgdd.vn/Products/Images/2162/305659/TimerThumb/ao-the-thao.jpg" },
-  { name: "Bình nước thể thao", price: "90.000 VND", image: "https://cdn.tgdd.vn/Products/Images/2162/305659/TimerThumb/binh-nuoc.jpg" },
-  { name: "Găng tay tập gym", price: "110.000 VND", image: "https://cdn.tgdd.vn/Products/Images/2162/305659/TimerThumb/gang-tay-gym.jpg" },
+  { name: "Giày chạy bộ", price: "650.000 VND", image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRTm1GJZGJlMdA8BPOnYpaHMW_JMBYN5Kgjyw&s" },
+  { name: "Vợt cầu lông", price: "300.000 VND", image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR4Ev-ipWT159cpzSeKn7777t-Gm7ekbtm2Kw&s" },
+  { name: "Bóng đá", price: "120.000 VND", image: "https://cdn.yousport.vn/Media/Products/231216101512/uhv-2.03-bong-dong-luc-(2).jpg" },
+  { name: "Áo thể thao", price: "250.000 VND", image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQN2aiuuZ8SidrcuIrDaMOz3li8Qz9IG8q3HA&s" },
+  { name: "Bình nước thể thao", price: "90.000 VND", image: "https://quatangviva.com/wp-content/uploads/2021/04/binh-nuoc-the-thao-co-quai-500ml-q064-6.jpg" },
+  { name: "Găng tay tập gym", price: "110.000 VND", image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT5HG6xGVm0EgoIb_L3V4nMBhEurX_Cr2nhNQ&s" },
 ];
 
 export default function Sports() {

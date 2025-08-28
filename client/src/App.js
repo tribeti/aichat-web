@@ -1,5 +1,4 @@
-import './App.css';
-import EcommerceStore from './components/Store';
+
 import './App.css';
 import {
   BrowserRouter as Router,

@@ -2,11 +2,11 @@ import React from "react";
 
 const clothing = [
   { name: "Áo thun nam", price: "220.000 VND", image: "https://cdn.tgdd.vn/Products/Images/7464/303554/ao-thun-nam-1.jpg" },
-  { name: "Quần jeans nữ", price: "350.000 VND", image: "https://cdn.tgdd.vn/Products/Images/7464/303554/quan-jeans-nu-1.jpg" },
-  { name: "Áo khoác", price: "500.000 VND", image: "https://cdn.tgdd.vn/Products/Images/7464/303554/ao-khoac-nam-1.jpg" },
-  { name: "Váy hoa nữ", price: "400.000 VND", image: "https://cdn.tgdd.vn/Products/Images/7464/303554/vay-hoa-nu-1.jpg" },
-  { name: "Áo sơ mi nam", price: "270.000 VND", image: "https://cdn.tgdd.vn/Products/Images/7464/303554/ao-so-mi-nam-1.jpg" },
-  { name: "Quần short thể thao", price: "180.000 VND", image: "https://cdn.tgdd.vn/Products/Images/7464/303554/quan-short-nam-1.jpg" },
+  { name: "Quần jeans nữ", price: "350.000 VND", image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTu8Xzkm6P3xoteO74DwniLvXBFzsQlGhHTNQ&s" },
+  { name: "Áo khoác", price: "500.000 VND", image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSyZ63_6FclPPNuqc75KdyHbyr-9-LEX9A1rg&s" },
+  { name: "Váy hoa nữ", price: "400.000 VND", image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR8SukqZASr22U1ERiDjXRZnXZ_RyG-tkBLiQ&s" },
+  { name: "Áo sơ mi nam", price: "270.000 VND", image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSUYAQAaW-zeTWcfZo1wr76rBtE8HRvnRc8IA&s" },
+  { name: "Quần short thể thao", price: "180.000 VND", image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQrUnEoVuMNdR2y2isE9TPmIW5uE0JZjsmKGg&s" },
 ];
 
 export default function Clothing() {

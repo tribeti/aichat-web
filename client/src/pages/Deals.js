@@ -1,8 +1,8 @@
 import React from "react";
 
 const deals = [
-  { name: "Smart Watch giảm giá", price: "1.900.000 VND", image: "https://cdn.tgdd.vn/Products/Images/2162/305659/TimerThumb/smart-watch.jpg" },
-  { name: "Áo thun sale", price: "150.000 VND", image: "https://cdn.tgdd.vn/Products/Images/2162/305659/TimerThumb/ao-thun-sale.jpg" },
+  { name: "Smart Watch giảm giá", price: "1.900.000 VND", image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR5Gr8N4FSkgTIC8SLbaScCZXNOnQAAMri9Kw&s" },
+  { name: "Áo thun sale", price: "150.000 VND", image: "https://bizweb.dktcdn.net/100/446/974/products/ao-thun-mlb-new-era-heavy-cotton-new-york-yankees-black-13086578-1.jpg?v=1691318321487" },
   { name: "Bình giữ nhiệt khuyến mãi", price: "120.000 VND", image: "https://cdn.tgdd.vn/Products/Images/2162/305659/TimerThumb/binh-giu-nhiet-sale.jpg" },
   { name: "Tai nghe giảm giá", price: "200.000 VND", image: "https://cdn.tgdd.vn/Products/Images/2162/305659/TimerThumb/tai-nghe-sale.jpg" },
   { name: "Son môi khuyến mãi", price: "90.000 VND", image: "https://cdn.tgdd.vn/Products/Images/2162/305659/TimerThumb/son-moi-sale.jpg" },
