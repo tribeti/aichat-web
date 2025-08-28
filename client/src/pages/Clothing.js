@@ -11,7 +11,23 @@ const clothing = [
 
 export default function Clothing() {
   return (
-    <div className="page-container">
+    <>
+      <div className="page-container">
+        <header className="header">
+          <div className="container">
+            <nav className="nav-bar">
+              <ul>
+                <li><a href="/">Home</a></li>
+                <li><a href="/beauty">Beauty</a></li>
+                <li><a href="/clothing">Clothing</a></li>
+                <li><a href="/electronics">Electronics</a></li>
+                <li><a href="/homekitchen">Home & Kitchen</a></li>
+                <li><a href="/sports">Sports</a></li>
+                <li><a href="/deals">Deals</a></li>
+              </ul>
+            </nav>
+          </div>
+        </header>
       <div style={{background:'linear-gradient(135deg,#e91e63 0%,#ffb6b9 100%)',borderRadius:'12px',padding:'2rem',marginBottom:'2rem',boxShadow:'0 2px 12px rgba(0,0,0,0.08)',textAlign:'center'}}>
         <h2 style={{color:'#fff',fontWeight:'bold',fontSize:'2rem'}}>Thời trang nổi bật</h2>
         <p style={{color:'#fff',fontSize:'1.1rem'}}>Khám phá các mẫu quần áo mới nhất, phong cách trẻ trung, giá tốt!</p>
@@ -26,6 +42,7 @@ export default function Clothing() {
           </div>
         ))}
       </div>
-    </div>
+      </div>
+    </>
   );
 }

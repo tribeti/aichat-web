@@ -11,21 +11,38 @@ const deals = [
 
 export default function Deals() {
   return (
-    <div className="page-container">
-      <div style={{background:'linear-gradient(135deg,#f7971e 0%,#ffd200 100%)',borderRadius:'12px',padding:'2rem',marginBottom:'2rem',boxShadow:'0 2px 12px rgba(0,0,0,0.08)',textAlign:'center'}}>
-        <h2 style={{color:'#fff',fontWeight:'bold',fontSize:'2rem'}}>Khuyến mãi HOT</h2>
-        <p style={{color:'#fff',fontSize:'1.1rem'}}>Săn ngay các sản phẩm giảm giá, ưu đãi cực lớn hôm nay!</p>
+    <>
+      <header className="header">
+        <div className="container">
+          <nav className="nav-bar">
+            <ul>
+              <li><a href="/">Home</a></li>
+              <li><a href="/beauty">Beauty</a></li>
+              <li><a href="/clothing">Clothing</a></li>
+              <li><a href="/electronics">Electronics</a></li>
+              <li><a href="/homekitchen">Home & Kitchen</a></li>
+              <li><a href="/sports">Sports</a></li>
+              <li><a href="/deals">Deals</a></li>
+            </ul>
+          </nav>
+        </div>
+      </header>
+      <div className="page-container">
+        <div style={{background:'linear-gradient(135deg,#f7971e 0%,#ffd200 100%)',borderRadius:'12px',padding:'2rem',marginBottom:'2rem',boxShadow:'0 2px 12px rgba(0,0,0,0.08)',textAlign:'center'}}>
+          <h2 style={{color:'#fff',fontWeight:'bold',fontSize:'2rem'}}>Khuyến mãi HOT</h2>
+          <p style={{color:'#fff',fontSize:'1.1rem'}}>Săn ngay các sản phẩm giảm giá, ưu đãi cực lớn hôm nay!</p>
+        </div>
+        <div className="product-list">
+          {deals.map((item, idx) => (
+            <div className="product-card" key={idx}>
+              <img src={item.image} alt={item.name} className="product-image" />
+              <h3>{item.name}</h3>
+              <p className="product-price">{item.price}</p>
+              <button className="buy-btn">Mua ngay</button>
+            </div>
+          ))}
+        </div>
       </div>
-      <div className="product-list">
-        {deals.map((item, idx) => (
-          <div className="product-card" key={idx}>
-            <img src={item.image} alt={item.name} className="product-image" />
-            <h3>{item.name}</h3>
-            <p className="product-price">{item.price}</p>
-            <button className="buy-btn">Mua ngay</button>
-          </div>
-        ))}
-      </div>
-    </div>
+    </>
   );
 }
