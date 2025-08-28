@@ -1,12 +1,12 @@
 import React from "react";
 
 const beauty = [
-  { name: "Kem chống nắng", price: "120.000 VND", image: "https://cdn.tgdd.vn/Products/Images/2162/305659/TimerThumb/kem-chong-nang.jpg" },
-  { name: "Sữa rửa mặt", price: "90.000 VND", image: "https://cdn.tgdd.vn/Products/Images/2162/305659/TimerThumb/sua-rua-mat.jpg" },
-  { name: "Son môi", price: "150.000 VND", image: "https://cdn.tgdd.vn/Products/Images/2162/305659/TimerThumb/son-moi.jpg" },
-  { name: "Mặt nạ dưỡng da", price: "50.000 VND", image: "https://cdn.tgdd.vn/Products/Images/2162/305659/TimerThumb/mat-na.jpg" },
-  { name: "Kem dưỡng ẩm", price: "200.000 VND", image: "https://cdn.tgdd.vn/Products/Images/2162/305659/TimerThumb/kem-duong-am.jpg" },
-  { name: "Tẩy trang", price: "80.000 VND", image: "https://cdn.tgdd.vn/Products/Images/2162/305659/TimerThumb/tay-trang.jpg" },
+  { name: "Kem chống nắng", price: "120.000 VND", image: "https://product.hstatic.net/200000617989/product/anh-01_638f8a72aae5481d882402a0a11951da.png" },
+  { name: "Sữa rửa mặt", price: "90.000 VND", image: "https://media.hcdn.vn/wysiwyg/kimhuy/combo-simple-tay-trang-200ml-sua-rua-mat-150ml-nuoc-hoa-hong-200ml-2.jpg" },
+  { name: "Son môi", price: "150.000 VND", image: "https://colorkey.com.vn/cdn/shop/files/8_274230ae-3d5c-4f91-b435-c9175c369aa0.jpg?v=1730460110" },
+  { name: "Mặt nạ dưỡng da", price: "50.000 VND", image: "https://cf.shopee.vn/file/vn-11134207-7qukw-lfi1jwdsmwzoa8" },
+  { name: "Kem dưỡng ẩm", price: "200.000 VND", image: "https://assets.aemi.vn/images_resized/2024/10/23/1729656981805-954953" },
+  { name: "Tẩy trang", price: "80.000 VND", image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRDVTpAomiwjUURQJ8OGwR5fFUOFoJWa7qchw&s" },
 ];
 
 export default function Beauty() {

@@ -1,12 +1,12 @@
 import React from "react";
 
 const electronics = [
-  { name: "Smartphone X", price: "5.000.000 VND", image: "https://cdn.tgdd.vn/Products/Images/42/305659/TimerThumb/iphone-15-pro-max-(2).jpg" },
-  { name: "Laptop Pro", price: "15.000.000 VND", image: "https://cdn.tgdd.vn/Products/Images/44/305659/TimerThumb/laptop-pro.jpg" },
-  { name: "Tai nghe Bluetooth", price: "350.000 VND", image: "https://cdn.tgdd.vn/Products/Images/54/305659/TimerThumb/tai-nghe-bluetooth.jpg" },
-  { name: "Máy tính bảng", price: "7.000.000 VND", image: "https://cdn.tgdd.vn/Products/Images/522/305659/TimerThumb/tablet.jpg" },
-  { name: "Camera hành trình", price: "2.500.000 VND", image: "https://cdn.tgdd.vn/Products/Images/4727/305659/TimerThumb/camera-hanh-trinh.jpg" },
-  { name: "Loa bluetooth", price: "1.200.000 VND", image: "https://cdn.tgdd.vn/Products/Images/2162/305659/TimerThumb/loa-bluetooth.jpg" },
+  { name: "Smartphone X", price: "5.000.000 VND", image: "https://dienthoaixachtay.com.vn/public/upload/images/hinhsanpham/samsung-note-20-ultra-chinh-hang-99-85191617426304.jpg" },
+  { name: "Laptop Pro", price: "15.000.000 VND", image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRflPEoQkcYb0lK23y0aETcppT6RpTkm7wDeQ&s" },
+  { name: "Tai nghe Bluetooth", price: "350.000 VND", image: "https://bizweb.dktcdn.net/100/479/913/products/tai-nghe-sony-wh-ch720n-5.jpg?v=1690526599063" },
+  { name: "Máy tính bảng", price: "7.000.000 VND", image: "https://cdn.tgdd.vn//News/1500952//may-tinh-bang-13-800x450.jpg" },
+  { name: "Camera hành trình", price: "2.500.000 VND", image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRK59JzIzfgf7071Hbf75efZGF59UE2k0QMhA&s" },
+  { name: "Loa bluetooth", price: "1.200.000 VND", image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSxc71Qpx_QlpH8HDUL7y2xZqF3ngzbcWMQzA&s" },
 ];
 
 export default function Electronics() {

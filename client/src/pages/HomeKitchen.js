@@ -1,12 +1,12 @@
 import React from "react";
 
 const homeKitchen = [
-  { name: "Bình giữ nhiệt", price: "180.000 VND", image: "https://cdn.tgdd.vn/Products/Images/2162/305659/TimerThumb/binh-giu-nhiet.jpg" },
-  { name: "Nồi cơm điện", price: "650.000 VND", image: "https://cdn.tgdd.vn/Products/Images/2162/305659/TimerThumb/noi-com-dien.jpg" },
-  { name: "Máy xay sinh tố", price: "400.000 VND", image: "https://cdn.tgdd.vn/Products/Images/2162/305659/TimerThumb/may-xay.jpg" },
-  { name: "Bếp điện từ", price: "1.200.000 VND", image: "https://cdn.tgdd.vn/Products/Images/2162/305659/TimerThumb/bep-dien-tu.jpg" },
-  { name: "Nồi áp suất", price: "900.000 VND", image: "https://cdn.tgdd.vn/Products/Images/2162/305659/TimerThumb/noi-ap-suat.jpg" },
-  { name: "Máy lọc nước", price: "2.000.000 VND", image: "https://cdn.tgdd.vn/Products/Images/2162/305659/TimerThumb/may-loc-nuoc.jpg" },
+  { name: "Bình giữ nhiệt", price: "180.000 VND", image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRN3PbYhRe33An8pdotq2Wqm5GXJJ7fD78djg&s" },
+  { name: "Nồi cơm điện", price: "650.000 VND", image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQr3MwT9W_uImorE0kVOyPji_BaQw2haeIhVA&s" },
+  { name: "Máy xay sinh tố", price: "400.000 VND", image: "https://i-giadinh.vnecdn.net/2020/05/11/22-6440-1589161716.jpg" },
+  { name: "Bếp điện từ", price: "1.200.000 VND", image: "https://product.hstatic.net/200000574527/product/bep-dien-tu-am-sanko-si-258-i-2-dien-tu_76699a2a7701425db216694b09e82f40.jpg" },
+  { name: "Nồi áp suất", price: "900.000 VND", image: "https://giadungnhap.com/wp-content/uploads/2024/05/20220324_55ZzrOB064a4SZsnGmkvQwrh.jpg" },
+  { name: "Máy lọc nước", price: "2.000.000 VND", image: "https://bizweb.dktcdn.net/thumb/1024x1024/100/402/666/products/karofi-kad-d50.png?v=1687150669537" },
 ];
 
 export default function HomeKitchen() {

@@ -1,7 +1,7 @@
 import React from "react";
 
 const clothing = [
-  { name: "Áo thun nam", price: "220.000 VND", image: "https://cdn.tgdd.vn/Products/Images/7464/303554/ao-thun-nam-1.jpg" },
+  { name: "Áo thun nam", price: "220.000 VND", image: "https://product.hstatic.net/1000369857/product/aht08_renew_0010_layer_2_623e7d3ba67d4cd4937f4e119c9dc9a2.jpg" },
   { name: "Quần jeans nữ", price: "350.000 VND", image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTu8Xzkm6P3xoteO74DwniLvXBFzsQlGhHTNQ&s" },
   { name: "Áo khoác", price: "500.000 VND", image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSyZ63_6FclPPNuqc75KdyHbyr-9-LEX9A1rg&s" },
   { name: "Váy hoa nữ", price: "400.000 VND", image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR8SukqZASr22U1ERiDjXRZnXZ_RyG-tkBLiQ&s" },

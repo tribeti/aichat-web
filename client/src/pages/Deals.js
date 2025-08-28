@@ -3,10 +3,10 @@ import React from "react";
 const deals = [
   { name: "Smart Watch giảm giá", price: "1.900.000 VND", image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR5Gr8N4FSkgTIC8SLbaScCZXNOnQAAMri9Kw&s" },
   { name: "Áo thun sale", price: "150.000 VND", image: "https://bizweb.dktcdn.net/100/446/974/products/ao-thun-mlb-new-era-heavy-cotton-new-york-yankees-black-13086578-1.jpg?v=1691318321487" },
-  { name: "Bình giữ nhiệt khuyến mãi", price: "120.000 VND", image: "https://cdn.tgdd.vn/Products/Images/2162/305659/TimerThumb/binh-giu-nhiet-sale.jpg" },
-  { name: "Tai nghe giảm giá", price: "200.000 VND", image: "https://cdn.tgdd.vn/Products/Images/2162/305659/TimerThumb/tai-nghe-sale.jpg" },
-  { name: "Son môi khuyến mãi", price: "90.000 VND", image: "https://cdn.tgdd.vn/Products/Images/2162/305659/TimerThumb/son-moi-sale.jpg" },
-  { name: "Áo khoác giảm giá", price: "300.000 VND", image: "https://cdn.tgdd.vn/Products/Images/2162/305659/TimerThumb/ao-khoac-sale.jpg" },
+  { name: "Bình giữ nhiệt khuyến mãi", price: "120.000 VND", image: "https://thudogift.com/wp-content/uploads/2023/03/Binh-giu-nhiet-hien-thi-nhiet-do-mau-do.jpg" },
+  { name: "Tai nghe giảm giá", price: "200.000 VND", image: "https://s3v2.interdata.vn:9000/s3-586-15343-storage/dienthoaigiakho/wp-content/uploads/2024/01/27073208/tai-nghe-bluetooth-soundpeats-life-chinh-hang.jpg" },
+  { name: "Son môi khuyến mãi", price: "90.000 VND", image: "https://product.hstatic.net/200000019302/product/05_534ee7c7949b438b91a302d0f4017a83.jpg" },
+  { name: "Áo khoác giảm giá", price: "300.000 VND", image: "https://product.hstatic.net/1000150581/product/1524d7626-1__1__57804971f6c444c4bd51e1d706286914.jpg" },
 ];
 
 export default function Deals() {
