@@ -1,3 +1,4 @@
+import Auth from './pages/Auth';
 
 import React, { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
@@ -64,6 +65,7 @@ function App() {
             <Route path="/product/:id" element={<ProductDetail addToCart={addToCart} message={message} />} />
             <Route path="/product-info" element={<ProductInfo />} />
             <Route path="/cart" element={<Cart cartItems={cart} onRemove={removeFromCart} onCheckout={handleCheckout} onUpdateQty={updateQty} />} />
+            <Route path="/auth" element={<Auth />} />
           </Routes>
         </div>
         <div style={{width:'350px',position:'absolute',top:'100px',right:'30px',zIndex:1000,margin:'0 0 0 2rem'}}>

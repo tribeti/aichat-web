@@ -17,6 +17,9 @@ export default function Menu() {
         <Link to="/cart" style={{color:'#fff',textDecoration:'none',fontWeight:'bold',fontSize:'1.2rem',marginLeft:'2rem'}}>
           🛒 Giỏ hàng
         </Link>
+        <Link to="/auth" style={{color:'#fff',textDecoration:'none',fontWeight:'bold',fontSize:'1.1rem',marginLeft:'1rem',background:'#fff2',padding:'0.5rem 1rem',borderRadius:'6px'}}>
+          Đăng nhập/Đăng ký
+        </Link>
       </div>
     </nav>
   );

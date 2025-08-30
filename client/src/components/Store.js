@@ -1,5 +1,6 @@
 import ProductCard from './ProductCard';
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { FaSearch, FaShoppingCart, FaUser, FaHeart } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
 import ChatWidget from './ChatWidget';
@@ -27,6 +28,13 @@ const EcommerceStore = ({ addToCart }) => {
     );
   };
 
+  const navigate = useNavigate();
+
+  const handleAccountClick = (e) => {
+    e.preventDefault();
+    navigate('/auth');
+  };
+
   return (
     <>
       <header className="header">
@@ -45,7 +53,7 @@ const EcommerceStore = ({ addToCart }) => {
               </button>
             </form>
             <div className="nav-icons">
-              <a href="#account">
+              <a href="#account" onClick={handleAccountClick} style={{cursor:'pointer'}}>
                 <FaUser size={20} />
               </a>
               <a href="#wishlist">

@@ -1,5 +1,6 @@
 
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 function formatPrice(price) {
   if (typeof price === 'string') return price.replace(/[^\d]/g, '');
@@ -9,6 +10,14 @@ function formatPrice(price) {
 export default function Cart({ cartItems, onRemove, onCheckout, onUpdateQty }) {
   const [localCart, setLocalCart] = useState([]);
   const [message, setMessage] = useState("");
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const user = localStorage.getItem('user');
+    if (!user) {
+      navigate('/auth');
+    }
+  }, []);
 
   useEffect(() => {
     setLocalCart(cartItems);
