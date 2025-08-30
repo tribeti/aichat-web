@@ -1,16 +1,19 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import ProductCard from '../components/ProductCard';
 
-const clothing = [
-  { name: "Áo thun nam", price: "220.000 VND", image: "https://product.hstatic.net/1000369857/product/aht08_renew_0010_layer_2_623e7d3ba67d4cd4937f4e119c9dc9a2.jpg" },
-  { name: "Quần jeans nữ", price: "350.000 VND", image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTu8Xzkm6P3xoteO74DwniLvXBFzsQlGhHTNQ&s" },
-  { name: "Áo khoác", price: "500.000 VND", image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSyZ63_6FclPPNuqc75KdyHbyr-9-LEX9A1rg&s" },
-  { name: "Váy hoa nữ", price: "400.000 VND", image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR8SukqZASr22U1ERiDjXRZnXZ_RyG-tkBLiQ&s" },
-  { name: "Áo sơ mi nam", price: "270.000 VND", image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSUYAQAaW-zeTWcfZo1wr76rBtE8HRvnRc8IA&s" },
-  { name: "Quần short thể thao", price: "180.000 VND", image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQrUnEoVuMNdR2y2isE9TPmIW5uE0JZjsmKGg&s" },
+export const clothing = [
+  { id: "clothing-6", name: "Áo khoác gió nữ", brand: "Canifa", origin: "Việt Nam", price: "320.000 VND", desc: "Áo khoác gió nữ chống nắng, nhẹ, dễ phối đồ.", image: "https://canifa.com/img/ao-khoac-gio-nu.jpg" },
+  { id: "clothing-7", name: "Quần jogger nam", brand: "H&M", origin: "Việt Nam", price: "290.000 VND", desc: "Quần jogger nam co giãn, thoải mái vận động.", image: "https://cdn.tgdd.vn/Products/Images/8782/233573/quan-jogger-nam-hm.jpg" },
+  { id: "clothing-0", name: "Áo thun nam", brand: "Coolmate", origin: "Việt Nam", price: "220.000 VND", desc: "Áo thun nam chất liệu cotton, thoáng mát, dễ phối đồ.", image: "https://product.hstatic.net/1000369857/product/aht08_renew_0010_layer_2_623e7d3ba67d4cd4937f4e119c9dc9a2.jpg" },
+  { id: "clothing-1", name: "Quần jeans nữ", brand: "Levi's", origin: "Việt Nam", price: "350.000 VND", desc: "Quần jeans nữ co giãn, form đẹp, bền màu.", image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTu8Xzkm6P3xoteO74DwniLvXBFzsQlGhHTNQ&s" },
+  { id: "clothing-2", name: "Áo khoác", brand: "Uniqlo", origin: "Nhật Bản", price: "500.000 VND", desc: "Áo khoác nhẹ, chống nắng, chống gió, thời trang.", image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSyZ63_6FclPPNuqc75KdyHbyr-9-LEX9A1rg&s" },
+  { id: "clothing-3", name: "Váy hoa nữ", brand: "H&M", origin: "Việt Nam", price: "400.000 VND", desc: "Váy hoa nữ xinh xắn, chất liệu mềm mại, thoáng mát.", image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR8SukqZASr22U1ERiDjXRZnXZ_RyG-tkBLiQ&s" },
+  { id: "clothing-4", name: "Áo sơ mi nam", brand: "Canifa", origin: "Việt Nam", price: "270.000 VND", desc: "Áo sơ mi nam lịch sự, dễ phối đồ, chất liệu cotton.", image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSUYAQAaW-zeTWcfZo1wr76rBtE8HRvnRc8IA&s" },
+  { id: "clothing-5", name: "Quần short thể thao", brand: "Adidas", origin: "Việt Nam", price: "180.000 VND", desc: "Quần short thể thao thoáng mát, co giãn tốt.", image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQrUnEoVuMNdR2y2isE9TPmIW5uE0JZjsmKGg&s" },
 ];
 
-export default function Clothing() {
+export default function Clothing({ addToCart }) {
   return (
     <>
       <div className="page-container">
@@ -34,13 +37,8 @@ export default function Clothing() {
         <p style={{color:'#fff',fontSize:'1.1rem'}}>Khám phá các mẫu quần áo mới nhất, phong cách trẻ trung, giá tốt!</p>
       </div>
       <div className="product-list">
-        {clothing.map((item, idx) => (
-          <div className="product-card" key={idx}>
-            <img src={item.image} alt={item.name} className="product-image" />
-            <h3>{item.name}</h3>
-            <p className="product-price">{item.price}</p>
-            <button className="buy-btn">Mua ngay</button>
-          </div>
+        {clothing.map((item) => (
+          <ProductCard key={item.id} {...item} addToCart={addToCart} />
         ))}
       </div>
       </div>

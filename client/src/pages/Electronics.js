@@ -1,16 +1,19 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import ProductCard from '../components/ProductCard';
 
-const electronics = [
-  { name: "Smartphone X", price: "5.000.000 VND", image: "https://dienthoaixachtay.com.vn/public/upload/images/hinhsanpham/samsung-note-20-ultra-chinh-hang-99-85191617426304.jpg" },
-  { name: "Laptop Pro", price: "15.000.000 VND", image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRflPEoQkcYb0lK23y0aETcppT6RpTkm7wDeQ&s" },
-  { name: "Tai nghe Bluetooth", price: "350.000 VND", image: "https://bizweb.dktcdn.net/100/479/913/products/tai-nghe-sony-wh-ch720n-5.jpg?v=1690526599063" },
-  { name: "Máy tính bảng", price: "7.000.000 VND", image: "https://cdn.tgdd.vn//News/1500952//may-tinh-bang-13-800x450.jpg" },
-  { name: "Camera hành trình", price: "2.500.000 VND", image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRK59JzIzfgf7071Hbf75efZGF59UE2k0QMhA&s" },
-  { name: "Loa bluetooth", price: "1.200.000 VND", image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSxc71Qpx_QlpH8HDUL7y2xZqF3ngzbcWMQzA&s" },
+export const electronics = [
+  { id: "electronics-6", name: "Máy ảnh kỹ thuật số", brand: "Canon", origin: "Nhật Bản", price: "8.000.000 VND", desc: "Máy ảnh kỹ thuật số chụp ảnh sắc nét, zoom quang học.", image: "https://cdn.tgdd.vn/Products/Images/8782/233573/may-anh-canon.jpg" },
+  { id: "electronics-7", name: "Tivi LED 43 inch", brand: "Sony", origin: "Nhật Bản", price: "7.500.000 VND", desc: "Tivi LED 43 inch hình ảnh sắc nét, âm thanh sống động.", image: "https://cdn.tgdd.vn/Products/Images/8782/233573/tivi-sony-43-inch.jpg" },
+  { id: "electronics-0", name: "Smartphone X", brand: "SamTech", origin: "Hàn Quốc", price: "5.000.000 VND", desc: "Điện thoại thông minh màn hình lớn, pin lâu, camera sắc nét.", image: "https://dienthoaixachtay.com.vn/public/upload/images/hinhsanpham/samsung-note-20-ultra-chinh-hang-99-85191617426304.jpg" },
+  { id: "electronics-1", name: "Laptop Pro", brand: "Dell", origin: "Mỹ", price: "15.000.000 VND", desc: "Laptop cấu hình mạnh, màn hình sắc nét, pin lâu.", image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRflPEoQkcYb0lK23y0aETcppT6RpTkm7wDeQ&s" },
+  { id: "electronics-2", name: "Tai nghe Bluetooth", brand: "Sony", origin: "Nhật Bản", price: "350.000 VND", desc: "Tai nghe Bluetooth chống ồn, âm thanh chất lượng cao.", image: "https://bizweb.dktcdn.net/100/479/913/products/tai-nghe-sony-wh-ch720n-5.jpg?v=1690526599063" },
+  { id: "electronics-3", name: "Máy tính bảng", brand: "Samsung", origin: "Hàn Quốc", price: "7.000.000 VND", desc: "Máy tính bảng màn hình lớn, pin lâu, hỗ trợ bút S-Pen.", image: "https://cdn.tgdd.vn//News/1500952//may-tinh-bang-13-800x450.jpg" },
+  { id: "electronics-4", name: "Camera hành trình", brand: "Xiaomi", origin: "Trung Quốc", price: "2.500.000 VND", desc: "Camera hành trình ghi hình Full HD, hỗ trợ thẻ nhớ.", image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRK59JzIzfgf7071Hbf75efZGF59UE2k0QMhA&s" },
+  { id: "electronics-5", name: "Loa bluetooth", brand: "JBL", origin: "Mỹ", price: "1.200.000 VND", desc: "Loa bluetooth chống nước, âm thanh sống động.", image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSxc71Qpx_QlpH8HDUL7y2xZqF3ngzbcWMQzA&s" },
 ];
 
-export default function Electronics() {
+export default function Electronics({ addToCart }) {
   return (
     <>
       <header className="header">
@@ -34,13 +37,8 @@ export default function Electronics() {
           <p style={{color:'#fff',fontSize:'1.1rem'}}>Khám phá các sản phẩm công nghệ mới nhất, chính hãng, giá tốt!</p>
         </div>
         <div className="product-list">
-          {electronics.map((item, idx) => (
-            <div className="product-card" key={idx}>
-              <img src={item.image} alt={item.name} className="product-image" />
-              <h3>{item.name}</h3>
-              <p className="product-price">{item.price}</p>
-              <button className="buy-btn">Mua ngay</button>
-            </div>
+          {electronics.map((item) => (
+            <ProductCard key={item.id} {...item} addToCart={addToCart} />
           ))}
         </div>
       </div>

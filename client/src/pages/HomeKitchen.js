@@ -1,15 +1,18 @@
 import React from "react";
+import ProductCard from '../components/ProductCard';
 
-const homeKitchen = [
-  { name: "Bình giữ nhiệt", price: "180.000 VND", image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRN3PbYhRe33An8pdotq2Wqm5GXJJ7fD78djg&s" },
-  { name: "Nồi cơm điện", price: "650.000 VND", image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQr3MwT9W_uImorE0kVOyPji_BaQw2haeIhVA&s" },
-  { name: "Máy xay sinh tố", price: "400.000 VND", image: "https://i-giadinh.vnecdn.net/2020/05/11/22-6440-1589161716.jpg" },
-  { name: "Bếp điện từ", price: "1.200.000 VND", image: "https://product.hstatic.net/200000574527/product/bep-dien-tu-am-sanko-si-258-i-2-dien-tu_76699a2a7701425db216694b09e82f40.jpg" },
-  { name: "Nồi áp suất", price: "900.000 VND", image: "https://giadungnhap.com/wp-content/uploads/2024/05/20220324_55ZzrOB064a4SZsnGmkvQwrh.jpg" },
-  { name: "Máy lọc nước", price: "2.000.000 VND", image: "https://bizweb.dktcdn.net/thumb/1024x1024/100/402/666/products/karofi-kad-d50.png?v=1687150669537" },
+export const homeKitchen = [
+  { id: "homeKitchen-6", name: "Máy pha cà phê", brand: "Delonghi", origin: "Ý", price: "2.500.000 VND", desc: "Máy pha cà phê tự động, dễ sử dụng, tiết kiệm điện.", image: "https://cdn.tgdd.vn/Products/Images/8782/233573/may-pha-ca-phe-delonghi.jpg" },
+  { id: "homeKitchen-7", name: "Bộ nồi inox", brand: "Elmich", origin: "Việt Nam", price: "1.100.000 VND", desc: "Bộ nồi inox 3 chiếc, bền đẹp, dùng được cho mọi loại bếp.", image: "https://cdn.tgdd.vn/Products/Images/8782/233573/bo-noi-elmich.jpg" },
+  { id: "homeKitchen-0", name: "Bình giữ nhiệt", brand: "Lock&Lock", origin: "Hàn Quốc", price: "180.000 VND", desc: "Bình giữ nhiệt dung tích 500ml, giữ nóng/lạnh lâu.", image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRN3PbYhRe33An8pdotq2Wqm5GXJJ7fD78djg&s" },
+  { id: "homeKitchen-1", name: "Nồi cơm điện", brand: "Panasonic", origin: "Nhật Bản", price: "650.000 VND", desc: "Nồi cơm điện dung tích 1.8L, nấu cơm nhanh, tiết kiệm điện.", image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQr3MwT9W_uImorE0kVOyPji_BaQw2haeIhVA&s" },
+  { id: "homeKitchen-2", name: "Máy xay sinh tố", brand: "Philips", origin: "Hà Lan", price: "400.000 VND", desc: "Máy xay sinh tố đa năng, lưỡi dao inox, dễ vệ sinh.", image: "https://i-giadinh.vnecdn.net/2020/05/11/22-6440-1589161716.jpg" },
+  { id: "homeKitchen-3", name: "Bếp điện từ", brand: "Sanko", origin: "Việt Nam", price: "1.200.000 VND", desc: "Bếp điện từ âm, tiết kiệm điện, an toàn khi sử dụng.", image: "https://product.hstatic.net/200000574527/product/bep-dien-tu-am-sanko-si-258-i-2-dien-tu_76699a2a7701425db216694b09e82f40.jpg" },
+  { id: "homeKitchen-4", name: "Nồi áp suất", brand: "Sunhouse", origin: "Việt Nam", price: "900.000 VND", desc: "Nồi áp suất đa năng, nấu nhanh, giữ nhiệt tốt.", image: "https://giadungnhap.com/wp-content/uploads/2024/05/20220324_55ZzrOB064a4SZsnGmkvQwrh.jpg" },
+  { id: "homeKitchen-5", name: "Máy lọc nước", brand: "Karofi", origin: "Việt Nam", price: "2.000.000 VND", desc: "Máy lọc nước RO, lọc sạch vi khuẩn, an toàn cho sức khỏe.", image: "https://bizweb.dktcdn.net/thumb/1024x1024/100/402/666/products/karofi-kad-d50.png?v=1687150669537" },
 ];
 
-export default function HomeKitchen() {
+export default function HomeKitchen({ addToCart }) {
   return (
     <>
       <header className="header">
@@ -33,13 +36,8 @@ export default function HomeKitchen() {
           <p style={{color:'#fff',fontSize:'1.1rem'}}>Trang bị cho ngôi nhà bạn những sản phẩm chất lượng, giá tốt!</p>
         </div>
         <div className="product-list">
-          {homeKitchen.map((item, idx) => (
-            <div className="product-card" key={idx}>
-              <img src={item.image} alt={item.name} className="product-image" />
-              <h3>{item.name}</h3>
-              <p className="product-price">{item.price}</p>
-              <button className="buy-btn">Mua ngay</button>
-            </div>
+          {homeKitchen.map((item) => (
+            <ProductCard key={item.id} {...item} addToCart={addToCart} />
           ))}
         </div>
       </div>

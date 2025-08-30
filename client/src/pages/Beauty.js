@@ -1,16 +1,19 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import ProductCard from '../components/ProductCard';
 
-const beauty = [
-  { name: "Kem chống nắng", price: "120.000 VND", image: "https://product.hstatic.net/200000617989/product/anh-01_638f8a72aae5481d882402a0a11951da.png" },
-  { name: "Sữa rửa mặt", price: "90.000 VND", image: "https://media.hcdn.vn/wysiwyg/kimhuy/combo-simple-tay-trang-200ml-sua-rua-mat-150ml-nuoc-hoa-hong-200ml-2.jpg" },
-  { name: "Son môi", price: "150.000 VND", image: "https://colorkey.com.vn/cdn/shop/files/8_274230ae-3d5c-4f91-b435-c9175c369aa0.jpg?v=1730460110" },
-  { name: "Mặt nạ dưỡng da", price: "50.000 VND", image: "https://cf.shopee.vn/file/vn-11134207-7qukw-lfi1jwdsmwzoa8" },
-  { name: "Kem dưỡng ẩm", price: "200.000 VND", image: "https://assets.aemi.vn/images_resized/2024/10/23/1729656981805-954953" },
-  { name: "Tẩy trang", price: "80.000 VND", image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRDVTpAomiwjUURQJ8OGwR5fFUOFoJWa7qchw&s" },
+export const beauty = [
+  { id: "beauty-6", name: "Kem dưỡng trắng da", brand: "Olay", origin: "Mỹ", price: "250.000 VND", desc: "Kem dưỡng trắng da giúp da sáng mịn, đều màu.", image: "https://cdn.tgdd.vn/Products/Images/8782/233573/kem-duong-trang-da-olay-white-radiance-50ml-1.jpg" },
+  { id: "beauty-7", name: "Sữa tắm dưỡng ẩm", brand: "Dove", origin: "Việt Nam", price: "70.000 VND", desc: "Sữa tắm dưỡng ẩm giúp da mềm mịn, thơm lâu.", image: "https://cdn.tgdd.vn/Products/Images/8782/233573/sua-tam-dove-1.jpg" },
+  { id: "beauty-0", name: "Kem chống nắng", brand: "SunCare", origin: "Việt Nam", price: "120.000 VND", desc: "Kem chống nắng bảo vệ da khỏi tia UV, phù hợp mọi loại da.", image: "https://product.hstatic.net/200000617989/product/anh-01_638f8a72aae5481d882402a0a11951da.png" },
+  { id: "beauty-1", name: "Sữa rửa mặt", brand: "Simple", origin: "Anh", price: "90.000 VND", desc: "Sữa rửa mặt dịu nhẹ, làm sạch sâu cho da nhạy cảm.", image: "https://media.hcdn.vn/wysiwyg/kimhuy/combo-simple-tay-trang-200ml-sua-rua-mat-150ml-nuoc-hoa-hong-200ml-2.jpg" },
+  { id: "beauty-2", name: "Son môi", brand: "ColorKey", origin: "Trung Quốc", price: "150.000 VND", desc: "Son môi lì, màu sắc tươi tắn, lâu trôi.", image: "https://colorkey.com.vn/cdn/shop/files/8_274230ae-3d5c-4f91-b435-c9175c369aa0.jpg?v=1730460110" },
+  { id: "beauty-3", name: "Mặt nạ dưỡng da", brand: "Senka", origin: "Nhật Bản", price: "50.000 VND", desc: "Mặt nạ dưỡng da cấp ẩm, làm sáng da.", image: "https://cf.shopee.vn/file/vn-11134207-7qukw-lfi1jwdsmwzoa8" },
+  { id: "beauty-4", name: "Kem dưỡng ẩm", brand: "Aemi", origin: "Việt Nam", price: "200.000 VND", desc: "Kem dưỡng ẩm giúp da mềm mịn, không nhờn rít.", image: "https://assets.aemi.vn/images_resized/2024/10/23/1729656981805-954953" },
+  { id: "beauty-5", name: "Tẩy trang", brand: "Bioderma", origin: "Pháp", price: "80.000 VND", desc: "Nước tẩy trang làm sạch da, không gây kích ứng.", image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRDVTpAomiwjUURQJ8OGwR5fFUOFoJWa7qchw&s" },
 ];
 
-export default function Beauty() {
+export default function Beauty({ addToCart }) {
   return (
     <>
       <header className="header">
@@ -34,13 +37,8 @@ export default function Beauty() {
           <p style={{color:'#fff',fontSize:'1.1rem'}}>Sản phẩm làm đẹp chính hãng, an toàn, giá tốt cho mọi nhu cầu!</p>
         </div>
         <div className="product-list">
-          {beauty.map((item, idx) => (
-            <div className="product-card" key={idx}>
-              <img src={item.image} alt={item.name} className="product-image" />
-              <h3>{item.name}</h3>
-              <p className="product-price">{item.price}</p>
-              <button className="buy-btn">Mua ngay</button>
-            </div>
+          {beauty.map((item) => (
+            <ProductCard key={item.id} {...item} addToCart={addToCart} />
           ))}
         </div>
       </div>

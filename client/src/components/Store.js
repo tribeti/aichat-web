@@ -1,3 +1,4 @@
+import ProductCard from './ProductCard';
 import React, { useState } from 'react';
 import { FaSearch, FaShoppingCart, FaUser, FaHeart } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
@@ -10,7 +11,7 @@ const featuredProducts = [
   { name: 'Kem chống nắng', price: '120,000', image: "https://product.hstatic.net/1000296801/product/kem-chong-nang-innisfree-long-lasting-mau-moi_06657d93b2294f38befa1d9251f0a07a_master.png" },
 ];
 
-const EcommerceStore = () => {
+const EcommerceStore = ({ addToCart }) => {
   const [search, setSearch] = useState('');
   const [results, setResults] = useState(featuredProducts);
 
@@ -94,12 +95,7 @@ const EcommerceStore = () => {
               <div style={{ textAlign: 'center', width: '100%', color: '#e91e63', fontWeight: 'bold', fontSize: '1.2rem' }}>Không tìm thấy sản phẩm phù hợp.</div>
             ) : (
               results.map((p, idx) => (
-                <div className="product-card" key={idx}>
-                  <img src={p.image} alt={p.name} className="product-image" />
-                  <h3>{p.name}</h3>
-                  <p className="product-price">{p.price} VND</p>
-                  <button className="buy-btn">Mua ngay</button>
-                </div>
+                <ProductCard key={idx} {...p} addToCart={addToCart} />
               ))
             )}
           </div>
