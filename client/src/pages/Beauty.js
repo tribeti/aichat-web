@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import ProductCard from '../components/ProductCard';
 
@@ -13,7 +13,12 @@ export const beauty = [
   { id: "beauty-5", name: "Tẩy trang", brand: "Bioderma", origin: "Pháp", price: "80.000 VND", desc: "Nước tẩy trang làm sạch da, không gây kích ứng.", image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRDVTpAomiwjUURQJ8OGwR5fFUOFoJWa7qchw&s" },
 ];
 
-export default function Beauty({ addToCart }) {
+function Beauty({ addToCart }) {
+  const [search, setSearch] = useState("");
+  const filtered = beauty.filter(item =>
+    item.name.toLowerCase().includes(search.toLowerCase()) ||
+    item.brand.toLowerCase().includes(search.toLowerCase())
+  );
   return (
     <>
       <header className="header">
@@ -36,12 +41,28 @@ export default function Beauty({ addToCart }) {
           <h2 style={{color:'#fff',fontWeight:'bold',fontSize:'2rem'}}>Làm đẹp & chăm sóc</h2>
           <p style={{color:'#fff',fontSize:'1.1rem'}}>Sản phẩm làm đẹp chính hãng, an toàn, giá tốt cho mọi nhu cầu!</p>
         </div>
+        <div style={{marginBottom:'1rem',textAlign:'center'}}>
+          <input
+            type="text"
+            placeholder="Tìm kiếm sản phẩm..."
+            value={search}
+            onChange={e => setSearch(e.target.value)}
+            style={{padding:'0.5rem',borderRadius:'6px',border:'1px solid #ccc',width:'300px'}}
+          />
+        </div>
         <div className="product-list">
-          {beauty.map((item) => (
-            <ProductCard key={item.id} {...item} addToCart={addToCart} />
-          ))}
+          {filtered.length === 0 ? (
+            <div style={{color:'#e91e63',fontWeight:'bold',fontSize:'1.2rem'}}>Không tìm thấy sản phẩm phù hợp.</div>
+          ) : (
+            filtered.map((item) => (
+              <ProductCard key={item.id} {...item} addToCart={addToCart} />
+            ))
+          )}
         </div>
       </div>
     </>
   );
+
 }
+
+export default Beauty;
