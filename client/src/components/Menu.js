@@ -11,7 +11,7 @@ export default function Menu() {
         <Link to="/beauty" style={{color:'#fff',textDecoration:'none'}}>Beauty</Link>
         <Link to="/clothing" style={{color:'#fff',textDecoration:'none'}}>Clothing</Link>
         <Link to="/electronics" style={{color:'#fff',textDecoration:'none'}}>Electronics</Link>
-        <Link to="/homekitchen" style={{color:'#fff',textDecoration:'none'}}>Home & Kitchen</Link>
+  <Link to="/home-kitchen" style={{color:'#fff',textDecoration:'none'}}>Home & Kitchen</Link>
         <Link to="/sports" style={{color:'#fff',textDecoration:'none'}}>Sports</Link>
         <Link to="/deals" style={{color:'#fff',textDecoration:'none'}}>Deals</Link>
       </div>

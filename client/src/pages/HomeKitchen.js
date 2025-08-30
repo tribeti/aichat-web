@@ -20,7 +20,7 @@ export default function HomeKitchen() {
               <li><a href="/beauty">Beauty</a></li>
               <li><a href="/clothing">Clothing</a></li>
               <li><a href="/electronics">Electronics</a></li>
-              <li><a href="/homekitchen">Home & Kitchen</a></li>
+              <li><a href="/HomeKitchen">Home & Kitchen</a></li>
               <li><a href="/sports">Sports</a></li>
               <li><a href="/deals">Deals</a></li>
             </ul>

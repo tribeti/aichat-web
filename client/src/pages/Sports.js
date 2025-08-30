@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 const sports = [
   { name: "Giày chạy bộ", price: "650.000 VND", image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRTm1GJZGJlMdA8BPOnYpaHMW_JMBYN5Kgjyw&s" },
@@ -16,13 +17,13 @@ export default function Sports() {
         <div className="container">
           <nav className="nav-bar">
             <ul>
-              <li><a href="/">Home</a></li>
-              <li><a href="/beauty">Beauty</a></li>
-              <li><a href="/clothing">Clothing</a></li>
-              <li><a href="/electronics">Electronics</a></li>
-              <li><a href="/homekitchen">Home & Kitchen</a></li>
-              <li><a href="/sports">Sports</a></li>
-              <li><a href="/deals">Deals</a></li>
+              <li><Link to="/">Home</Link></li>
+              <li><Link to="/beauty">Beauty</Link></li>
+              <li><Link to="/clothing">Clothing</Link></li>
+              <li><Link to="/electronics">Electronics</Link></li>
+              <li><Link to="/home-kitchen">Home & Kitchen</Link></li>
+              <li><Link to="/sports">Sports</Link></li>
+              <li><Link to="/deals">Deals</Link></li>
             </ul>
           </nav>
         </div>

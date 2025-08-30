@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 const beauty = [
   { name: "Kem chống nắng", price: "120.000 VND", image: "https://product.hstatic.net/200000617989/product/anh-01_638f8a72aae5481d882402a0a11951da.png" },
@@ -16,13 +17,13 @@ export default function Beauty() {
         <div className="container">
           <nav className="nav-bar">
             <ul>
-              <li><a href="/">Home</a></li>
-              <li><a href="/beauty">Beauty</a></li>
-              <li><a href="/clothing">Clothing</a></li>
-              <li><a href="/electronics">Electronics</a></li>
-              <li><a href="/homekitchen">Home & Kitchen</a></li>
-              <li><a href="/sports">Sports</a></li>
-              <li><a href="/deals">Deals</a></li>
+              <li><Link to="/">Home</Link></li>
+              <li><Link to="/beauty">Beauty</Link></li>
+              <li><Link to="/clothing">Clothing</Link></li>
+              <li><Link to="/electronics">Electronics</Link></li>
+              <li><Link to="/home-kitchen">Home & Kitchen</Link></li>
+              <li><Link to="/sports">Sports</Link></li>
+              <li><Link to="/deals">Deals</Link></li>
             </ul>
           </nav>
         </div>
