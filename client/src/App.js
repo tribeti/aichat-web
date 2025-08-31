@@ -1,29 +1,22 @@
-import './App.css';
-import {
-  BrowserRouter as Router,
-  Routes,
-  Route
-} from 'react-router-dom';
-import EcommerceStore from './components/Store';
-import Electronics from './pages/Electronics';
-import Clothing from './pages/Clothing';
-import HomeKitchen from './pages/HomeKitchen';
-import Beauty from './pages/Beauty';
-import Sports from './pages/Sports';
-import Deals from './pages/Deals';
-
+import "./App.css";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import EcommerceStore from "./components/Store";
+import Tables from "./pages/Tables";
+import Chairs from "./pages/Chairs";
+import Beds from "./pages/Beds";
+import Lamps from "./pages/Lamps";
+import Wardrobes from "./pages/Wardrobes";
 
 function App() {
   return (
     <Router>
       <Routes>
         <Route path="/" element={<EcommerceStore />} />
-        <Route path="/electronics" element={<Electronics />} />
-        <Route path="/clothing" element={<Clothing />} />
-        <Route path="/home-kitchen" element={<HomeKitchen />} />
-        <Route path="/beauty" element={<Beauty />} />
-        <Route path="/sports" element={<Sports />} />
-        <Route path="/deals" element={<Deals />} />
+        <Route path="/tables" element={<Tables />} />
+        <Route path="/chairs" element={<Chairs />} />
+        <Route path="/beds" element={<Beds />} />
+        <Route path="/lamps" element={<Lamps />} />
+        <Route path="/wardrobes" element={<Wardrobes />} />
       </Routes>
     </Router>
   );

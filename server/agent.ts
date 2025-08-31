@@ -17,7 +17,7 @@ import "dotenv/config";
 
 async function retryWithBackoff<T>(
   fn: () => Promise<T>,
-  maxRetries = 3
+  maxRetries = 3,
 ): Promise<T> {
   for (let attempt = 1; attempt <= maxRetries; attempt++) {
     try {
@@ -38,7 +38,7 @@ async function retryWithBackoff<T>(
 export async function callAgent(
   client: MongoClient,
   query: string,
-  thread_id: string
+  thread_id: string,
 ) {
   try {
     const dbName = "inv_db";
@@ -47,7 +47,7 @@ export async function callAgent(
 
     const GraphState = Annotation.Root({
       messages: Annotation<BaseMessage[]>({
-        reducer: (x, y) => x.concat(y), // Simply concatenate old messages (x) with new messages (y)
+        reducer: (x, y) => x.concat(y),
       }),
     });
 
@@ -72,19 +72,18 @@ export async function callAgent(
           console.log("Sample documents:", sampleDocs);
 
           const dbConfig = {
-            collection: collection, // MongoDB collection to search
-            indexName: "vector_index", // Name of the vector search index
-            textKey: "embedding_text", // Field containing the text used for embeddings
-            embeddingKey: "embedding", // Field containing the vector embeddings
+            collection: collection,
+            indexName: "vector_index",
+            textKey: "embedding_text",
+            embeddingKey: "embedding",
           };
 
-          // Create vector store instance for semantic search using Google Gemini embeddings
           const vectorStore = new MongoDBAtlasVectorSearch(
             new GoogleGenerativeAIEmbeddings({
               apiKey: process.env.GOOGLE_API_KEY,
-              model: "text-embedding-004", // Gemini embedding model
+              model: "text-embedding-004",
             }),
-            dbConfig
+            dbConfig,
           );
 
           console.log("Performing vector search...");
@@ -93,7 +92,7 @@ export async function callAgent(
 
           if (result.length === 0) {
             console.log(
-              "Vector search returned no results, trying text search..."
+              "Vector search returned no results, trying text search...",
             );
             const textResults = await collection
               .find({
@@ -118,7 +117,7 @@ export async function callAgent(
 
           return JSON.stringify({
             results: result,
-            searchType: "vector", // Indicate this was a vector search
+            searchType: "vector",
             query: query,
             count: result.length,
           });
@@ -138,64 +137,66 @@ export async function callAgent(
         }
       },
       {
-        name: "item_lookup", // Tool name that the AI will reference
+        name: "item_lookup",
         description:
-          "Gathers furniture item details from the Inventory database", // Description for the AI
+          "Gathers furniture item details from the Inventory database",
         schema: z.object({
-          query: z.string().describe("The search query"), // Required string parameter
+          query: z.string().describe("The search query"),
           n: z
             .number()
             .optional()
-            .default(10) // Optional number parameter with default
+            .default(10)
             .describe("Number of results to return"),
         }),
-      }
+      },
     );
 
     const tools = [itemLookupTool];
     const toolNode = new ToolNode<typeof GraphState.State>(tools);
 
     const model = new ChatGoogleGenerativeAI({
-      model: "gemini-1.5-flash", //  Use Gemini 1.5 Flash model
-      temperature: 0, // Deterministic responses (no randomness)
-      maxRetries: 0, // Disable built-in retries (we handle our own)
+      model: "gemini-2.5-flash",
+      temperature: 0,
+      maxRetries: 0,
       apiKey: process.env.GOOGLE_API_KEY,
-    }).bindTools(tools); // Bind our custom tools to the model
+    }).bindTools(tools);
 
-    // Decision function: determines next step in the workflow
     function shouldContinue(state: typeof GraphState.State) {
-      const messages = state.messages; // Get all messages
-      const lastMessage = messages[messages.length - 1] as AIMessage; // Get the most recent message
+      const messages = state.messages;
+      const lastMessage = messages[messages.length - 1] as AIMessage;
 
       if (lastMessage.tool_calls?.length) {
-        return "tools"; // Route to tool execution
+        return "tools";
       }
-      return "__end__"; // End the workflow
+      return "__end__";
     }
 
     async function callModel(state: typeof GraphState.State) {
       return retryWithBackoff(async () => {
-        // Wrap in retry logic
         const prompt = ChatPromptTemplate.fromMessages([
           [
-            "system", // System message defines the AI's role and behavior
-            `You are a helpful E-commerce Chatbot Agent for a furniture store. 
+            "system",
+            `You are a helpful E-commerce Chatbot Agent for a furniture store.
+            You can handle any language the customer uses:
+            - If the customer chats in English, reply in English.
+            - If the customer chats in Vietnamese, reply in Vietnamese.
+            - If the customer uses another language, respond in that same language.
 
-IMPORTANT: You have access to an item_lookup tool that searches the furniture inventory database. ALWAYS use this tool when customers ask about furniture items, even if the tool returns errors or empty results.
+            IMPORTANT: You have access to an item_lookup tool that searches the furniture inventory database. ALWAYS use this tool when customers ask about furniture items, even if the tool returns errors or empty results.
 
-When using the item_lookup tool:
-- If it returns results, provide helpful details about the furniture items
-- If it returns an error or no results, acknowledge this and offer to help in other ways
-- If the database appears to be empty, let the customer know that inventory might be being updated
+            When using the item_lookup tool:
+            - If it returns results, provide helpful details about the furniture items
+            - If it returns an error or no results, acknowledge this and offer to help in other ways
+            - If the database appears to be empty, let the customer know that inventory might be being updated
 
-Current time: {time}`,
+            Current time: {time}`,
           ],
-          new MessagesPlaceholder("messages"), // Placeholder for conversation history
+          new MessagesPlaceholder("messages"),
         ]);
 
         const formattedPrompt = await prompt.formatMessages({
-          time: new Date().toISOString(), // Current timestamp
-          messages: state.messages, // All previous messages
+          time: new Date().toISOString(),
+          messages: state.messages,
         });
 
         const result = await model.invoke(formattedPrompt);
@@ -204,39 +205,39 @@ Current time: {time}`,
     }
 
     const workflow = new StateGraph(GraphState)
-      .addNode("agent", callModel) // Add AI model node
-      .addNode("tools", toolNode) // Add tool execution node
-      .addEdge("__start__", "agent") // Start workflow at agent
-      .addConditionalEdges("agent", shouldContinue) // Agent decides: tools or end
-      .addEdge("tools", "agent"); // After tools, go back to agent
+      .addNode("agent", callModel)
+      .addNode("tools", toolNode)
+      .addEdge("__start__", "agent")
+      .addConditionalEdges("agent", shouldContinue)
+      .addEdge("tools", "agent");
 
     const checkpointer = new MongoDBSaver({ client, dbName });
     const app = workflow.compile({ checkpointer });
     const finalState = await app.invoke(
       {
-        messages: [new HumanMessage(query)], // Start with user's question
+        messages: [new HumanMessage(query)],
       },
       {
         recursionLimit: 15,
-        configurable: { thread_id: thread_id }, // Conversation thread identifier
-      }
+        configurable: { thread_id: thread_id },
+      },
     );
 
     const response =
       finalState.messages[finalState.messages.length - 1].content;
     console.log("Agent response:", response);
 
-    return response; // Return the AI's final response
+    return response;
   } catch (error: any) {
     console.error("Error in callAgent:", error.message);
 
     if (error.status === 429) {
       throw new Error(
-        "Service temporarily unavailable due to rate limits. Please try again in a minute."
+        "Service temporarily unavailable due to rate limits. Please try again in a minute.",
       );
     } else if (error.status === 401) {
       throw new Error(
-        "Authentication failed. Please check your API configuration."
+        "Authentication failed. Please check your API configuration.",
       );
     } else {
       throw new Error(`Agent failed: ${error.message}`);
