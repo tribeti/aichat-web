@@ -1,6 +1,7 @@
 import React from "react";
 import ChatWidget from "../components/ChatWidget";
 import Navbar from "../components/Navbar";
+import Footer from "../components/Footer";
 
 const homeKitchen = [
   {
@@ -73,6 +74,7 @@ export default function Lamps() {
           ))}
         </div>
       </div>
+      <Footer />
       <ChatWidget />
     </>
   );

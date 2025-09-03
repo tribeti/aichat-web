@@ -1,6 +1,7 @@
 import React from "react";
 import ChatWidget from "../components/ChatWidget";
 import Navbar from "../components/Navbar";
+import Footer from "../components/Footer";
 
 const beauty = [
   {
@@ -73,6 +74,7 @@ export default function Chairs() {
           ))}
         </div>
       </div>
+      <Footer />
       <ChatWidget />
     </>
   );

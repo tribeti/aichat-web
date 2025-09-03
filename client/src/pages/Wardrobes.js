@@ -1,6 +1,7 @@
 import React from "react";
 import ChatWidget from "../components/ChatWidget";
 import Navbar from "../components/Navbar";
+import Footer from "../components/Footer";
 
 const sports = [
   {
@@ -74,6 +75,7 @@ export default function Wardrobes() {
           ))}
         </div>
       </div>
+      <Footer />
       <ChatWidget />
     </>
   );

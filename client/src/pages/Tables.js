@@ -1,6 +1,7 @@
 import React from "react";
 import ChatWidget from "../components/ChatWidget";
 import Navbar from "../components/Navbar";
+import Footer from "../components/Footer";
 
 const electronics = [
   {
@@ -73,6 +74,7 @@ export default function Tables() {
           ))}
         </div>
       </div>
+      <Footer />
       <ChatWidget />
     </>
   );

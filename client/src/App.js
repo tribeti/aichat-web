@@ -6,6 +6,8 @@ import Chairs from "./pages/Chairs";
 import Beds from "./pages/Beds";
 import Lamps from "./pages/Lamps";
 import Wardrobes from "./pages/Wardrobes";
+import OurStory from "./pages/Story";
+import Careers from "./pages/Careers";
 
 function App() {
   return (
@@ -17,6 +19,8 @@ function App() {
         <Route path="/beds" element={<Beds />} />
         <Route path="/lamps" element={<Lamps />} />
         <Route path="/wardrobes" element={<Wardrobes />} />
+        <Route path="/story" element={<OurStory />} />
+        <Route path="/career" element={<Careers />} />
       </Routes>
     </Router>
   );
