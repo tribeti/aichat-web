@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import Auth from './pages/Auth';
 
 import React, { useState, useEffect } from 'react';
@@ -12,6 +13,18 @@ import Deals from './pages/Deals';
 import ProductDetail from './components/ProductDetail';
 import ProductInfo from './pages/ProductInfo';
 import Cart from './components/Cart';
+=======
+import "./App.css";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import EcommerceStore from "./components/Store";
+import Tables from "./pages/Tables";
+import Chairs from "./pages/Chairs";
+import Beds from "./pages/Beds";
+import Lamps from "./pages/Lamps";
+import Wardrobes from "./pages/Wardrobes";
+import OurStory from "./pages/Story";
+import Careers from "./pages/Careers";
+>>>>>>> origin/main
 
 function App() {
   const [cart, setCart] = useState(() => {
@@ -52,6 +65,7 @@ function App() {
 
   return (
     <Router>
+<<<<<<< HEAD
       <div style={{display:'flex'}}>
         <div style={{flex:1}}>
           <Routes>
@@ -72,6 +86,18 @@ function App() {
           <Cart cartItems={cart} onRemove={removeFromCart} onCheckout={handleCheckout} onUpdateQty={updateQty} />
         </div>
       </div>
+=======
+      <Routes>
+        <Route path="/" element={<EcommerceStore />} />
+        <Route path="/tables" element={<Tables />} />
+        <Route path="/chairs" element={<Chairs />} />
+        <Route path="/beds" element={<Beds />} />
+        <Route path="/lamps" element={<Lamps />} />
+        <Route path="/wardrobes" element={<Wardrobes />} />
+        <Route path="/story" element={<OurStory />} />
+        <Route path="/career" element={<Careers />} />
+      </Routes>
+>>>>>>> origin/main
     </Router>
   );
 }
