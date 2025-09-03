@@ -1,5 +1,6 @@
 import React from "react";
 import ChatWidget from "../components/ChatWidget";
+import Navbar from "../components/Navbar";
 
 const sports = [
   {
@@ -43,35 +44,7 @@ const sports = [
 export default function Wardrobes() {
   return (
     <>
-      <header className="header">
-        <div className="container">
-          <nav className="nav-bar">
-            <ul>
-              <li>
-                <a href="/">Home</a>
-              </li>
-              <li>
-                <a href="/beauty">Beauty</a>
-              </li>
-              <li>
-                <a href="/clothing">Clothing</a>
-              </li>
-              <li>
-                <a href="/electronics">Electronics</a>
-              </li>
-              <li>
-                <a href="/homekitchen">Home & Kitchen</a>
-              </li>
-              <li>
-                <a href="/sports">Sports</a>
-              </li>
-              <li>
-                <a href="/deals">Deals</a>
-              </li>
-            </ul>
-          </nav>
-        </div>
-      </header>
+      <Navbar />
       <div className="page-container">
         <div
           style={{

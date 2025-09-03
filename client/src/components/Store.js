@@ -1,7 +1,7 @@
-import React, { useState } from "react";
-import { FaSearch, FaShoppingCart, FaUser } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import ChatWidget from "./ChatWidget";
+import Navbar from "./Navbar";
+import React, { useState } from "react";
 
 const featuredProducts = [
   {
@@ -31,77 +31,13 @@ const featuredProducts = [
 ];
 
 const EcommerceStore = () => {
-  const [search, setSearch] = useState("");
+
   const [results, setResults] = useState(featuredProducts);
-
-  const handleSearch = (e) => {
-    e.preventDefault();
-    const keyword = search.trim().toLowerCase();
-    if (!keyword) {
-      setResults(featuredProducts);
-      return;
-    }
-    setResults(
-      featuredProducts.filter((p) => p.name.toLowerCase().includes(keyword)),
-    );
-  };
-
   return (
     <>
-      <header className="header">
-        <div className="container">
-          <div className="top-bar">
-            <div className="logo">ShopSmart</div>
-            <form className="search-bar" onSubmit={handleSearch}>
-              <input
-                type="text"
-                placeholder="Tìm sản phẩm nổi bật..."
-                value={search}
-                onChange={(e) => setSearch(e.target.value)}
-              />
-              <button type="submit">
-                <FaSearch />
-              </button>
-            </form>
-            <div className="nav-icons">
-              <a href="#account">
-                <FaUser size={20} />
-              </a>
-              <a href="#cart">
-                <FaShoppingCart size={20} />
-                <span className="badge">{2}</span>
-              </a>
-            </div>
-          </div>
-          <nav className="nav-bar">
-            <ul>
-              <li>
-                <Link to="/" className="active">
-                  Home
-                </Link>
-              </li>
-              <li>
-                <Link to="/electronics">Electronics</Link>
-              </li>
-              <li>
-                <Link to="/clothing">Clothing</Link>
-              </li>
-              <li>
-                <Link to="/home-kitchen">Home & Kitchen</Link>
-              </li>
-              <li>
-                <Link to="/beauty">Beauty</Link>
-              </li>
-              <li>
-                <Link to="/sports">Sports</Link>
-              </li>
-              <li>
-                <Link to="/deals">Deals</Link>
-              </li>
-            </ul>
-          </nav>
-        </div>
-      </header>
+      <Navbar featuredProducts={featuredProducts}
+        results={results}
+        setResults={setResults} />
       <main>
         <div className="hero">
           <div className="container">
@@ -126,35 +62,6 @@ const EcommerceStore = () => {
             >
               Khám phá ngay
             </button>
-            <div
-              style={{
-                marginTop: "2rem",
-                background: "#fff",
-                borderRadius: "12px",
-                padding: "1.5rem",
-                boxShadow: "0 2px 12px rgba(0,0,0,0.08)",
-                maxWidth: "600px",
-                marginLeft: "auto",
-                marginRight: "auto",
-              }}
-            >
-              <h3 style={{ color: "#4a00e0" }}>Hướng dẫn sử dụng:</h3>
-              <ul
-                style={{
-                  fontSize: "1rem",
-                  color: "#333",
-                  marginTop: "1rem",
-                  lineHeight: "2",
-                }}
-              >
-                <li>Chọn danh mục ở menu trên để xem sản phẩm.</li>
-                <li>
-                  Nhấn vào <b>Mua ngay</b> để đặt hàng nhanh.
-                </li>
-                <li>Dùng khung chat để hỏi đáp hoặc hỗ trợ.</li>
-                <li>Dùng ô tìm kiếm để lọc sản phẩm nổi bật.</li>
-              </ul>
-            </div>
           </div>
         </div>
         <div className="container">
@@ -204,19 +111,19 @@ const EcommerceStore = () => {
               <h3>Shop</h3>
               <ul>
                 <li>
-                  <a href="#">Electronics</a>
+                  <Link to="/beds">Beds</Link>
                 </li>
                 <li>
-                  <a href="#">Clothing</a>
+                  <Link to="/chairs">Chairs</Link>
                 </li>
                 <li>
-                  <a href="#">Home & Kitchen</a>
+                  <Link to="/tables">Tables</Link>
                 </li>
                 <li>
-                  <a href="#">Beauty</a>
+                  <Link to="/lamps">Lamps</Link>
                 </li>
                 <li>
-                  <a href="#">Sports</a>
+                  <Link to="/wardrobes">Wardrobes</Link>
                 </li>
               </ul>
             </div>

@@ -22,9 +22,7 @@ const itemSchema = z.object({
   item_description: z.string(),
   brand: z.string(),
   manufacturer_address: z.object({
-    street: z.string(),
     city: z.string(),
-    state: z.string(),
     postal_code: z.string(),
     country: z.string(),
   }),
@@ -87,7 +85,7 @@ async function createvectorsearch(): Promise<void> {
 }
 
 async function generateSyntheticData(): Promise<item[]> {
-  const prompt = `You are a helpful assistant that generates furniture store item data. Generate 10 furniture store items. Each record should include the following fields: item_id, item_name, item_description, brand, manufacturer_address, prices, categories, user_reviews, notes. Ensure variety in the data and realistic values.
+  const prompt = `You are a helpful assistant that generates furniture store item data. Generate 50 furniture store items. Each record should include the following fields: item_id, item_name, item_description, brand, manufacturer_address, prices, categories, user_reviews, notes. Ensure variety in the data and realistic values.
   ${parser.getFormatInstructions()}`;
 
   console.log("Generating synthetic data...");

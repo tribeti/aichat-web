@@ -1,5 +1,6 @@
 import React from "react";
 import ChatWidget from "../components/ChatWidget";
+import Navbar from "../components/Navbar";
 
 const clothing = [
   {
@@ -43,36 +44,8 @@ const clothing = [
 export default function Beds() {
   return (
     <>
+      <Navbar />
       <div className="page-container">
-        <header className="header">
-          <div className="container">
-            <nav className="nav-bar">
-              <ul>
-                <li>
-                  <a href="/">Home</a>
-                </li>
-                <li>
-                  <a href="/tables">Tables</a>
-                </li>
-                <li>
-                  <a href="/chairs">Chairs</a>
-                </li>
-                <li>
-                  <a href="/electronics">Electronics</a>
-                </li>
-                <li>
-                  <a href="/homekitchen">Home & Kitchen</a>
-                </li>
-                <li>
-                  <a href="/sports">Sports</a>
-                </li>
-                <li>
-                  <a href="/deals">Deals</a>
-                </li>
-              </ul>
-            </nav>
-          </div>
-        </header>
         <div
           style={{
             background: "linear-gradient(135deg,#e91e63 0%,#ffb6b9 100%)",
