@@ -1,24 +1,7 @@
-import React, { useState } from "react";
 import { FaSearch, FaShoppingCart, FaUser } from "react-icons/fa";
 import { Link } from "react-router-dom";
 
-const Navbar = ({ featuredProducts, results, setResults }) => {
-    const [search, setSearch] = useState("");
-
-    const handleSearch = (e) => {
-        e.preventDefault();
-        const keyword = search.trim().toLowerCase();
-        if (!keyword) {
-            setResults(featuredProducts);
-            return;
-        }
-        setResults(
-            featuredProducts.filter((p) =>
-                p.name.toLowerCase().includes(keyword)
-            )
-        );
-    };
-
+const Navbar = () => {
     return (
         <header className="header">
             <div className="container">
@@ -26,12 +9,10 @@ const Navbar = ({ featuredProducts, results, setResults }) => {
                     <div className="logo">
                         <Link to="/" className="">ShopSmart</Link>
                     </div>
-                    <form className="search-bar" onSubmit={handleSearch}>
+                    <form className="search-bar">
                         <input
                             type="text"
                             placeholder="Tìm sản phẩm nổi bật..."
-                            value={search}
-                            onChange={(e) => setSearch(e.target.value)}
                         />
                         <button type="submit">
                             <FaSearch />
@@ -61,13 +42,13 @@ const Navbar = ({ featuredProducts, results, setResults }) => {
                             <Link to="/chairs">Chairs</Link>
                         </li>
                         <li>
+                            <Link to="/sofas">Sofas</Link>
+                        </li>
+                        <li>
                             <Link to="/beds">Beds</Link>
                         </li>
                         <li>
-                            <Link to="/lamps">Lamps</Link>
-                        </li>
-                        <li>
-                            <Link to="/wardrobes">Wardrobes</Link>
+                            <Link to="/storage">Storage</Link>
                         </li>
                     </ul>
                 </nav>

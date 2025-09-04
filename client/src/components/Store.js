@@ -1,43 +1,29 @@
 import ChatWidget from "./ChatWidget";
 import Navbar from "./Navbar";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Footer from "./Footer";
 
-const featuredProducts = [
-  {
-    name: "Tai nghe Bluetooth",
-    price: "350,000",
-    image:
-      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRh0D4u5AzTgXfSH54hH1STIth8untaSHU4mw&s",
-  },
-  {
-    name: "Áo thun nam",
-    price: "220,000",
-    image:
-      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRGdDBV25LQYGNJ4g4ViT1UxczWU8NRkto6nw&s",
-  },
-  {
-    name: "Bình giữ nhiệt",
-    price: "180,000",
-    image:
-      "https://product.hstatic.net/200000661969/product/binh_giu_nhiet_thermos_24h_1_2l_mau_bac__2__c815b80262854228bcbac40f352d612f_1024x1024.png",
-  },
-  {
-    name: "Kem chống nắng",
-    price: "120,000",
-    image:
-      "https://product.hstatic.net/1000296801/product/kem-chong-nang-innisfree-long-lasting-mau-moi_06657d93b2294f38befa1d9251f0a07a_master.png",
-  },
-];
-
 const EcommerceStore = () => {
+  const [results, setResults] = useState([]);
 
-  const [results, setResults] = useState(featuredProducts);
+  useEffect(() => {
+    fetch("http://localhost:5070/products")
+      .then((res) => res.json())
+      .then((data) => {
+        const mapped = data.map((item) => ({
+          name: item.item_name || "Sản phẩm chưa có tên",
+          brand: item.brand || "Không rõ thương hiệu",
+          price: item.prices?.sale_price || 0,
+          image: "https://placehold.co/400",
+        }));
+        setResults(mapped);
+      })
+      .catch((err) => console.error("Fetch error:", err));
+  }, []);
+
   return (
     <>
-      <Navbar featuredProducts={featuredProducts}
-        results={results}
-        setResults={setResults} />
+      <Navbar/>
       <main>
         <div className="hero">
           <div className="container">
@@ -96,7 +82,7 @@ const EcommerceStore = () => {
                 <div className="product-card" key={idx}>
                   <img src={p.image} alt={p.name} className="product-image" />
                   <h3>{p.name}</h3>
-                  <p className="product-price">{p.price} VND</p>
+                  <p className="product-price">{p.price} USD</p>
                   <button className="buy-btn">Mua ngay</button>
                 </div>
               ))

@@ -22,6 +22,35 @@ async function startServer() {
       res.send("lang server");
     });
 
+    app.get("/products", async (req: Request, res: Response) => {
+      try {
+        const db = client.db("inv_db");
+        const collection = db.collection("items");
+        const products = await collection.find({}).toArray();
+        res.json(products);
+      } catch (error) {
+        console.error("Error fetching products:", error);
+        res.status(500).json({ error: "Failed to fetch products" });
+      }
+    });
+
+    app.get("/products/category/:cat", async (req, res) => {
+      try {
+        const category = req.params.cat;
+        const db = client.db("inv_db");
+        const collection = db.collection("items");
+
+        const products = await collection
+          .find({ categories: category })
+          .toArray();
+
+        res.json(products);
+      } catch (error) {
+        console.error("Error fetching products by category:", error);
+        res.status(500).json({ error: "Failed to fetch products" });
+      }
+    });
+
     app.post("/chat", async (req: Request, res: Response) => {
       const initialMessage = req.body.message;
       const threadId = Date.now().toString();
