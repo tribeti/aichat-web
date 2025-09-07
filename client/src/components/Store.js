@@ -1,10 +1,13 @@
+
 import ChatWidget from "./ChatWidget";
 import Navbar from "./Navbar";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useMemo } from "react";
 import Footer from "./Footer";
+
 
 const EcommerceStore = () => {
   const [results, setResults] = useState([]);
+  const [searchQuery, setSearchQuery] = useState("");
 
   useEffect(() => {
     fetch("http://localhost:5070/products")
@@ -21,9 +24,26 @@ const EcommerceStore = () => {
       .catch((err) => console.error("Fetch error:", err));
   }, []);
 
+  const filteredResults = useMemo(() => {
+    if (!searchQuery.trim()) return results;
+    return results.filter(
+      (item) =>
+        item.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        item.brand.toLowerCase().includes(searchQuery.toLowerCase())
+    );
+  }, [results, searchQuery]);
+
+  const handleSearch = (query) => {
+    setSearchQuery(query);
+  };
+
   return (
     <>
-      <Navbar/>
+      <Navbar
+        searchQuery={searchQuery}
+        setSearchQuery={setSearchQuery}
+        onSearch={handleSearch}
+      />
       <main>
         <div className="hero">
           <div className="container">
@@ -65,7 +85,7 @@ const EcommerceStore = () => {
               justifyContent: "center",
             }}
           >
-            {results.length === 0 ? (
+            {filteredResults.length === 0 ? (
               <div
                 style={{
                   textAlign: "center",
@@ -78,7 +98,7 @@ const EcommerceStore = () => {
                 Không tìm thấy sản phẩm phù hợp.
               </div>
             ) : (
-              results.map((p, idx) => (
+              filteredResults.map((p, idx) => (
                 <div className="product-card" key={idx}>
                   <img src={p.image} alt={p.name} className="product-image" />
                   <h3>{p.name}</h3>

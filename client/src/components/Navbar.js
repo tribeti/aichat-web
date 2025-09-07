@@ -1,7 +1,25 @@
+
 import { FaSearch, FaShoppingCart, FaUser } from "react-icons/fa";
 import { Link } from "react-router-dom";
+import React, { useState, useTransition } from "react";
 
-const Navbar = () => {
+const Navbar = ({ searchQuery, setSearchQuery, onSearch }) => {
+    const [isPending, startTransition] = useTransition();
+
+    const handleInputChange = (e) => {
+        const value = e.target.value;
+        startTransition(() => {
+            setSearchQuery(value);
+        });
+    };
+
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        if (onSearch) {
+            onSearch(searchQuery);
+        }
+    };
+
     return (
         <header className="header">
             <div className="container">
@@ -9,12 +27,14 @@ const Navbar = () => {
                     <div className="logo">
                         <Link to="/" className="">ShopSmart</Link>
                     </div>
-                    <form className="search-bar">
+                    <form className="search-bar" onSubmit={handleSubmit}>
                         <input
                             type="text"
                             placeholder="Tìm sản phẩm nổi bật..."
+                            value={searchQuery}
+                            onChange={handleInputChange}
                         />
-                        <button type="submit">
+                        <button type="submit" disabled={isPending}>
                             <FaSearch />
                         </button>
                     </form>
@@ -54,7 +74,7 @@ const Navbar = () => {
                 </nav>
             </div>
         </header>
-    )
-}
+    );
+};
 
 export default Navbar;
