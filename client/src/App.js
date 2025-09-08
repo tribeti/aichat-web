@@ -8,6 +8,8 @@ import OurStory from "./pages/Story";
 import Careers from "./pages/Careers";
 import Storage from "./pages/Storage";
 import Sofas from "./pages/Sofas";
+import Login from "./login/Login";
+import Register from "./login/Register";
 
 function App() {
   return (
@@ -21,6 +23,8 @@ function App() {
         <Route path="/sofas" element={<Sofas />} />
         <Route path="/story" element={<OurStory />} />
         <Route path="/career" element={<Careers />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<Register />} />
       </Routes>
     </Router>
   );

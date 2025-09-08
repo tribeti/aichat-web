@@ -39,9 +39,9 @@ const Navbar = ({ searchQuery, setSearchQuery, onSearch }) => {
                         </button>
                     </form>
                     <div className="nav-icons">
-                        <a href="#account">
+                        <Link to="/login">
                             <FaUser size={20} />
-                        </a>
+                        </Link>
                         <a href="#cart">
                             <FaShoppingCart size={20} />
                             <span className="badge">{2}</span>
