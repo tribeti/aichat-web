@@ -36,7 +36,7 @@ const itemSchema = z.object({
       review_date: z.string(),
       rating: z.number(),
       comment: z.string(),
-    })
+    }),
   ),
   notes: z.string(),
 });
@@ -100,7 +100,7 @@ async function createItemSummary(item: item): Promise<string> {
     const userReviews = item.user_reviews
       .map(
         (review) =>
-          `Rated ${review.rating} on ${review.review_date}: ${review.comment}`
+          `Rated ${review.rating} on ${review.review_date}: ${review.comment}`,
       )
       .join(" ");
     const basicInfo = `${item.item_name} ${item.item_description} from the brand ${item.brand}`;
@@ -132,7 +132,7 @@ async function seeddb(): Promise<void> {
       syntheticData.map(async (record) => ({
         pageContent: await createItemSummary(record),
         metadata: { ...record },
-      }))
+      })),
     );
 
     for (const record of recordswithsummary) {
@@ -147,7 +147,7 @@ async function seeddb(): Promise<void> {
           indexName: "vector_index",
           textKey: "embedding_text",
           embeddingKey: "embedding",
-        }
+        },
       );
       console.log("success save", record.metadata.item_id);
     }

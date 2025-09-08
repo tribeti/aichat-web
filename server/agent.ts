@@ -15,6 +15,56 @@ import { MongoClient } from "mongodb";
 import { z } from "zod";
 import "dotenv/config";
 
+// AI Translation function
+async function translateToEnglish(query: string): Promise<string> {
+  try {
+    const translationModel = new ChatGoogleGenerativeAI({
+      model: "gemini-2.5-flash",
+      temperature: 0,
+      apiKey: process.env.GOOGLE_API_KEY,
+    });
+
+    const translationPrompt = `Translate this furniture search query to English. Only return the English translation, nothing else:
+
+    Query: "${query}"
+
+    English:`;
+
+    const result = await translationModel.invoke(translationPrompt);
+    return result.content.toString().trim();
+  } catch (error) {
+    console.log("Translation failed, using original query:", error);
+    return query; // Fallback to original query
+  }
+}
+
+// Language detection function
+function isEnglish(text: string): boolean {
+  // Simple check - if text contains Vietnamese characters or common Vietnamese words, it's not English
+  const vietnameseChars =
+    /[àáảãạăắằẳẵặâấầẩẫậèéẻẽẹêếềểễệìíỉĩịòóỏõọôốồổỗộơớờởỡợùúủũụưứừửữựỳýỷỹỵđ]/i;
+  const commonVietnameseWords = [
+    "và",
+    "của",
+    "có",
+    "là",
+    "với",
+    "trong",
+    "cho",
+    "như",
+    "được",
+    "giường",
+    "bàn",
+    "ghế",
+    "tủ",
+  ];
+
+  if (vietnameseChars.test(text)) return false;
+
+  const words = text.toLowerCase().split(" ");
+  return !words.some((word) => commonVietnameseWords.includes(word));
+}
+
 async function retryWithBackoff<T>(
   fn: () => Promise<T>,
   maxRetries = 3,
@@ -68,8 +118,15 @@ export async function callAgent(
             });
           }
 
-          const sampleDocs = await collection.find({}).limit(3).toArray();
-          console.log("Sample documents:", sampleDocs);
+          const originalQuery = query;
+          const isQueryInEnglish = isEnglish(query);
+          let searchQuery = query;
+
+          if (!isQueryInEnglish) {
+            console.log(`Non-English query detected: "${query}"`);
+            searchQuery = await translateToEnglish(query);
+            console.log(`Translated to English: "${searchQuery}"`);
+          }
 
           const dbConfig = {
             collection: collection,
@@ -86,22 +143,39 @@ export async function callAgent(
             dbConfig,
           );
 
-          console.log("Performing vector search...");
-          const result = await vectorStore.similaritySearchWithScore(query, n);
+          console.log(`Performing vector search with: "${searchQuery}"`);
+          const result = await vectorStore.similaritySearchWithScore(
+            searchQuery,
+            n,
+          );
           console.log(`Vector search returned ${result.length} results`);
 
           if (result.length === 0) {
             console.log(
               "Vector search returned no results, trying text search...",
             );
+
+            const searchTerms = [searchQuery];
+            if (!isQueryInEnglish && searchQuery !== originalQuery) {
+              searchTerms.push(originalQuery);
+            }
+
+            const textSearchConditions = [];
+            for (const term of searchTerms) {
+              const words = term.split(" ").filter((word) => word.length > 2);
+              for (const word of words) {
+                textSearchConditions.push(
+                  { item_name: { $regex: word, $options: "i" } },
+                  { item_description: { $regex: word, $options: "i" } },
+                  { categories: { $regex: word, $options: "i" } },
+                  { embedding_text: { $regex: word, $options: "i" } },
+                );
+              }
+            }
+
             const textResults = await collection
               .find({
-                $or: [
-                  { item_name: { $regex: query, $options: "i" } },
-                  { item_description: { $regex: query, $options: "i" } },
-                  { categories: { $regex: query, $options: "i" } },
-                  { embedding_text: { $regex: query, $options: "i" } },
-                ],
+                $or: textSearchConditions,
               })
               .limit(n)
               .toArray();
@@ -110,7 +184,9 @@ export async function callAgent(
             return JSON.stringify({
               results: textResults,
               searchType: "text",
-              query: query,
+              originalQuery: originalQuery,
+              translatedQuery: !isQueryInEnglish ? searchQuery : null,
+              wasTranslated: !isQueryInEnglish,
               count: textResults.length,
             });
           }
@@ -118,17 +194,13 @@ export async function callAgent(
           return JSON.stringify({
             results: result,
             searchType: "vector",
-            query: query,
+            originalQuery: originalQuery,
+            translatedQuery: !isQueryInEnglish ? searchQuery : null,
+            wasTranslated: !isQueryInEnglish,
             count: result.length,
           });
         } catch (error: any) {
           console.error("Error in item lookup:", error);
-          console.error("Error details:", {
-            message: error.message,
-            stack: error.stack,
-            name: error.name,
-          });
-
           return JSON.stringify({
             error: "Failed to search inventory",
             details: error.message,
@@ -139,9 +211,9 @@ export async function callAgent(
       {
         name: "item_lookup",
         description:
-          "Gathers furniture item details from the Inventory database",
+          "Searches furniture inventory with automatic language detection and translation. Supports any language - automatically translates non-English queries to English for database search.",
         schema: z.object({
-          query: z.string().describe("The search query"),
+          query: z.string().describe("The search query in any language"),
           n: z
             .number()
             .optional()
@@ -156,7 +228,7 @@ export async function callAgent(
 
     const model = new ChatGoogleGenerativeAI({
       model: "gemini-2.5-flash",
-      temperature: 0,
+      temperature: 0.2,
       maxRetries: 0,
       apiKey: process.env.GOOGLE_API_KEY,
     }).bindTools(tools);
@@ -177,17 +249,33 @@ export async function callAgent(
           [
             "system",
             `You are a helpful E-commerce Chatbot Agent for a furniture store.
-            You can handle any language the customer uses:
-            - If the customer chats in English, reply in English.
-            - If the customer chats in Vietnamese, reply in Vietnamese.
-            - If the customer uses another language, respond in that same language.
 
-            IMPORTANT: You have access to an item_lookup tool that searches the furniture inventory database. ALWAYS use this tool when customers ask about furniture items, even if the tool returns errors or empty results.
+            RESPONSE FORMATTING RULES:
+            - Format responses in clean, readable paragraphs
+            - Use bullet points for product lists
+            - Include product details in structured format:
+              • Product Name: [name]
+              • Price: [price] VND
+              • Description: [description]
+            - Use emojis appropriately (🪑 for chairs, 🛏️ for beds, etc.)
+            - Keep responses conversational and friendly
 
-            When using the item_lookup tool:
-            - If it returns results, provide helpful details about the furniture items
-            - If it returns an error or no results, acknowledge this and offer to help in other ways
-            - If the database appears to be empty, let the customer know that inventory might be being updated
+            IMPORTANT MULTILINGUAL CAPABILITIES:
+            - You can communicate in ANY language the customer uses
+            - Your item_lookup tool now has AUTOMATIC TRANSLATION:
+              * Detects the language of user queries
+              * Automatically translates non-English queries to English for database search
+              * Searches the English database effectively
+              * You should respond in the SAME language the customer used
+
+            RESPONSE GUIDELINES:
+            - When presenting search results, respond in the customer's original language
+            - If a customer searches in Vietnamese (e.g., "giường"), search results will be found by translating to "bed"
+            - Always use the item_lookup tool for furniture-related queries
+            - Present results naturally in the customer's language
+            - If no results found, offer suggestions in the customer's language
+
+            The database contains English product information, but the tool handles translation automatically.
 
             Current time: {time}`,
           ],
