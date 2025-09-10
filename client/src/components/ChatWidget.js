@@ -97,7 +97,6 @@ const ChatWidget = ({ products }) => {
   };
 
   const formatResponse = (text) => {
-    // Thêm formatting logic ở đây
     return text
       .replace(/\n\n/g, "<br><br>")
       .replace(/\*\*(.*?)\*\*/g, "<strong>$1</strong>")
