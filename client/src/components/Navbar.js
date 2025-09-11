@@ -3,14 +3,16 @@ import { FaSearch, FaShoppingCart, FaUser } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import React, { useState, useTransition } from "react";
 
-const Navbar = ({ searchQuery, setSearchQuery, onSearch }) => {
+const Navbar = ({ searchQuery = "", setSearchQuery, onSearch }) => {
     const [isPending, startTransition] = useTransition();
 
     const handleInputChange = (e) => {
         const value = e.target.value;
-        startTransition(() => {
-            setSearchQuery(value);
-        });
+        if (setSearchQuery) {
+            startTransition(() => {
+                setSearchQuery(value);
+            });
+        }
     };
 
     const handleSubmit = (e) => {
