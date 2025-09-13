@@ -2,9 +2,11 @@
 import { FaSearch, FaShoppingCart, FaUser } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import React, { useState, useTransition } from "react";
+import { useCart } from "../context/CartContext";
 
 const Navbar = ({ searchQuery = "", setSearchQuery, onSearch }) => {
     const [isPending, startTransition] = useTransition();
+    const { getTotalItems } = useCart();
 
     const handleInputChange = (e) => {
         const value = e.target.value;
@@ -44,10 +46,10 @@ const Navbar = ({ searchQuery = "", setSearchQuery, onSearch }) => {
                         <Link to="/login">
                             <FaUser size={20} />
                         </Link>
-                        <a href="#cart">
+                        <Link to="/cart">
                             <FaShoppingCart size={20} />
-                            <span className="badge">{2}</span>
-                        </a>
+                            {getTotalItems() > 0 && <span className="badge">{getTotalItems()}</span>}
+                        </Link>
                     </div>
                 </div>
                 <nav className="nav-bar">

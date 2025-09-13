@@ -77,7 +77,7 @@ async function startServer() {
       }
     });
 
-    // Thêm route đăng ký người dùng
+    // Thêm route đăng ký người dùng  
     app.post("/register", async (req: Request, res: Response) => {
       try {
         const { username, email, password } = req.body;
