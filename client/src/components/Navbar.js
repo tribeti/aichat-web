@@ -1,4 +1,3 @@
-
 import { FaSearch, FaShoppingCart, FaUser } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import React, { useState, useTransition } from "react";
@@ -16,14 +15,12 @@ const Navbar = ({ searchQuery = "", setSearchQuery, onSearch }) => {
             });
         }
     };
-
-    const handleSubmit = (e) => {
-        e.preventDefault();
-        if (onSearch) {
-            onSearch(searchQuery);
-        }
-    };
-
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    if (onSearch) {
+      onSearch(searchQuery);
+    }
+  };
     return (
         <header className="header">
             <div className="container">

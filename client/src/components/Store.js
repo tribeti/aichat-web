@@ -1,11 +1,9 @@
-
 import ChatWidget from "./ChatWidget";
 import Navbar from "./Navbar";
 import ProductCard from "./ProductCard";
 import React, { useState, useEffect, useMemo } from "react";
 import Footer from "./Footer";
 import { useCart } from "../context/CartContext";
-
 
 const EcommerceStore = () => {
   const [results, setResults] = useState([]);
@@ -33,7 +31,7 @@ const EcommerceStore = () => {
     return results.filter(
       (item) =>
         item.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        item.brand.toLowerCase().includes(searchQuery.toLowerCase())
+        item.brand.toLowerCase().includes(searchQuery.toLowerCase()),
     );
   }, [results, searchQuery]);
 
