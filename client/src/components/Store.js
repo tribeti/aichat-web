@@ -1,17 +1,21 @@
 import ChatWidget from "./ChatWidget";
 import Navbar from "./Navbar";
+import ProductCard from "./ProductCard";
 import React, { useState, useEffect, useMemo } from "react";
 import Footer from "./Footer";
+import { useCart } from "../context/CartContext";
 
 const EcommerceStore = () => {
   const [results, setResults] = useState([]);
   const [searchQuery, setSearchQuery] = useState("");
+  const { addToCart } = useCart();
 
   useEffect(() => {
     fetch("http://localhost:5070/products")
       .then((res) => res.json())
       .then((data) => {
-        const mapped = data.map((item) => ({
+        const mapped = data.map((item, index) => ({
+          id: item.id || `product-${index}`,
           name: item.item_name || "Sản phẩm chưa có tên",
           brand: item.brand || "Không rõ thương hiệu",
           price: item.prices?.sale_price || 0,
@@ -33,6 +37,22 @@ const EcommerceStore = () => {
 
   const handleSearch = (query) => {
     setSearchQuery(query);
+  };
+
+  const handleAddToCart = (product) => {
+    addToCart(product);
+    // Tạo thông báo tạm thời
+    const notification = document.createElement('div');
+    notification.className = 'add-to-cart-success';
+    notification.innerHTML = `Đã thêm ${product.name} vào giỏ hàng!`;
+    document.body.appendChild(notification);
+    
+    // Xóa thông báo sau 3 giây
+    setTimeout(() => {
+      if (notification.parentNode) {
+        notification.parentNode.removeChild(notification);
+      }
+    }, 3000);
   };
 
   return (
@@ -97,12 +117,13 @@ const EcommerceStore = () => {
               </div>
             ) : (
               filteredResults.map((p, idx) => (
-                <div className="product-card" key={idx}>
-                  <img src={p.image} alt={p.name} className="product-image" />
-                  <h3>{p.name}</h3>
-                  <p className="product-price">{p.price} USD</p>
-                  <button className="buy-btn">Mua ngay</button>
-                </div>
+                <ProductCard
+                  key={idx}
+                  name={p.name}
+                  price={p.price}
+                  image={p.image}
+                  onBuy={() => handleAddToCart(p)}
+                />
               ))
             )}
           </div>

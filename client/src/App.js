@@ -1,6 +1,9 @@
 import "./App.css";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { CartProvider } from "./context/CartContext";
 import EcommerceStore from "./components/Store";
+import Cart from "./components/Cart";
+import Checkout from "./components/Checkout";
 import Tables from "./pages/Tables";
 import Chairs from "./pages/Chairs";
 import Beds from "./pages/Beds";
@@ -8,21 +11,29 @@ import OurStory from "./pages/Story";
 import Careers from "./pages/Careers";
 import Storage from "./pages/Storage";
 import Sofas from "./pages/Sofas";
+import Login from "./login/Login";
+import Register from "./login/Register";
 
 function App() {
   return (
-    <Router>
-      <Routes>
-        <Route path="/" element={<EcommerceStore />} />
-        <Route path="/tables" element={<Tables />} />
-        <Route path="/chairs" element={<Chairs />} />
-        <Route path="/beds" element={<Beds />} />
-        <Route path="/storage" element={<Storage />} />
-        <Route path="/sofas" element={<Sofas />} />
-        <Route path="/story" element={<OurStory />} />
-        <Route path="/career" element={<Careers />} />
-      </Routes>
-    </Router>
+    <CartProvider>
+      <Router>
+        <Routes>
+          <Route path="/" element={<EcommerceStore />} />
+          <Route path="/cart" element={<Cart />} />
+          <Route path="/checkout" element={<Checkout />} />
+          <Route path="/tables" element={<Tables />} />
+          <Route path="/chairs" element={<Chairs />} />
+          <Route path="/beds" element={<Beds />} />
+          <Route path="/storage" element={<Storage />} />
+          <Route path="/sofas" element={<Sofas />} />
+          <Route path="/story" element={<OurStory />} />
+          <Route path="/career" element={<Careers />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Register />} />
+        </Routes>
+      </Router>
+    </CartProvider>
   );
 }
 
