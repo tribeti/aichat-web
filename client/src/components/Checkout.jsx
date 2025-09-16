@@ -100,7 +100,7 @@ const Checkout = () => {
               </select>
             </div>
             <button type="submit" className="checkout-button">
-              Thanh toán {getTotalPrice()} VND
+              Thanh toán {getTotalPrice()} USD
             </button>
           </form>
         </div>
@@ -113,13 +113,13 @@ const Checkout = () => {
                 <div className="checkout-item-details">
                   <h3>{item.name}</h3>
                   <p>Số lượng: {item.quantity}</p>
-                  <p>Giá: {item.price * item.quantity} VND</p>
+                  <p>Giá: {item.price * item.quantity} USD</p>
                 </div>
               </li>
             ))}
           </ul>
           <div className="checkout-total">
-            <strong>Tổng cộng: {getTotalPrice()} VND</strong>
+            <strong>Tổng cộng: {getTotalPrice()} USD</strong>
           </div>
         </div>
       </div>

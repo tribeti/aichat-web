@@ -19,7 +19,7 @@ const Cart = () => {
             <img src={item.image} alt={item.name} className="cart-item-image" />
             <div className="cart-item-details">
               <h3>{item.name}</h3>
-              <p>Giá: {item.price} VND</p>
+              <p>Giá: {item.price} USD</p>
               <div className="cart-item-quantity">
                 <button onClick={() => updateQuantity(item.id, item.quantity - 1)}>-</button>
                 <span>{item.quantity}</span>
@@ -31,7 +31,7 @@ const Cart = () => {
         ))}
       </ul>
       <div className="cart-total">
-        Tổng cộng: {getTotalPrice()} VND
+        Tổng cộng: {getTotalPrice()} USD
       </div>
       <Link to="/checkout" className="checkout-link">
         <button className="checkout-button">Thanh toán</button>

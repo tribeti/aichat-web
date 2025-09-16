@@ -11,8 +11,20 @@ import OurStory from "./pages/Story";
 import Careers from "./pages/Careers";
 import Storage from "./pages/Storage";
 import Sofas from "./pages/Sofas";
-import Login from "./login/Login";
-import Register from "./login/Register";
+import { SignedIn, SignedOut, RedirectToSignIn } from "@clerk/clerk-react";
+import Login from "./pages/Login";
+import Register from "./pages/Register";
+
+function ProtectedRoute({ children }) {
+  return (
+    <>
+      <SignedIn>{children}</SignedIn>
+      <SignedOut>
+        <RedirectToSignIn />
+      </SignedOut>
+    </>
+  );
+}
 
 function App() {
   return (
@@ -21,7 +33,14 @@ function App() {
         <Routes>
           <Route path="/" element={<EcommerceStore />} />
           <Route path="/cart" element={<Cart />} />
-          <Route path="/checkout" element={<Checkout />} />
+          <Route
+            path="/checkout"
+            element={
+              <ProtectedRoute>
+                <Checkout />
+              </ProtectedRoute>
+            }
+          />
           <Route path="/tables" element={<Tables />} />
           <Route path="/chairs" element={<Chairs />} />
           <Route path="/beds" element={<Beds />} />
