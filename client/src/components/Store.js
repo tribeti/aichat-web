@@ -1,7 +1,7 @@
 import ChatWidget from "./ChatWidget";
 import Navbar from "./Navbar";
 import ProductCard from "./ProductCard";
-import React, { useState, useEffect, useMemo } from "react";
+import React, { useState, useEffect, useMemo, useRef } from "react";
 import Footer from "./Footer";
 import { useCart } from "../context/CartContext";
 
@@ -9,6 +9,7 @@ const EcommerceStore = () => {
   const [results, setResults] = useState([]);
   const [searchQuery, setSearchQuery] = useState("");
   const { addToCart } = useCart();
+  const featuredRef = useRef(null);
 
   useEffect(() => {
     fetch("http://localhost:5070/products")
@@ -72,6 +73,13 @@ const EcommerceStore = () => {
               Mua sắm dễ dàng, hiện đại, giá tốt mỗi ngày.
             </p>
             <button
+              onClick={() => {
+                const element = featuredRef.current;
+                if (element) {
+                  const y = element.getBoundingClientRect().top + window.pageYOffset - 100;
+                  window.scrollTo({ top: y, behavior: 'smooth' });
+                }
+              }}
               style={{
                 background: "#e91e63",
                 color: "#fff",
@@ -88,7 +96,7 @@ const EcommerceStore = () => {
             </button>
           </div>
         </div>
-        <div className="container">
+        <div ref={featuredRef} className="container">
           <h2
             style={{ marginTop: "2rem", textAlign: "center", color: "#4a00e0" }}
           >
