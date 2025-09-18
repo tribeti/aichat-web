@@ -1,5 +1,5 @@
 import { FaSearch, FaShoppingCart, FaUser } from "react-icons/fa";
-import { Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import React, { useState, useTransition } from "react";
 import { useCart } from "../context/CartContext";
 
@@ -26,7 +26,9 @@ const Navbar = ({ searchQuery = "", setSearchQuery, onSearch }) => {
             <div className="container">
                 <div className="top-bar">
                     <div className="logo">
-                        <Link to="/" className="">ShopSmart</Link>
+                        <NavLink to="/" className="">
+                            ShopSmart
+                        </NavLink>
                     </div>
                     <form className="search-bar" onSubmit={handleSubmit}>
                         <input
@@ -40,36 +42,46 @@ const Navbar = ({ searchQuery = "", setSearchQuery, onSearch }) => {
                         </button>
                     </form>
                     <div className="nav-icons">
-                        <Link to="/login">
+                        <NavLink to="/login">
                             <FaUser size={20} />
-                        </Link>
-                        <Link to="/cart">
+                        </NavLink>
+                        <NavLink to="/cart">
                             <FaShoppingCart size={20} />
                             {getTotalItems() > 0 && <span className="badge">{getTotalItems()}</span>}
-                        </Link>
+                        </NavLink>
                     </div>
                 </div>
                 <nav className="nav-bar">
                     <ul>
                         <li>
-                            <Link to="/" className="active">
+                            <NavLink to="/" className={({ isActive }) => (isActive ? "active" : "")}>
                                 Home
-                            </Link>
+                            </NavLink>
                         </li>
                         <li>
-                            <Link to="/tables">Tables</Link>
+                            <NavLink to="/tables" className={({ isActive }) => (isActive ? "active" : "")}>
+                                Tables
+                            </NavLink>
                         </li>
                         <li>
-                            <Link to="/chairs">Chairs</Link>
+                            <NavLink to="/chairs" className={({ isActive }) => (isActive ? "active" : "")}>
+                                Chairs
+                            </NavLink>
                         </li>
                         <li>
-                            <Link to="/sofas">Sofas</Link>
+                            <NavLink to="/sofas" className={({ isActive }) => (isActive ? "active" : "")}>
+                                Sofas
+                            </NavLink>
                         </li>
                         <li>
-                            <Link to="/beds">Beds</Link>
+                            <NavLink to="/beds" className={({ isActive }) => (isActive ? "active" : "")}>
+                                Beds
+                            </NavLink>
                         </li>
                         <li>
-                            <Link to="/storage">Storage</Link>
+                            <NavLink to="/storage" className={({ isActive }) => (isActive ? "active" : "")}>
+                                Storage
+                            </NavLink>
                         </li>
                     </ul>
                 </nav>
