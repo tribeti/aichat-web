@@ -52,6 +52,25 @@ async function startServer() {
       }
     });
 
+    app.get("/products/:id", async (req, res) => {
+      try {
+        const productId = req.params.id;
+        const db = client.db("inv_db");
+        const collection = db.collection("items");
+
+        const product = await collection.findOne({ item_id: productId });
+
+        if (!product) {
+          return res.status(404).json({ error: "Product not found" });
+        }
+
+        res.json(product);
+      } catch (error) {
+        console.error("Error fetching product:", error);
+        res.status(500).json({ error: "Failed to fetch product" });
+      }
+    });
+
     app.post("/chat", async (req: Request, res: Response) => {
       const initialMessage = req.body.message;
       const threadId = Date.now().toString();

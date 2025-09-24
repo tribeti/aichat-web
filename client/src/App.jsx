@@ -4,6 +4,7 @@ import { CartProvider } from "./context/CartContext";
 import EcommerceStore from "./components/Store";
 import Cart from "./components/Cart";
 import Checkout from "./components/Checkout";
+import ProductDetail from "./components/detail";
 import Tables from "./pages/Tables";
 import Chairs from "./pages/Chairs";
 import Beds from "./pages/Beds";
@@ -50,6 +51,7 @@ function App() {
           <Route path="/career" element={<Careers />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
+          <Route path="/product/:productId" element={<ProductDetail />} />
         </Routes>
       </Router>
     </CartProvider>

@@ -127,6 +127,7 @@ const EcommerceStore = () => {
               filteredResults.map((p, idx) => (
                 <ProductCard
                   key={idx}
+                  id={p.id}
                   name={p.name}
                   price={p.price}
                   image={p.image}
