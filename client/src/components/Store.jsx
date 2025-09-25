@@ -15,8 +15,9 @@ const EcommerceStore = () => {
     fetch("http://localhost:5070/products")
       .then((res) => res.json())
       .then((data) => {
-        const mapped = data.map((item, index) => ({
-          id: item.id || `product-${index}`,
+        const limited = data.slice(0, 20);
+        const mapped = limited.map((item) => ({
+          id: item._id,
           name: item.item_name || "Sản phẩm chưa có tên",
           brand: item.brand || "Không rõ thương hiệu",
           price: item.prices?.sale_price || 0,
@@ -32,7 +33,7 @@ const EcommerceStore = () => {
     return results.filter(
       (item) =>
         item.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        item.brand.toLowerCase().includes(searchQuery.toLowerCase()),
+        item.brand.toLowerCase().includes(searchQuery.toLowerCase())
     );
   }, [results, searchQuery]);
 
@@ -43,11 +44,11 @@ const EcommerceStore = () => {
   const handleAddToCart = (product) => {
     addToCart(product);
     // Tạo thông báo tạm thời
-    const notification = document.createElement('div');
-    notification.className = 'add-to-cart-success';
+    const notification = document.createElement("div");
+    notification.className = "add-to-cart-success";
     notification.innerHTML = `Đã thêm ${product.name} vào giỏ hàng!`;
     document.body.appendChild(notification);
-    
+
     // Xóa thông báo sau 3 giây
     setTimeout(() => {
       if (notification.parentNode) {
@@ -76,8 +77,11 @@ const EcommerceStore = () => {
               onClick={() => {
                 const element = featuredRef.current;
                 if (element) {
-                  const y = element.getBoundingClientRect().top + window.pageYOffset - 100;
-                  window.scrollTo({ top: y, behavior: 'smooth' });
+                  const y =
+                    element.getBoundingClientRect().top +
+                    window.pageYOffset -
+                    100;
+                  window.scrollTo({ top: y, behavior: "smooth" });
                 }
               }}
               style={{
@@ -127,6 +131,7 @@ const EcommerceStore = () => {
               filteredResults.map((p, idx) => (
                 <ProductCard
                   key={idx}
+                  id={p.id}
                   name={p.name}
                   price={p.price}
                   image={p.image}
