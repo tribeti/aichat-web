@@ -27,8 +27,14 @@ async function startServer() {
       try {
         const db = client.db("inv_db");
         const collection = db.collection("items");
-        const products = await collection.find({}).toArray();
-        res.json(products);
+        const page = parseInt(req.query.page as string) || 1;
+        const limit = parseInt(req.query.limit as string) || 20;
+        const skip = (page - 1) * limit;
+
+        const products = await collection.find({}).skip(skip).limit(limit).toArray();
+        const total = await collection.countDocuments({});
+
+        res.json({ products, total, page, limit });
       } catch (error) {
         console.error("Error fetching products:", error);
         res.status(500).json({ error: "Failed to fetch products" });
@@ -40,12 +46,19 @@ async function startServer() {
         const category = req.params.cat;
         const db = client.db("inv_db");
         const collection = db.collection("items");
+        const page = parseInt(req.query.page as string) || 1;
+        const limit = parseInt(req.query.limit as string) || 20;
+        const skip = (page - 1) * limit;
 
         const products = await collection
           .find({ categories: category })
+          .skip(skip)
+          .limit(limit)
           .toArray();
 
-        res.json(products);
+        const total = await collection.countDocuments({ categories: category });
+
+        res.json({ products, total, page, limit });
       } catch (error) {
         console.error("Error fetching products by category:", error);
         res.status(500).json({ error: "Failed to fetch products" });

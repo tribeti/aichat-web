@@ -6,35 +6,52 @@ import Footer from "./Footer";
 import { useCart } from "../context/CartContext";
 
 const EcommerceStore = () => {
-  const [results, setResults] = useState([]);
+  const [products, setProducts] = useState([]);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [hasMore, setHasMore] = useState(true);
+  const [loading, setLoading] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
   const { addToCart } = useCart();
   const featuredRef = useRef(null);
 
+  const fetchProducts = async (page = 1) => {
+    setLoading(true);
+    try {
+      const res = await fetch(`http://localhost:5070/products?page=${page}&limit=20`);
+      const data = await res.json();
+      const mapped = data.products.map((item, index) => ({
+        id: item.id || `product-${page}-${index}`,
+        name: item.item_name || "Sản phẩm chưa có tên",
+        brand: item.brand || "Không rõ thương hiệu",
+        price: item.prices?.sale_price || 0,
+        image: "https://placehold.co/400",
+      }));
+      if (page === 1) {
+        setProducts(mapped);
+      } else {
+        setProducts(prev => [...prev, ...mapped]);
+      }
+      setHasMore(products.length + mapped.length < data.total);
+      setCurrentPage(page);
+    } catch (err) {
+      console.error("Fetch error:", err);
+    } finally {
+      setLoading(false);
+    }
+  };
+
   useEffect(() => {
-    fetch("http://localhost:5070/products")
-      .then((res) => res.json())
-      .then((data) => {
-        const mapped = data.map((item, index) => ({
-          id: item.id || `product-${index}`,
-          name: item.item_name || "Sản phẩm chưa có tên",
-          brand: item.brand || "Không rõ thương hiệu",
-          price: item.prices?.sale_price || 0,
-          image: "https://placehold.co/400",
-        }));
-        setResults(mapped);
-      })
-      .catch((err) => console.error("Fetch error:", err));
+    fetchProducts(1);
   }, []);
 
   const filteredResults = useMemo(() => {
-    if (!searchQuery.trim()) return results;
-    return results.filter(
+    if (!searchQuery.trim()) return products;
+    return products.filter(
       (item) =>
         item.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
         item.brand.toLowerCase().includes(searchQuery.toLowerCase()),
     );
-  }, [results, searchQuery]);
+  }, [products, searchQuery]);
 
   const handleSearch = (query) => {
     setSearchQuery(query);
@@ -136,6 +153,27 @@ const EcommerceStore = () => {
               ))
             )}
           </div>
+          {hasMore && (
+            <div style={{ textAlign: "center", marginTop: "2rem" }}>
+              <button
+                onClick={() => fetchProducts(currentPage + 1)}
+                disabled={loading}
+                style={{
+                  background: "#4a00e0",
+                  color: "#fff",
+                  border: "none",
+                  borderRadius: "30px",
+                  padding: "12px 32px",
+                  fontSize: "1.1rem",
+                  fontWeight: "bold",
+                  boxShadow: "0 2px 8px rgba(0,0,0,0.12)",
+                  cursor: loading ? "not-allowed" : "pointer",
+                }}
+              >
+                {loading ? "Đang tải..." : "Tải thêm sản phẩm"}
+              </button>
+            </div>
+          )}
         </div>
       </main>
       <Footer />

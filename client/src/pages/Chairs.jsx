@@ -6,23 +6,40 @@ import React, { useState, useEffect } from "react";
 import { useCart } from "../context/CartContext";
 
 export default function Chairs() {
-  const [results, setResults] = useState([]);
+  const [products, setProducts] = useState([]);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [hasMore, setHasMore] = useState(true);
+  const [loading, setLoading] = useState(false);
   const { addToCart } = useCart();
 
+  const fetchProducts = async (page = 1) => {
+    setLoading(true);
+    try {
+      const res = await fetch(`http://localhost:5070/products/category/Chairs?page=${page}&limit=20`);
+      const data = await res.json();
+      const mapped = data.products.map((item, index) => ({
+        id: item.id || `chair-${page}-${index}`,
+        name: item.item_name || "Sản phẩm chưa có tên",
+        brand: item.brand || "Không rõ thương hiệu",
+        price: item.prices?.sale_price || 0,
+        image: "chair.jpeg",
+      }));
+      if (page === 1) {
+        setProducts(mapped);
+      } else {
+        setProducts(prev => [...prev, ...mapped]);
+      }
+      setHasMore(products.length + mapped.length < data.total);
+      setCurrentPage(page);
+    } catch (err) {
+      console.error("Fetch error:", err);
+    } finally {
+      setLoading(false);
+    }
+  };
+
   useEffect(() => {
-    fetch("http://localhost:5070/products/category/Chairs")
-      .then((res) => res.json())
-      .then((data) => {
-        const mapped = data.map((item, index) => ({
-          id: item.id || `chair-${index}`,
-          name: item.item_name || "Sản phẩm chưa có tên",
-          brand: item.brand || "Không rõ thương hiệu",
-          price: item.prices?.sale_price || 0,
-          image: "chair.jpeg",
-        }));
-        setResults(mapped);
-      })
-      .catch((err) => console.error("Fetch error:", err));
+    fetchProducts(1);
   }, []);
 
   const handleAddToCart = (product) => {
@@ -46,7 +63,7 @@ export default function Chairs() {
       <Navbar />
       <div className="page-container">
         <div className="product-list">
-          {results.map((item, idx) => (
+          {products.map((item, idx) => (
             <ProductCard
               key={idx}
               name={item.name}
@@ -55,6 +72,27 @@ export default function Chairs() {
               onBuy={() => handleAddToCart(item)}
             />
           ))}
+          {hasMore && (
+            <div style={{ textAlign: "center", marginTop: "2rem" }}>
+              <button
+                onClick={() => fetchProducts(currentPage + 1)}
+                disabled={loading}
+                style={{
+                  background: "#4a00e0",
+                  color: "#fff",
+                  border: "none",
+                  borderRadius: "30px",
+                  padding: "12px 32px",
+                  fontSize: "1.1rem",
+                  fontWeight: "bold",
+                  boxShadow: "0 2px 8px rgba(0,0,0,0.12)",
+                  cursor: loading ? "not-allowed" : "pointer",
+                }}
+              >
+                {loading ? "Đang tải..." : "Tải thêm sản phẩm"}
+              </button>
+            </div>
+          )}
         </div>
       </div>
       <Footer />
