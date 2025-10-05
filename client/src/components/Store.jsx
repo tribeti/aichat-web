@@ -1,3 +1,4 @@
+import Aurora from "./Aurora";
 import ChatWidget from "./ChatWidget";
 import Navbar from "./Navbar";
 import ProductCard from "./ProductCard";
@@ -81,6 +82,12 @@ const EcommerceStore = () => {
       />
       <main>
         <div className="hero">
+          <Aurora
+            colorStops={["#3A29FF", "#FF94B4", "#FF3232"]}
+            blend={0.5}
+            amplitude={1.0}
+            speed={0.5}
+          />
           <div className="container">
             <h1 style={{ fontWeight: "bold", fontSize: "2.5rem" }}>
               Chào mừng đến ShopSmart!

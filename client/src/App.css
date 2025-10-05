@@ -354,7 +354,7 @@ body {
 }
 
 .hero {
-    background: linear-gradient(135deg, #4a00e0 0%, #8e2de2 100%);
+    background: black;
     color: white;
     padding: 60px 0;
     text-align: center;
@@ -428,34 +428,34 @@ body {
 }
 
 .copyright {
-  text-align: center;
-  padding-top: 30px;
-  border-top: 1px solid #eee;
-  color: #777;
-  font-size: 14px;
+    text-align: center;
+    padding-top: 30px;
+    border-top: 1px solid #eee;
+    color: #777;
+    font-size: 14px;
 }
 /* Add to cart notification */
 .add-to-cart-success {
-  position: fixed;
-  top: 20px;
-  right: 20px;
-  background-color: #4caf50;
-  color: white;
-  padding: 15px 20px;
-  border-radius: 8px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-  z-index: 1000;
-  font-weight: bold;
-  animation: slideIn 0.3s ease-out;
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    background-color: #4caf50;
+    color: white;
+    padding: 15px 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    z-index: 1000;
+    font-weight: bold;
+    animation: slideIn 0.3s ease-out;
 }
 
 @keyframes slideIn {
-  from {
-    transform: translateX(100%);
-    opacity: 0;
-  }
-  to {
-    transform: translateX(0);
-    opacity: 1;
-  }
+    from {
+        transform: translateX(100%);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
 }
