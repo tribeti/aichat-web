@@ -23,7 +23,7 @@ function ProductCard({ id, name, price, image, onBuy }) {
         style={{ cursor: 'pointer' }}
       />
       <h3>{name}</h3>
-      <p className="product-price">{price} VND</p>
+      <p className="product-price">{price} USD</p>
       <button className="buy-btn" onClick={handleBuyClick}>Mua ngay</button>
     </div>
   );
