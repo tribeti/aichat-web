@@ -42,11 +42,11 @@ export default function Sofas() {
   const handleAddToCart = (product) => {
     addToCart(product);
     // Tạo thông báo tạm thời
-    const notification = document.createElement('div');
-    notification.className = 'add-to-cart-success';
+    const notification = document.createElement("div");
+    notification.className = "add-to-cart-success";
     notification.innerHTML = `Đã thêm ${product.name} vào giỏ hàng!`;
     document.body.appendChild(notification);
-    
+
     // Xóa thông báo sau 3 giây
     setTimeout(() => {
       if (notification.parentNode) {
@@ -63,6 +63,7 @@ export default function Sofas() {
           {products.map((item, idx) => (
             <ProductCard
               key={idx}
+              id={item.id}
               name={item.name}
               price={item.price}
               image={item.image}

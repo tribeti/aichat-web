@@ -15,6 +15,7 @@ import Sofas from "./pages/Sofas";
 import { SignedIn, SignedOut, RedirectToSignIn } from "@clerk/clerk-react";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
+import DetailPage from "./pages/DetailPage";
 
 function ProtectedRoute({ children }) {
   return (
@@ -51,7 +52,7 @@ function App() {
           <Route path="/career" element={<Careers />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
-          <Route path="/product/:productId" element={<ProductDetail />} />
+          <Route path="/detail/:id" element={<DetailPage />} />
         </Routes>
       </Router>
     </CartProvider>

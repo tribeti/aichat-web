@@ -46,7 +46,7 @@ const EcommerceStore = () => {
     return products.filter(
       (item) =>
         item.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        item.brand.toLowerCase().includes(searchQuery.toLowerCase()),
+        item.brand.toLowerCase().includes(searchQuery.toLowerCase())
     );
   }, [products, searchQuery]);
 
@@ -57,11 +57,11 @@ const EcommerceStore = () => {
   const handleAddToCart = (product) => {
     addToCart(product);
     // Tạo thông báo tạm thời
-    const notification = document.createElement('div');
-    notification.className = 'add-to-cart-success';
+    const notification = document.createElement("div");
+    notification.className = "add-to-cart-success";
     notification.innerHTML = `Đã thêm ${product.name} vào giỏ hàng!`;
     document.body.appendChild(notification);
-    
+
     // Xóa thông báo sau 3 giây
     setTimeout(() => {
       if (notification.parentNode) {
@@ -90,8 +90,11 @@ const EcommerceStore = () => {
               onClick={() => {
                 const element = featuredRef.current;
                 if (element) {
-                  const y = element.getBoundingClientRect().top + window.pageYOffset - 100;
-                  window.scrollTo({ top: y, behavior: 'smooth' });
+                  const y =
+                    element.getBoundingClientRect().top +
+                    window.pageYOffset -
+                    100;
+                  window.scrollTo({ top: y, behavior: "smooth" });
                 }
               }}
               style={{
