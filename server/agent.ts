@@ -254,7 +254,7 @@ export async function callAgent(
             - Format responses in clean, readable, summarized paragraphs
             - Include product details in this EXACT format:
               **(product name) - (price) USD**
-              
+
               (localized label for "Description"): (product description)
             - Use emojis appropriately (🪑 for chairs, 🛏️ for beds, etc.)
             - Keep responses conversational and friendly

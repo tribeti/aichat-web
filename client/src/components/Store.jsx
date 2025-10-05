@@ -18,10 +18,12 @@ const EcommerceStore = () => {
   const fetchProducts = async (page = 1) => {
     setLoading(true);
     try {
-      const res = await fetch(`http://localhost:5070/products?page=${page}&limit=20`);
+      const res = await fetch(
+        `http://localhost:5070/products?page=${page}&limit=20`,
+      );
       const data = await res.json();
-      const mapped = data.products.map((item, index) => ({
-        id: item.id || `product-${page}-${index}`,
+      const mapped = data.products.map((item) => ({
+        id: item._id,
         name: item.item_name || "Sản phẩm chưa có tên",
         brand: item.brand || "Không rõ thương hiệu",
         price: item.prices?.sale_price || 0,
@@ -46,7 +48,7 @@ const EcommerceStore = () => {
     return products.filter(
       (item) =>
         item.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        item.brand.toLowerCase().includes(searchQuery.toLowerCase())
+        item.brand.toLowerCase().includes(searchQuery.toLowerCase()),
     );
   }, [products, searchQuery]);
 

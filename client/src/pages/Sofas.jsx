@@ -16,10 +16,12 @@ export default function Sofas() {
   const fetchProducts = async (page = 1) => {
     setLoading(true);
     try {
-      const res = await fetch(`http://localhost:5070/products/category/Sofas?page=${page}&limit=20`);
+      const res = await fetch(
+        `http://localhost:5070/products/category/Sofas?page=${page}&limit=20`,
+      );
       const data = await res.json();
       const mapped = data.products.map((item, index) => ({
-        id: item.id || `sofa-${page}-${index}`,
+        id: item._id || `sofa-${page}-${index}`,
         name: item.item_name || "Sản phẩm chưa có tên",
         brand: item.brand || "Không rõ thương hiệu",
         price: item.prices?.sale_price || 0,

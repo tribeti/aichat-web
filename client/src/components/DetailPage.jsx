@@ -1,0 +1,121 @@
+import React, { useEffect, useState } from "react";
+import { useParams, Link } from "react-router-dom";
+import "./DetailPage.css";
+
+export default function DetailPage() {
+  const { id } = useParams();
+  const [item, setItem] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    const fetchItem = async () => {
+      try {
+        const res = await fetch(
+          `${
+            import.meta.env.VITE_API_URL || "http://localhost:5070"
+          }/products/${id}`,
+        );
+        if (!res.ok) throw new Error("Item not found");
+        const data = await res.json();
+        setItem(data);
+      } catch (err) {
+        setError(err.message);
+      } finally {
+        setLoading(false);
+      }
+    };
+    if (id) fetchItem();
+  }, [id]);
+
+  if (loading) return <div className="detail-page-root">Loading...</div>;
+  if (error) return <div className="detail-page-root">Error: {error}</div>;
+  if (!item) return <div className="detail-page-root">No item found.</div>;
+
+  return (
+    <div className="detail-page-root">
+      <div className="detail-page">
+        <div className="detail-left">
+          {item.image ? (
+            <img
+              src={item.image}
+              alt={item.item_name}
+              className="detail-image"
+            />
+          ) : (
+            <div className="detail-image-empty">Không có hình ảnh</div>
+          )}
+
+          <div className="detail-card">
+            <div className="price-row">
+              {item.prices?.full_price && (
+                <span className="price-old">${item.prices.full_price}</span>
+              )}
+              <span className="price">${item.prices?.sale_price || 0}</span>
+            </div>
+            <div className="btn-row">
+              <button className="btn btn-primary">Mua ngay</button>
+              <button className="btn btn-outline">Thêm giỏ hàng</button>
+            </div>
+          </div>
+        </div>
+
+        <div className="detail-right">
+          <Link to="/" className="detail-back">
+            ← Quay lại cửa hàng
+          </Link>
+          <h2 className="detail-title">{item.item_name}</h2>
+
+          <div className="detail-meta">
+            <span>Thương hiệu: {item.brand || "Không rõ"}</span>
+          </div>
+
+          {item.item_description && (
+            <div className="detail-description">{item.item_description}</div>
+          )}
+
+          {/* Categories */}
+          {item.categories && item.categories.length > 0 && (
+            <div className="badges">
+              {item.categories.map((cat, idx) => (
+                <span key={idx} className="badge">
+                  {cat}
+                </span>
+              ))}
+            </div>
+          )}
+
+          {/* Manufacturer info */}
+          {item.manufacturer_address && (
+            <div className="detail-grid">
+              <div className="detail-item">
+                City: {item.manufacturer_address.city}
+              </div>
+              <div className="detail-item">
+                Country: {item.manufacturer_address.country}
+              </div>
+            </div>
+          )}
+
+          {/* Reviews */}
+          {item.user_reviews && item.user_reviews.length > 0 && (
+            <div className="reviews">
+              <h3>Đánh giá người dùng</h3>
+              {item.user_reviews.map((review, idx) => (
+                <div key={idx} className="review">
+                  <div className="meta">
+                    <span>{review.review_date}</span>
+                    <span>⭐ {review.rating}</span>
+                  </div>
+                  <p>{review.comment}</p>
+                </div>
+              ))}
+            </div>
+          )}
+
+          {item.notes && <div className="detail-description">{item.notes}</div>}
+        </div>
+      </div>
+    </div>
+  );
+}

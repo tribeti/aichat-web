@@ -32,7 +32,11 @@ async function startServer() {
         const limit = parseInt(req.query.limit as string) || 20;
         const skip = (page - 1) * limit;
 
-        const products = await collection.find({}).skip(skip).limit(limit).toArray();
+        const products = await collection
+          .find({})
+          .skip(skip)
+          .limit(limit)
+          .toArray();
         const total = await collection.countDocuments({});
 
         res.json({ products, total, page, limit });
@@ -67,25 +71,25 @@ async function startServer() {
       }
     });
 
-    app.get("/products/:id", async (req, res) => {
+    // fetch item by id
+    app.get("/products/:id", async (req: Request, res: Response) => {
       try {
-        const productId = req.params.id;
+        const id = req.params.id;
         const db = client.db("inv_db");
         const collection = db.collection("items");
-
-        const product = await collection.findOne({ item_id: productId });
-
-        if (!product) {
-          return res.status(404).json({ error: "Product not found" });
+        const { ObjectId } = await import("mongodb");
+        const item = await collection.findOne({ _id: new ObjectId(id) });
+        if (!item) {
+          return res.status(404).json({ error: "Item not found" });
         }
-
-        res.json(product);
+        res.json(item);
       } catch (error) {
         console.error("Error fetching product:", error);
         res.status(500).json({ error: "Failed to fetch product" });
       }
     });
 
+    // chat with AI
     app.post("/chat", async (req: Request, res: Response) => {
       const initialMessage = req.body.message;
       const threadId = Date.now().toString();
