@@ -1,41 +1,54 @@
 import ChatWidget from "./ChatWidget";
 import Navbar from "./Navbar";
 import ProductCard from "./ProductCard";
+import Pagination from "./Pagination";
 import React, { useState, useEffect, useMemo, useRef } from "react";
 import Footer from "./Footer";
 import { useCart } from "../context/CartContext";
 
 const EcommerceStore = () => {
-  const [results, setResults] = useState([]);
+  const [products, setProducts] = useState([]);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(1);
+  const [loading, setLoading] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
   const { addToCart } = useCart();
   const featuredRef = useRef(null);
 
+  const fetchProducts = async (page = 1) => {
+    setLoading(true);
+    try {
+      const res = await fetch(`http://localhost:5070/products?page=${page}&limit=20`);
+      const data = await res.json();
+      const mapped = data.products.map((item, index) => ({
+        id: item.id || `product-${page}-${index}`,
+        name: item.item_name || "Sản phẩm chưa có tên",
+        brand: item.brand || "Không rõ thương hiệu",
+        price: item.prices?.sale_price || 0,
+        image: "https://placehold.co/400",
+      }));
+      setProducts(mapped);
+      setTotalPages(Math.ceil(data.total / 20));
+      setCurrentPage(page);
+    } catch (err) {
+      console.error("Fetch error:", err);
+    } finally {
+      setLoading(false);
+    }
+  };
+
   useEffect(() => {
-    fetch("http://localhost:5070/products")
-      .then((res) => res.json())
-      .then((data) => {
-        const limited = data.slice(0, 20);
-        const mapped = limited.map((item) => ({
-          id: item._id,
-          name: item.item_name || "Sản phẩm chưa có tên",
-          brand: item.brand || "Không rõ thương hiệu",
-          price: item.prices?.sale_price || 0,
-          image: "https://placehold.co/400",
-        }));
-        setResults(mapped);
-      })
-      .catch((err) => console.error("Fetch error:", err));
+    fetchProducts(1);
   }, []);
 
   const filteredResults = useMemo(() => {
-    if (!searchQuery.trim()) return results;
-    return results.filter(
+    if (!searchQuery.trim()) return products;
+    return products.filter(
       (item) =>
         item.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
         item.brand.toLowerCase().includes(searchQuery.toLowerCase())
     );
-  }, [results, searchQuery]);
+  }, [products, searchQuery]);
 
   const handleSearch = (query) => {
     setSearchQuery(query);
@@ -140,6 +153,12 @@ const EcommerceStore = () => {
               ))
             )}
           </div>
+          <Pagination
+            currentPage={currentPage}
+            totalPages={totalPages}
+            onPageChange={fetchProducts}
+            loading={loading}
+          />
         </div>
       </main>
       <Footer />
