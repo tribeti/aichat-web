@@ -1,6 +1,7 @@
 import ChatWidget from "./ChatWidget";
 import Navbar from "./Navbar";
 import ProductCard from "./ProductCard";
+import Pagination from "./Pagination";
 import React, { useState, useEffect, useMemo, useRef } from "react";
 import Footer from "./Footer";
 import { useCart } from "../context/CartContext";
@@ -8,7 +9,7 @@ import { useCart } from "../context/CartContext";
 const EcommerceStore = () => {
   const [products, setProducts] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
-  const [hasMore, setHasMore] = useState(true);
+  const [totalPages, setTotalPages] = useState(1);
   const [loading, setLoading] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
   const { addToCart } = useCart();
@@ -26,12 +27,8 @@ const EcommerceStore = () => {
         price: item.prices?.sale_price || 0,
         image: "https://placehold.co/400",
       }));
-      if (page === 1) {
-        setProducts(mapped);
-      } else {
-        setProducts(prev => [...prev, ...mapped]);
-      }
-      setHasMore(products.length + mapped.length < data.total);
+      setProducts(mapped);
+      setTotalPages(Math.ceil(data.total / 20));
       setCurrentPage(page);
     } catch (err) {
       console.error("Fetch error:", err);
@@ -153,27 +150,12 @@ const EcommerceStore = () => {
               ))
             )}
           </div>
-          {hasMore && (
-            <div style={{ textAlign: "center", marginTop: "2rem" }}>
-              <button
-                onClick={() => fetchProducts(currentPage + 1)}
-                disabled={loading}
-                style={{
-                  background: "#4a00e0",
-                  color: "#fff",
-                  border: "none",
-                  borderRadius: "30px",
-                  padding: "12px 32px",
-                  fontSize: "1.1rem",
-                  fontWeight: "bold",
-                  boxShadow: "0 2px 8px rgba(0,0,0,0.12)",
-                  cursor: loading ? "not-allowed" : "pointer",
-                }}
-              >
-                {loading ? "Đang tải..." : "Tải thêm sản phẩm"}
-              </button>
-            </div>
-          )}
+          <Pagination
+            currentPage={currentPage}
+            totalPages={totalPages}
+            onPageChange={fetchProducts}
+            loading={loading}
+          />
         </div>
       </main>
       <Footer />

@@ -2,13 +2,14 @@ import ChatWidget from "../components/ChatWidget";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import ProductCard from "../components/ProductCard";
+import Pagination from "../components/Pagination";
 import React, { useState, useEffect } from "react";
 import { useCart } from "../context/CartContext";
 
 export default function Tables() {
   const [products, setProducts] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
-  const [hasMore, setHasMore] = useState(true);
+  const [totalPages, setTotalPages] = useState(1);
   const [loading, setLoading] = useState(false);
   const { addToCart } = useCart();
 
@@ -24,12 +25,8 @@ export default function Tables() {
         price: item.prices?.sale_price || 0,
         image: "table.jpeg",
       }));
-      if (page === 1) {
-        setProducts(mapped);
-      } else {
-        setProducts(prev => [...prev, ...mapped]);
-      }
-      setHasMore(products.length + mapped.length < data.total);
+      setProducts(mapped);
+      setTotalPages(Math.ceil(data.total / 20));
       setCurrentPage(page);
     } catch (err) {
       console.error("Fetch error:", err);
@@ -72,27 +69,12 @@ export default function Tables() {
               onBuy={() => handleAddToCart(item)}
             />
           ))}
-          {hasMore && (
-            <div style={{ textAlign: "center", marginTop: "2rem" }}>
-              <button
-                onClick={() => fetchProducts(currentPage + 1)}
-                disabled={loading}
-                style={{
-                  background: "#4a00e0",
-                  color: "#fff",
-                  border: "none",
-                  borderRadius: "30px",
-                  padding: "12px 32px",
-                  fontSize: "1.1rem",
-                  fontWeight: "bold",
-                  boxShadow: "0 2px 8px rgba(0,0,0,0.12)",
-                  cursor: loading ? "not-allowed" : "pointer",
-                }}
-              >
-                {loading ? "Đang tải..." : "Tải thêm sản phẩm"}
-              </button>
-            </div>
-          )}
+          <Pagination
+            currentPage={currentPage}
+            totalPages={totalPages}
+            onPageChange={fetchProducts}
+            loading={loading}
+          />
         </div>
       </div>
       <Footer />
