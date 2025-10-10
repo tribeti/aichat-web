@@ -23,7 +23,6 @@ const itemSchema = z.object({
   brand: z.string(),
   manufacturer_address: z.object({
     city: z.string(),
-    postal_code: z.string(),
     country: z.string(),
   }),
   prices: z.object({
@@ -36,7 +35,7 @@ const itemSchema = z.object({
       review_date: z.string(),
       rating: z.number(),
       comment: z.string(),
-    }),
+    })
   ),
   notes: z.string(),
 });
@@ -85,7 +84,12 @@ async function createvectorsearch(): Promise<void> {
 }
 
 async function generateSyntheticData(): Promise<item[]> {
-  const prompt = `You are a helpful assistant that generates furniture store item data. Generate 50 furniture store items. Each record should include the following fields: item_id, item_name, item_description, brand, manufacturer_address, prices, categories, user_reviews, notes. Ensure variety in the data and realistic values.
+  const prompt = `You are a helpful assistant that generates furniture store item data. 
+  Generate a total of 100 furniture store items belonging only to the following 5 product types: tables, chairs, sofas, beds, and storage. 
+  Distribute the items across these categories (e.g., 6 items per category). 
+  Each record should include the following fields: 
+  item_id, item_name, item_description, brand, manufacturer_address, prices, categories, user_reviews, and notes. 
+  Ensure realistic values, variety in the data, and consistency within the specified categories.
   ${parser.getFormatInstructions()}`;
 
   console.log("Generating synthetic data...");
@@ -100,7 +104,7 @@ async function createItemSummary(item: item): Promise<string> {
     const userReviews = item.user_reviews
       .map(
         (review) =>
-          `Rated ${review.rating} on ${review.review_date}: ${review.comment}`,
+          `Rated ${review.rating} on ${review.review_date}: ${review.comment}`
       )
       .join(" ");
     const basicInfo = `${item.item_name} ${item.item_description} from the brand ${item.brand}`;
@@ -124,15 +128,15 @@ async function seeddb(): Promise<void> {
     const db = client.db("inv_db");
     const collection = db.collection("items");
 
-    await collection.deleteMany({});
-    console.log("clear data");
+    // await collection.deleteMany({});
+    // console.log("clear data");
 
     const syntheticData = await generateSyntheticData();
     const recordswithsummary = await Promise.all(
       syntheticData.map(async (record) => ({
         pageContent: await createItemSummary(record),
         metadata: { ...record },
-      })),
+      }))
     );
 
     for (const record of recordswithsummary) {
@@ -147,7 +151,7 @@ async function seeddb(): Promise<void> {
           indexName: "vector_index",
           textKey: "embedding_text",
           embeddingKey: "embedding",
-        },
+        }
       );
       console.log("success save", record.metadata.item_id);
     }

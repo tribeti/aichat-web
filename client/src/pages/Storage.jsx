@@ -17,7 +17,7 @@ export default function Storage() {
     setLoading(true);
     try {
       const res = await fetch(
-        `http://localhost:5070/products/category/Storage?page=${page}&limit=20`,
+        `http://localhost:5070/products/category/storage?page=${page}&limit=20`
       );
       const data = await res.json();
       const mapped = data.products.map((item, index) => ({
@@ -72,13 +72,13 @@ export default function Storage() {
               onBuy={() => handleAddToCart(item)}
             />
           ))}
-          <Pagination
-            currentPage={currentPage}
-            totalPages={totalPages}
-            onPageChange={fetchProducts}
-            loading={loading}
-          />
         </div>
+        <Pagination
+          currentPage={currentPage}
+          totalPages={totalPages}
+          onPageChange={fetchProducts}
+          loading={loading}
+        />
       </div>
       <Footer />
       <ChatWidget />
