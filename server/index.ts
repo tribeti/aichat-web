@@ -1,7 +1,7 @@
 import "dotenv/config";
 import express from "express";
 import type { Express, Request, Response } from "express";
-import { MongoClient } from "mongodb";
+import { MongoClient, ObjectId } from "mongodb";
 import { callAgent } from "./agent.ts";
 import cors from "cors";
 
@@ -113,6 +113,78 @@ async function startServer() {
       } catch (error) {
         console.error("chat error", error);
         res.status(500).json({ error: "server error" });
+      }
+    });
+
+    // Admin middleware
+    const adminAuth = (req: Request, res: Response, next: Function) => {
+      const adminAuth = req.headers['x-admin-auth'];
+      if (adminAuth !== 'authenticated') {
+        return res.status(403).json({ error: 'Unauthorized' });
+      }
+      next();
+    };
+
+    // Admin login (username/password check)
+    app.post('/admin/login', (req: Request, res: Response) => {
+      const { username, password } = req.body;
+      if (username === process.env.ADMIN_USERNAME && password === process.env.ADMIN_PASSWORD) {
+        res.json({ success: true });
+      } else {
+        res.status(401).json({ error: 'Invalid username or password' });
+      }
+    });
+
+    // Create product
+    app.post('/admin/products', adminAuth, async (req: Request, res: Response) => {
+      try {
+        const db = client.db('inv_db');
+        const collection = db.collection('items');
+        const product = req.body;
+        // Generate item_id if not provided
+        if (!product.item_id) {
+          product.item_id = new ObjectId().toString();
+        }
+        const result = await collection.insertOne(product);
+        res.json({ success: true, id: result.insertedId });
+      } catch (error) {
+        console.error('Error creating product:', error);
+        res.status(500).json({ error: 'Failed to create product' });
+      }
+    });
+
+    // Update product
+    app.put('/admin/products/:id', adminAuth, async (req: Request, res: Response) => {
+      try {
+        const id = req.params.id;
+        const db = client.db('inv_db');
+        const collection = db.collection('items');
+        const updates = req.body;
+        const result = await collection.updateOne({ _id: new ObjectId(id) }, { $set: updates });
+        if (result.matchedCount === 0) {
+          return res.status(404).json({ error: 'Product not found' });
+        }
+        res.json({ success: true });
+      } catch (error) {
+        console.error('Error updating product:', error);
+        res.status(500).json({ error: 'Failed to update product' });
+      }
+    });
+
+    // Delete product
+    app.delete('/admin/products/:id', adminAuth, async (req: Request, res: Response) => {
+      try {
+        const id = req.params.id;
+        const db = client.db('inv_db');
+        const collection = db.collection('items');
+        const result = await collection.deleteOne({ _id: new ObjectId(id) });
+        if (result.deletedCount === 0) {
+          return res.status(404).json({ error: 'Product not found' });
+        }
+        res.json({ success: true });
+      } catch (error) {
+        console.error('Error deleting product:', error);
+        res.status(500).json({ error: 'Failed to delete product' });
       }
     });
 

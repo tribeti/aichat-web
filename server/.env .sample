@@ -1,2 +1,4 @@
-GOOGLE_API_KEY=""
-MONGODB_ATLAS_URI=""
+GOOGLE_API_KEY="AIzaSyD6plTJVLjiX7upWq_kqJk3luRDIl-K_94"
+MONGODB_ATLAS_URI="mongodb+srv://tri2251220146:123@cluster0.idgckms.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0"
+ADMIN_USERNAME=admin
+ADMIN_PASSWORD=123456789

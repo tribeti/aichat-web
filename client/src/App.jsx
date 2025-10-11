@@ -15,6 +15,8 @@ import { SignedIn, SignedOut, RedirectToSignIn } from "@clerk/clerk-react";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
 import DetailPage from "./pages/DetailPage";
+import AdminLogin from "./pages/AdminLogin";
+import Admin from "./pages/Admin";
 
 function ProtectedRoute({ children }) {
   return (
@@ -52,6 +54,8 @@ function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
           <Route path="/detail/:id" element={<DetailPage />} />
+          <Route path="/admin-login" element={<AdminLogin />} />
+          <Route path="/admin" element={<Admin />} />
         </Routes>
       </Router>
     </CartProvider>
