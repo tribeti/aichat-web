@@ -111,6 +111,14 @@ const Navbar = ({ searchQuery = "", setSearchQuery, onSearch }) => {
                 Storage
               </NavLink>
             </li>
+            <li>
+              <NavLink
+                to="/admin-login"
+                className={({ isActive }) => (isActive ? "active" : "")}
+              >
+                Admin
+              </NavLink>
+            </li>
           </ul>
         </nav>
       </div>
