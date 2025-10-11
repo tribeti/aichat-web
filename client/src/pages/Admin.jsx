@@ -8,6 +8,7 @@ export default function Admin() {
   const [modalOpen, setModalOpen] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
+  const [searchQuery, setSearchQuery] = useState('');
   const [form, setForm] = useState({
     item_name: '',
     item_description: '',
@@ -33,7 +34,7 @@ export default function Admin() {
     setLoading(true);
     setError('');
     try {
-      const res = await fetch('http://localhost:5070/products?limit=100');
+      const res = await fetch('http://localhost:5070/products?limit=1300');
       const data = await res.json();
       setProducts(data.products);
     } catch (err) {
@@ -138,6 +139,11 @@ export default function Admin() {
     setModalOpen(true);
   };
 
+  const filteredProducts = products.filter(p =>
+    p.item_name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+    p.brand.toLowerCase().includes(searchQuery.toLowerCase())
+  );
+
   return (
     <div style={{ padding: '20px', fontFamily: 'Arial, sans-serif' }}>
       <h2>Admin Panel</h2>
@@ -145,6 +151,15 @@ export default function Admin() {
       <button onClick={openAddModal} style={{ padding: '10px 20px', marginBottom: '20px', backgroundColor: '#007bff', color: 'white', border: 'none', borderRadius: '4px', cursor: 'pointer' }}>Add New Product</button>
       {loading && <div>Loading...</div>}
       <h3>Products</h3>
+      <div style={{ marginBottom: '20px' }}>
+        <input
+          type="text"
+          placeholder="Search by name or brand..."
+          value={searchQuery}
+          onChange={(e) => setSearchQuery(e.target.value)}
+          style={{ padding: '8px', width: '300px', border: '1px solid #ccc', borderRadius: '4px' }}
+        />
+      </div>
       <table style={{ width: '100%', borderCollapse: 'collapse', marginTop: '20px' }}>
         <thead>
           <tr style={{ backgroundColor: '#f4f4f4' }}>
@@ -157,7 +172,7 @@ export default function Admin() {
           </tr>
         </thead>
         <tbody>
-          {products.map((p) => (
+          {filteredProducts.map((p) => (
             <tr key={p._id}>
               <td style={{ border: '1px solid #ddd', padding: '8px' }}>{p.item_name}</td>
               <td style={{ border: '1px solid #ddd', padding: '8px' }}>{p.brand}</td>
