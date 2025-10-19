@@ -138,7 +138,7 @@ body {
 
 .chat-widget-container.open {
     bottom: 0;
-    width: 350px;
+    width: 450px;
     height: 500px;
     background-color: #fff;
     border-radius: 10px 10px 0 0;
