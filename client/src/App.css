@@ -13,17 +13,58 @@
 }
 
 .product-card {
-    background: #fff;
-    border-radius: 8px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
-    padding: 1rem;
-    width: 220px;
+    background: linear-gradient(135deg, #f5f7fa, #c3cfe2);
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+    padding: 1.5rem;
+    width: 260px;
     text-align: center;
-    transition: box-shadow 0.2s;
+    transition: all 0.4s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.product-card::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 200%;
+    height: 200%;
+    background: linear-gradient(
+        120deg,
+        #89f7fe,
+        #66a6ff,
+        #ff9a9e,
+        #fad0c4,
+        #89f7fe
+    );
+    background-size: 400% 400%;
+    z-index: 0;
+    opacity: 0.2;
+    animation: moveGradient 6s linear infinite;
+}
+
+.product-card > * {
+    position: relative;
+    z-index: 1;
 }
 
 .product-card:hover {
-    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+    transform: scale(1.05);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.25);
+}
+
+@keyframes moveGradient {
+    0% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+    100% {
+        background-position: 0% 50%;
+    }
 }
 
 .product-image {
@@ -233,11 +274,17 @@ body {
     cursor: not-allowed;
 }
 
-/* E-commerce Store Styles */
 .container {
-    max-width: 1200px;
     margin: 0 auto;
     padding: 0 20px;
+    max-width: 1600px;
+}
+
+.product-list {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 30px;
+    justify-items: center;
 }
 
 .header {
@@ -256,9 +303,35 @@ body {
 }
 
 .logo {
-    font-size: 24px;
-    font-weight: bold;
-    color: #4a00e0;
+    font-size: 50px;
+    font-weight: 800;
+    text-transform: uppercase;
+    background: linear-gradient(
+        270deg,
+        #ff6b6b,
+        #feca57,
+        #48dbfb,
+        #1dd1a1,
+        #5f27cd,
+        #ff6b6b
+    );
+    background-size: 600% 600%;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: rainbowMove 6s ease infinite;
+    text-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+}
+
+@keyframes rainbowMove {
+    0% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+    100% {
+        background-position: 0% 50%;
+    }
 }
 
 .search-bar {
@@ -288,12 +361,19 @@ body {
 
 .nav-icons {
     display: flex;
-    gap: 20px;
+    gap: 30px;
+    align-items: center;
+    justify-content: center;
+    padding: 10px 0;
 }
 
-.nav-icons a {
-    color: #333;
-    position: relative;
+.nav-icons i {
+    font-size: 32px;
+    color: #000;
+    transition:
+        transform 0.3s ease,
+        opacity 0.3s ease;
+    cursor: pointer;
 }
 
 .nav-icons .badge {
