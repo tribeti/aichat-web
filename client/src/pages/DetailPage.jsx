@@ -1,12 +1,15 @@
 import React, { useEffect, useState } from "react";
-import { useParams, Link } from "react-router-dom";
+import { useParams, Link, useNavigate } from "react-router-dom";
 import "./DetailPage.css";
+import { useCart } from "../context/CartContext";
 
 export default function DetailPage() {
   const { id } = useParams();
+  const navigate = useNavigate();
   const [item, setItem] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const { addToCart } = useCart();
 
   useEffect(() => {
     const fetchItem = async () => {
@@ -32,6 +35,27 @@ export default function DetailPage() {
   if (error) return <div className="detail-page-root">Error: {error}</div>;
   if (!item) return <div className="detail-page-root">No item found.</div>;
 
+  const handleAddToCart = (product) => {
+    addToCart(product);
+    // Tạo thông báo tạm thời
+    const notification = document.createElement("div");
+    notification.className = "add-to-cart-success";
+    notification.innerHTML = `Đã thêm ${product.item_name} vào giỏ hàng!`;
+    document.body.appendChild(notification);
+
+    // Xóa thông báo sau 3 giây
+    setTimeout(() => {
+      if (notification.parentNode) {
+        notification.parentNode.removeChild(notification);
+      }
+    }, 3000);
+  };
+
+  const handleBuyNow = (product) => {
+    addToCart(product);
+    navigate('/cart');
+  };
+
   return (
     <div className="detail-page-root">
       <div className="detail-page">
@@ -54,8 +78,24 @@ export default function DetailPage() {
               <span className="price">${item.prices?.sale_price || 0}</span>
             </div>
             <div className="btn-row">
-              <button className="btn btn-primary">Mua ngay</button>
-              <button className="btn btn-outline">Thêm giỏ hàng</button>
+              <button
+                className="btn btn-primary"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  handleBuyNow(item);
+                }}
+              >
+                Mua ngay
+              </button>
+              <button
+                className="btn btn-outline"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  handleAddToCart(item);
+                }}
+              >
+                Thêm giỏ hàng
+              </button>
             </div>
           </div>
         </div>
