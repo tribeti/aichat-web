@@ -1,9 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import Pagination from '../components/Pagination';
 
 export default function Admin() {
   const navigate = useNavigate();
   const [products, setProducts] = useState([]);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(1);
   const [editing, setEditing] = useState(null);
   const [modalOpen, setModalOpen] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -30,13 +33,15 @@ export default function Admin() {
     fetchProducts();
   }, [navigate]);
 
-  const fetchProducts = async () => {
+  const fetchProducts = async (page = 1) => {
     setLoading(true);
     setError('');
     try {
-      const res = await fetch('http://localhost:5070/products?limit=1300');
+      const res = await fetch(`http://localhost:5070/products?page=${page}&limit=20`);
       const data = await res.json();
       setProducts(data.products);
+      setTotalPages(Math.ceil(data.total / 20));
+      setCurrentPage(page);
     } catch (err) {
       console.error('Fetch error:', err);
       setError('Failed to fetch products.');
@@ -187,6 +192,12 @@ export default function Admin() {
           ))}
         </tbody>
       </table>
+      <Pagination
+        currentPage={currentPage}
+        totalPages={totalPages}
+        onPageChange={fetchProducts}
+        loading={loading}
+      />
       {modalOpen && (
         <div style={{ position: 'fixed', top: 0, left: 0, width: '100%', height: '100%', backgroundColor: 'rgba(0,0,0,0.5)', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
           <div style={{ backgroundColor: 'white', padding: '20px', borderRadius: '8px', width: '400px', maxHeight: '80%', overflowY: 'auto' }}>
