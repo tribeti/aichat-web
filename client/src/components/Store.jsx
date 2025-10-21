@@ -23,13 +23,18 @@ const EcommerceStore = () => {
         `http://localhost:5070/products?page=${page}&limit=20`,
       );
       const data = await res.json();
-      const mapped = data.products.map((item) => ({
-        id: item._id,
-        name: item.item_name || "Sản phẩm chưa có tên",
-        brand: item.brand || "Không rõ thương hiệu",
-        price: item.prices?.sale_price || 0,
-        image: "https://placehold.co/400",
-      }));
+      const mapped = data.products.map((item) => {
+        const randomIndex = Math.floor(Math.random() * 9) + 1;
+        const randomImage = `/temp${randomIndex}.jpg`;
+
+        return {
+          id: item._id,
+          name: item.item_name || "Sản phẩm chưa có tên",
+          brand: item.brand || "Không rõ thương hiệu",
+          price: item.prices?.sale_price || 0,
+          image: randomImage,
+        };
+      });
       setProducts(mapped);
       setTotalPages(Math.ceil(data.total / 20));
       setCurrentPage(page);
