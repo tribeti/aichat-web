@@ -1,5 +1,5 @@
 import "./App.css";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
 import { CartProvider } from "./context/CartContext";
 import EcommerceStore from "./components/Store";
 import Cart from "./components/Cart";
@@ -29,6 +29,11 @@ function ProtectedRoute({ children }) {
   );
 }
 
+function ProtectedAdminRoute({ children }) {
+  const isAdminLoggedIn = localStorage.getItem('adminLoggedIn') === 'true';
+  return isAdminLoggedIn ? children : <Navigate to="/admin-login" replace />;
+}
+
 function App() {
   return (
     <CartProvider>
@@ -55,7 +60,14 @@ function App() {
           <Route path="/register" element={<Register />} />
           <Route path="/detail/:id" element={<DetailPage />} />
           <Route path="/admin-login" element={<AdminLogin />} />
-          <Route path="/admin" element={<Admin />} />
+          <Route
+            path="/admin"
+            element={
+              <ProtectedAdminRoute>
+                <Admin />
+              </ProtectedAdminRoute>
+            }
+          />
         </Routes>
       </Router>
     </CartProvider>
