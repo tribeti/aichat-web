@@ -25,15 +25,23 @@ export default function Admin() {
     notes: '',
   });
 
+  // Kiểm tra nếu chưa đăng nhập → quay về admin-login
   useEffect(() => {
-    const adminLoggedIn = localStorage.getItem('adminLoggedIn');
+    const adminLoggedIn = localStorage.getItem('adminLoggedIn') === 'true';
     if (!adminLoggedIn) {
-      navigate('/admin-login');
+      navigate('/admin-login', { replace: true });
       return;
     }
     fetchProducts();
   }, [navigate]);
 
+  //Hàm đăng xuất
+  const handleLogout = () => {
+    localStorage.removeItem('adminLoggedIn');
+    navigate('/admin-login');
+  };
+
+  // Lấy danh sách sản phẩm
   const fetchProducts = async (page = 1) => {
     setLoading(true);
     setError('');
@@ -51,34 +59,36 @@ export default function Admin() {
     }
   };
 
+  // Thêm hoặc cập nhật sản phẩm
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
     setError('');
+
     const product = {
       item_name: form.item_name,
       item_description: form.item_description,
       brand: form.brand,
       manufacturer_address: { city: form.city, country: form.country },
       prices: { full_price: parseFloat(form.full_price), sale_price: parseFloat(form.sale_price) },
-      categories: form.categories.split(',').map(c => c.trim()),
+      categories: form.categories.split(',').map((c) => c.trim()),
       user_reviews: [],
       notes: form.notes,
     };
+
     try {
-      if (editing) {
-        await fetch(`http://localhost:5070/admin/products/${editing._id}`, {
-          method: 'PUT',
-          headers: { 'Content-Type': 'application/json', 'x-admin-auth': 'authenticated' },
-          body: JSON.stringify(product),
-        });
-      } else {
-        await fetch('http://localhost:5070/admin/products', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json', 'x-admin-auth': 'authenticated' },
-          body: JSON.stringify(product),
-        });
-      }
+      const url = editing
+        ? `http://localhost:5070/admin/products/${editing._id}`
+        : 'http://localhost:5070/admin/products';
+
+      const method = editing ? 'PUT' : 'POST';
+
+      await fetch(url, {
+        method,
+        headers: { 'Content-Type': 'application/json', 'x-admin-auth': 'authenticated' },
+        body: JSON.stringify(product),
+      });
+
       fetchProducts();
       resetForm();
       setModalOpen(false);
@@ -90,6 +100,7 @@ export default function Admin() {
     }
   };
 
+  //Chỉnh sửa sản phẩm
   const handleEdit = (product) => {
     setEditing(product);
     setForm({
@@ -106,6 +117,7 @@ export default function Admin() {
     setModalOpen(true);
   };
 
+  // Xóa sản phẩm
   const handleDelete = async (id) => {
     if (!window.confirm('Are you sure you want to delete this product?')) return;
     setLoading(true);
@@ -145,19 +157,27 @@ export default function Admin() {
     setModalOpen(true);
   };
 
-  const filteredProducts = products.filter(p =>
-    p.item_name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-    p.brand.toLowerCase().includes(searchQuery.toLowerCase())
+  const filteredProducts = products.filter(
+    (p) =>
+      p.item_name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      p.brand.toLowerCase().includes(searchQuery.toLowerCase())
   );
 
   return (
     <div className="admin-container">
       <div className="admin-header">
         <h2>Admin Panel</h2>
+        {/*Nút đăng xuất */}
+        <button onClick={handleLogout} className="logout-button">
+          Logout
+        </button>
       </div>
+
       {error && <div className="error-message">{error}</div>}
       <button onClick={openAddModal} className="add-button">Add New Product</button>
+
       {loading && <div className="loading">Loading...</div>}
+
       <div className="products-section">
         <h3>Products</h3>
         <input
@@ -167,6 +187,7 @@ export default function Admin() {
           onChange={(e) => setSearchQuery(e.target.value)}
           className="search-input"
         />
+
         <table className="products-table">
           <thead>
             <tr>
@@ -194,6 +215,7 @@ export default function Admin() {
             ))}
           </tbody>
         </table>
+
         <Pagination
           currentPage={currentPage}
           totalPages={totalPages}
@@ -201,6 +223,8 @@ export default function Admin() {
           loading={loading}
         />
       </div>
+
+      {/* Modal thêm/sửa sản phẩm */}
       {modalOpen && (
         <div className="modal-overlay">
           <div className="modal-content">
@@ -208,43 +232,98 @@ export default function Admin() {
             <form onSubmit={handleSubmit}>
               <div className="form-group">
                 <label>Name:</label>
-                <input type="text" value={form.item_name} onChange={(e) => setForm({ ...form, item_name: e.target.value })} required />
+                <input
+                  type="text"
+                  value={form.item_name}
+                  onChange={(e) => setForm({ ...form, item_name: e.target.value })}
+                  required
+                />
               </div>
+
               <div className="form-group">
                 <label>Description:</label>
-                <textarea value={form.item_description} onChange={(e) => setForm({ ...form, item_description: e.target.value })} required />
+                <textarea
+                  value={form.item_description}
+                  onChange={(e) => setForm({ ...form, item_description: e.target.value })}
+                  required
+                />
               </div>
+
               <div className="form-group">
                 <label>Brand:</label>
-                <input type="text" value={form.brand} onChange={(e) => setForm({ ...form, brand: e.target.value })} required />
+                <input
+                  type="text"
+                  value={form.brand}
+                  onChange={(e) => setForm({ ...form, brand: e.target.value })}
+                  required
+                />
               </div>
+
               <div className="form-group">
                 <label>City:</label>
-                <input type="text" value={form.city} onChange={(e) => setForm({ ...form, city: e.target.value })} required />
+                <input
+                  type="text"
+                  value={form.city}
+                  onChange={(e) => setForm({ ...form, city: e.target.value })}
+                  required
+                />
               </div>
+
               <div className="form-group">
                 <label>Country:</label>
-                <input type="text" value={form.country} onChange={(e) => setForm({ ...form, country: e.target.value })} required />
+                <input
+                  type="text"
+                  value={form.country}
+                  onChange={(e) => setForm({ ...form, country: e.target.value })}
+                  required
+                />
               </div>
+
               <div className="form-group">
                 <label>Full Price:</label>
-                <input type="number" value={form.full_price} onChange={(e) => setForm({ ...form, full_price: e.target.value })} required />
+                <input
+                  type="number"
+                  value={form.full_price}
+                  onChange={(e) => setForm({ ...form, full_price: e.target.value })}
+                  required
+                />
               </div>
+
               <div className="form-group">
                 <label>Sale Price:</label>
-                <input type="number" value={form.sale_price} onChange={(e) => setForm({ ...form, sale_price: e.target.value })} required />
+                <input
+                  type="number"
+                  value={form.sale_price}
+                  onChange={(e) => setForm({ ...form, sale_price: e.target.value })}
+                  required
+                />
               </div>
+
               <div className="form-group">
                 <label>Categories (comma separated):</label>
-                <input type="text" value={form.categories} onChange={(e) => setForm({ ...form, categories: e.target.value })} required />
+                <input
+                  type="text"
+                  value={form.categories}
+                  onChange={(e) => setForm({ ...form, categories: e.target.value })}
+                  required
+                />
               </div>
+
               <div className="form-group">
                 <label>Notes:</label>
-                <textarea value={form.notes} onChange={(e) => setForm({ ...form, notes: e.target.value })} />
+                <textarea
+                  value={form.notes}
+                  onChange={(e) => setForm({ ...form, notes: e.target.value })}
+                />
               </div>
+
               <div className="form-buttons">
-                <button type="submit" disabled={loading} className="submit-button">{loading ? 'Saving...' : (editing ? 'Update' : 'Add')} Product</button>
-                <button type="button" onClick={resetForm} className="cancel-button">Cancel</button>
+                <button type="submit" disabled={loading} className="submit-button">
+                  {loading ? 'Saving...' : editing ? 'Update' : 'Add'} Product
+                </button>
+                <button type="button" onClick={resetForm} className="cancel-button">
+                  Cancel
+                </button>
               </div>
             </form>
           </div>

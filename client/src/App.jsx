@@ -18,6 +18,7 @@ import DetailPage from "./pages/DetailPage";
 import AdminLogin from "./pages/AdminLogin";
 import Admin from "./pages/Admin";
 
+
 function ProtectedRoute({ children }) {
   return (
     <>
@@ -30,8 +31,15 @@ function ProtectedRoute({ children }) {
 }
 
 function ProtectedAdminRoute({ children }) {
-  const isAdminLoggedIn = localStorage.getItem('adminLoggedIn') === 'true';
-  return isAdminLoggedIn ? children : <Navigate to="/admin-login" replace />;
+  const isAdminLoggedIn = localStorage.getItem("adminLoggedIn") === "true";
+
+  // 🔹 Nếu chưa đăng nhập → chuyển hướng về trang /admin-login
+  if (!isAdminLoggedIn) {
+    return <Navigate to="/admin-login" replace />;
+  }
+
+  // 🔹 Nếu đã đăng nhập → cho phép hiển thị nội dung Admin
+  return children;
 }
 
 function App() {
@@ -39,6 +47,7 @@ function App() {
     <CartProvider>
       <Router>
         <Routes>
+          {/* Người dùng */}
           <Route path="/" element={<EcommerceStore />} />
           <Route path="/cart" element={<Cart />} />
           <Route
@@ -59,6 +68,8 @@ function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
           <Route path="/detail/:id" element={<DetailPage />} />
+
+          {/* Admin */}
           <Route path="/admin-login" element={<AdminLogin />} />
           <Route
             path="/admin"
