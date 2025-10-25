@@ -1,5 +1,5 @@
 import "./App.css";
-import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { CartProvider } from "./context/CartContext";
 import EcommerceStore from "./components/Store";
 import Cart from "./components/Cart";
@@ -11,11 +11,15 @@ import OurStory from "./pages/Story";
 import Careers from "./pages/Careers";
 import Storage from "./pages/Storage";
 import Sofas from "./pages/Sofas";
-import { SignedIn, SignedOut, RedirectToSignIn } from "@clerk/clerk-react";
+import {
+  SignedIn,
+  SignedOut,
+  RedirectToSignIn,
+  Protect,
+} from "@clerk/clerk-react";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
 import DetailPage from "./pages/DetailPage";
-import AdminLogin from "./pages/AdminLogin";
 import Admin from "./pages/Admin";
 
 function ProtectedRoute({ children }) {
@@ -27,11 +31,6 @@ function ProtectedRoute({ children }) {
       </SignedOut>
     </>
   );
-}
-
-function ProtectedAdminRoute({ children }) {
-  const isAdminLoggedIn = localStorage.getItem('adminLoggedIn') === 'true';
-  return isAdminLoggedIn ? children : <Navigate to="/admin-login" replace />;
 }
 
 function App() {
@@ -59,13 +58,14 @@ function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
           <Route path="/detail/:id" element={<DetailPage />} />
-          <Route path="/admin-login" element={<AdminLogin />} />
           <Route
             path="/admin"
             element={
-              <ProtectedAdminRoute>
-                <Admin />
-              </ProtectedAdminRoute>
+              <SignedIn>
+                <Protect role="org:admin">
+                  <Admin />
+                </Protect>
+              </SignedIn>
             }
           />
         </Routes>

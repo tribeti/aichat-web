@@ -1,319 +1,334 @@
-/* Admin Panel Styles */
 .admin-container {
-  padding: 30px;
-  font-family: 'Arial, sans-serif';
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  min-height: 100vh;
-  font-size: 16px;
-  color: #333;
+    padding: 30px;
+    font-family: "Arial, sans-serif";
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    min-height: 100vh;
+    font-size: 16px;
+    color: #333;
 }
 
 .admin-header {
-  text-align: center;
-  margin-bottom: 30px;
-  background: linear-gradient(45deg, #ff6b6b, #feca57);
-  padding: 20px;
-  border-radius: 12px;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    margin-bottom: 30px;
+    background: linear-gradient(45deg, #ff6b6b, #feca57);
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
 }
 
 .admin-header h2 {
-  font-size: 36px;
-  color: white;
-  margin-bottom: 10px;
-  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+    font-size: 36px;
+    color: white;
+    margin-bottom: 10px;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
 }
 
 .error-message {
-  color: #e74c3c;
-  background-color: #f8d7da;
-  border: 1px solid #f5c6cb;
-  padding: 15px;
-  border-radius: 8px;
-  margin-bottom: 20px;
-  font-size: 16px;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    color: #e74c3c;
+    background-color: #f8d7da;
+    border: 1px solid #f5c6cb;
+    padding: 15px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    font-size: 16px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
 }
 
 .add-button {
-  background: linear-gradient(45deg, #28a745, #20c997);
-  color: white;
-  border: none;
-  padding: 15px 30px;
-  border-radius: 10px;
-  font-size: 18px;
-  font-weight: bold;
-  cursor: pointer;
-  transition: transform 0.2s, box-shadow 0.2s;
-  margin-bottom: 20px;
-  box-shadow: 0 4px 15px rgba(40, 167, 69, 0.3);
+    background: linear-gradient(45deg, #28a745, #20c997);
+    color: white;
+    border: none;
+    padding: 15px 30px;
+    border-radius: 10px;
+    font-size: 18px;
+    font-weight: bold;
+    cursor: pointer;
+    transition:
+        transform 0.2s,
+        box-shadow 0.2s;
+    margin-bottom: 20px;
+    box-shadow: 0 4px 15px rgba(40, 167, 69, 0.3);
 }
 
 .add-button:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 6px 20px rgba(40, 167, 69, 0.4);
+    transform: translateY(-3px);
+    box-shadow: 0 6px 20px rgba(40, 167, 69, 0.4);
 }
 
 .loading {
-  text-align: center;
-  font-size: 20px;
-  color: white;
-  margin: 20px 0;
-  background: rgba(255, 255, 255, 0.1);
-  padding: 10px;
-  border-radius: 8px;
+    text-align: center;
+    font-size: 20px;
+    color: white;
+    margin: 20px 0;
+    background: rgba(255, 255, 255, 0.1);
+    padding: 10px;
+    border-radius: 8px;
 }
 
 .products-section {
-  background: rgba(255, 255, 255, 0.9);
-  padding: 30px;
-  border-radius: 12px;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-  margin-top: 20px;
+    background: rgba(255, 255, 255, 0.9);
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    margin-top: 20px;
 }
 
 .products-section h3 {
-  font-size: 28px;
-  color: #333;
-  margin-bottom: 20px;
-  border-bottom: 3px solid #007bff;
-  padding-bottom: 10px;
+    font-size: 28px;
+    color: #333;
+    margin-bottom: 20px;
+    border-bottom: 3px solid #007bff;
+    padding-bottom: 10px;
 }
 
 .search-input {
-  padding: 15px;
-  width: 100%;
-  max-width: 400px;
-  border: 2px solid #ddd;
-  border-radius: 10px;
-  font-size: 16px;
-  margin-bottom: 20px;
-  transition: border-color 0.3s, box-shadow 0.3s;
-  background: #f8f9fa;
+    padding: 15px;
+    width: 100%;
+    max-width: 400px;
+    border: 2px solid #ddd;
+    border-radius: 10px;
+    font-size: 16px;
+    margin-bottom: 20px;
+    transition:
+        border-color 0.3s,
+        box-shadow 0.3s;
+    background: #f8f9fa;
 }
 
 .search-input:focus {
-  border-color: #007bff;
-  outline: none;
-  box-shadow: 0 0 10px rgba(0, 123, 255, 0.3);
+    border-color: #007bff;
+    outline: none;
+    box-shadow: 0 0 10px rgba(0, 123, 255, 0.3);
 }
 
 .products-table {
-  width: 100%;
-  border-collapse: collapse;
-  background-color: white;
-  border-radius: 12px;
-  overflow: hidden;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-  margin-top: 20px;
+    width: 100%;
+    border-collapse: collapse;
+    background-color: white;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    margin-top: 20px;
 }
 
 .products-table th,
 .products-table td {
-  padding: 18px;
-  text-align: left;
-  border-bottom: 1px solid #eee;
-  font-size: 16px;
+    padding: 18px;
+    text-align: left;
+    border-bottom: 1px solid #eee;
+    font-size: 16px;
 }
 
 .products-table th {
-  background: linear-gradient(45deg, #007bff, #0056b3);
-  font-weight: bold;
-  color: white;
-  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+    background: linear-gradient(45deg, #007bff, #0056b3);
+    font-weight: bold;
+    color: white;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
 }
 
 .products-table tr:nth-child(even) {
-  background-color: #f8f9fa;
+    background-color: #f8f9fa;
 }
 
 .products-table tr:hover {
-  background-color: #e3f2fd;
-  transform: scale(1.01);
-  transition: background-color 0.3s, transform 0.2s;
+    background-color: #e3f2fd;
+    transform: scale(1.01);
+    transition:
+        background-color 0.3s,
+        transform 0.2s;
 }
 
 .action-buttons button {
-  padding: 10px 18px;
-  border: none;
-  border-radius: 8px;
-  font-size: 14px;
-  font-weight: bold;
-  cursor: pointer;
-  margin-right: 5px;
-  transition: background-color 0.3s, transform 0.2s, box-shadow 0.2s;
+    padding: 10px 18px;
+    border: none;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: bold;
+    cursor: pointer;
+    margin-right: 5px;
+    transition:
+        background-color 0.3s,
+        transform 0.2s,
+        box-shadow 0.2s;
 }
 
 .edit-button {
-  background: linear-gradient(45deg, #ffc107, #ff8f00);
-  color: white;
-  box-shadow: 0 2px 5px rgba(255, 193, 7, 0.3);
+    background: linear-gradient(45deg, #ffc107, #ff8f00);
+    color: white;
+    box-shadow: 0 2px 5px rgba(255, 193, 7, 0.3);
 }
 
 .edit-button:hover {
-  background: linear-gradient(45deg, #e0a800, #d68910);
-  transform: translateY(-2px);
-  box-shadow: 0 4px 10px rgba(255, 193, 7, 0.4);
+    background: linear-gradient(45deg, #e0a800, #d68910);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 10px rgba(255, 193, 7, 0.4);
 }
 
 .delete-button {
-  background: linear-gradient(45deg, #dc3545, #c82333);
-  color: white;
-  box-shadow: 0 2px 5px rgba(220, 53, 69, 0.3);
+    background: linear-gradient(45deg, #dc3545, #c82333);
+    color: white;
+    box-shadow: 0 2px 5px rgba(220, 53, 69, 0.3);
 }
 
 .delete-button:hover {
-  background: linear-gradient(45deg, #bd2130, #a02622);
-  transform: translateY(-2px);
-  box-shadow: 0 4px 10px rgba(220, 53, 69, 0.4);
+    background: linear-gradient(45deg, #bd2130, #a02622);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 10px rgba(220, 53, 69, 0.4);
 }
 
 .modal-overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0, 0, 0, 0.7);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  z-index: 1000;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
 }
 
 .modal-content {
-  background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
-  padding: 40px;
-  border-radius: 15px;
-  width: 90%;
-  max-width: 550px;
-  max-height: 80%;
-  overflow-y: auto;
-  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
-  border: 2px solid #007bff;
+    background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+    padding: 40px;
+    border-radius: 15px;
+    width: 90%;
+    max-width: 550px;
+    max-height: 80%;
+    overflow-y: auto;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+    border: 2px solid #007bff;
 }
 
 .modal-content h3 {
-  font-size: 28px;
-  margin-bottom: 25px;
-  color: #333;
-  text-align: center;
-  border-bottom: 2px solid #007bff;
-  padding-bottom: 10px;
+    font-size: 28px;
+    margin-bottom: 25px;
+    color: #333;
+    text-align: center;
+    border-bottom: 2px solid #007bff;
+    padding-bottom: 10px;
 }
 
 .form-group {
-  margin-bottom: 25px;
+    margin-bottom: 25px;
 }
 
 .form-group label {
-  display: block;
-  margin-bottom: 10px;
-  font-weight: bold;
-  color: #555;
-  font-size: 16px;
+    display: block;
+    margin-bottom: 10px;
+    font-weight: bold;
+    color: #555;
+    font-size: 16px;
 }
 
 .form-group input,
 .form-group textarea {
-  width: 100%;
-  padding: 15px;
-  border: 2px solid #ddd;
-  border-radius: 10px;
-  font-size: 16px;
-  box-sizing: border-box;
-  transition: border-color 0.3s, box-shadow 0.3s;
-  background: #f8f9fa;
+    width: 100%;
+    padding: 15px;
+    border: 2px solid #ddd;
+    border-radius: 10px;
+    font-size: 16px;
+    box-sizing: border-box;
+    transition:
+        border-color 0.3s,
+        box-shadow 0.3s;
+    background: #f8f9fa;
 }
 
 .form-group input:focus,
 .form-group textarea:focus {
-  border-color: #007bff;
-  outline: none;
-  box-shadow: 0 0 10px rgba(0, 123, 255, 0.3);
+    border-color: #007bff;
+    outline: none;
+    box-shadow: 0 0 10px rgba(0, 123, 255, 0.3);
 }
 
 .form-buttons {
-  display: flex;
-  justify-content: center;
-  gap: 15px;
-  margin-top: 30px;
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-top: 30px;
 }
 
 .submit-button {
-  background: linear-gradient(45deg, #007bff, #0056b3);
-  color: white;
-  border: none;
-  padding: 15px 30px;
-  border-radius: 10px;
-  font-size: 18px;
-  font-weight: bold;
-  cursor: pointer;
-  transition: transform 0.2s, box-shadow 0.2s;
-  box-shadow: 0 4px 15px rgba(0, 123, 255, 0.3);
+    background: linear-gradient(45deg, #007bff, #0056b3);
+    color: white;
+    border: none;
+    padding: 15px 30px;
+    border-radius: 10px;
+    font-size: 18px;
+    font-weight: bold;
+    cursor: pointer;
+    transition:
+        transform 0.2s,
+        box-shadow 0.2s;
+    box-shadow: 0 4px 15px rgba(0, 123, 255, 0.3);
 }
 
 .submit-button:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 6px 20px rgba(0, 123, 255, 0.4);
+    transform: translateY(-3px);
+    box-shadow: 0 6px 20px rgba(0, 123, 255, 0.4);
 }
 
 .submit-button:disabled {
-  background: #ccc;
-  cursor: not-allowed;
-  transform: none;
-  box-shadow: none;
+    background: #ccc;
+    cursor: not-allowed;
+    transform: none;
+    box-shadow: none;
 }
 
 .cancel-button {
-  background: linear-gradient(45deg, #6c757d, #5a6268);
-  color: white;
-  border: none;
-  padding: 15px 30px;
-  border-radius: 10px;
-  font-size: 18px;
-  cursor: pointer;
-  transition: background-color 0.3s, transform 0.2s, box-shadow 0.2s;
-  box-shadow: 0 4px 15px rgba(108, 117, 125, 0.3);
+    background: linear-gradient(45deg, #6c757d, #5a6268);
+    color: white;
+    border: none;
+    padding: 15px 30px;
+    border-radius: 10px;
+    font-size: 18px;
+    cursor: pointer;
+    transition:
+        background-color 0.3s,
+        transform 0.2s,
+        box-shadow 0.2s;
+    box-shadow: 0 4px 15px rgba(108, 117, 125, 0.3);
 }
 
 .cancel-button:hover {
-  background: linear-gradient(45deg, #5a6268, #495057);
-  transform: translateY(-3px);
-  box-shadow: 0 6px 20px rgba(108, 117, 125, 0.4);
+    background: linear-gradient(45deg, #5a6268, #495057);
+    transform: translateY(-3px);
+    box-shadow: 0 6px 20px rgba(108, 117, 125, 0.4);
 }
 
 /* Responsive Design */
 @media (max-width: 768px) {
-  .admin-container {
-    padding: 15px;
-  }
+    .admin-container {
+        padding: 15px;
+    }
 
-  .admin-header h2 {
-    font-size: 28px;
-  }
+    .admin-header h2 {
+        font-size: 28px;
+    }
 
-  .products-section {
-    padding: 20px;
-  }
+    .products-section {
+        padding: 20px;
+    }
 
-  .products-table th,
-  .products-table td {
-    padding: 12px;
-    font-size: 14px;
-  }
+    .products-table th,
+    .products-table td {
+        padding: 12px;
+        font-size: 14px;
+    }
 
-  .modal-content {
-    width: 95%;
-    padding: 25px;
-  }
+    .modal-content {
+        width: 95%;
+        padding: 25px;
+    }
 
-  .form-buttons {
-    flex-direction: column;
-  }
+    .form-buttons {
+        flex-direction: column;
+    }
 
-  .submit-button,
-  .cancel-button {
-    width: 100%;
-  }
+    .submit-button,
+    .cancel-button {
+        width: 100%;
+    }
 }
