@@ -1,59 +1,50 @@
-import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
-import Pagination from '../components/Pagination';
-import './admin.css';
+import React, { useState } from "react";
+import Pagination from "../components/Pagination";
+import "./admin.css";
+import { useAuth } from "@clerk/clerk-react";
 
 export default function Admin() {
-  const navigate = useNavigate();
+  const { isLoaded, has } = useAuth();
+  const isAdmin = has({ role: "org:admin" });
+
+  if (!isLoaded) {
+    return <p>Loading...</p>;
+  }
+
   const [products, setProducts] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
   const [editing, setEditing] = useState(null);
   const [modalOpen, setModalOpen] = useState(false);
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState('');
-  const [searchQuery, setSearchQuery] = useState('');
+  const [error, setError] = useState("");
+  const [searchQuery, setSearchQuery] = useState("");
   const [form, setForm] = useState({
-    item_name: '',
-    item_description: '',
-    brand: '',
-    city: '',
-    country: '',
-    full_price: '',
-    sale_price: '',
-    categories: '',
-    notes: '',
+    item_name: "",
+    item_description: "",
+    brand: "",
+    city: "",
+    country: "",
+    full_price: "",
+    sale_price: "",
+    categories: "",
+    notes: "",
   });
 
-  // Kiểm tra nếu chưa đăng nhập → quay về admin-login
-  useEffect(() => {
-    const adminLoggedIn = localStorage.getItem('adminLoggedIn') === 'true';
-    if (!adminLoggedIn) {
-      navigate('/admin-login', { replace: true });
-      return;
-    }
-    fetchProducts();
-  }, [navigate]);
-
-  //Hàm đăng xuất
-  const handleLogout = () => {
-    localStorage.removeItem('adminLoggedIn');
-    navigate('/admin-login');
-  };
-
-  // Lấy danh sách sản phẩm
   const fetchProducts = async (page = 1) => {
     setLoading(true);
-    setError('');
+    setError("");
     try {
-      const res = await fetch(`http://localhost:5070/products?page=${page}&limit=20`);
+      const res = await fetch(
+        `http://localhost:5070/products?page=${page}&limit=20`,
+      );
       const data = await res.json();
       setProducts(data.products);
       setTotalPages(Math.ceil(data.total / 20));
       setCurrentPage(page);
     } catch (err) {
-      console.error('Fetch error:', err);
-      setError('Failed to fetch products.');
+      console.error("Fetch error:", err);
+      setError("Failed to fetch products.");
     } finally {
       setLoading(false);
     }
@@ -63,38 +54,47 @@ export default function Admin() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
-    setError('');
-
+    setError("");
     const product = {
       item_name: form.item_name,
       item_description: form.item_description,
       brand: form.brand,
       manufacturer_address: { city: form.city, country: form.country },
-      prices: { full_price: parseFloat(form.full_price), sale_price: parseFloat(form.sale_price) },
-      categories: form.categories.split(',').map((c) => c.trim()),
+      prices: {
+        full_price: parseFloat(form.full_price),
+        sale_price: parseFloat(form.sale_price),
+      },
+      categories: form.categories.split(",").map((c) => c.trim()),
       user_reviews: [],
       notes: form.notes,
     };
 
     try {
-      const url = editing
-        ? `http://localhost:5070/admin/products/${editing._id}`
-        : 'http://localhost:5070/admin/products';
-
-      const method = editing ? 'PUT' : 'POST';
-
-      await fetch(url, {
-        method,
-        headers: { 'Content-Type': 'application/json', 'x-admin-auth': 'authenticated' },
-        body: JSON.stringify(product),
-      });
-
+      if (editing) {
+        await fetch(`http://localhost:5070/admin/products/${editing._id}`, {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+            "x-admin-auth": "authenticated",
+          },
+          body: JSON.stringify(product),
+        });
+      } else {
+        await fetch("http://localhost:5070/admin/products", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            "x-admin-auth": "authenticated",
+          },
+          body: JSON.stringify(product),
+        });
+      }
       fetchProducts();
       resetForm();
       setModalOpen(false);
     } catch (err) {
-      console.error('Submit error:', err);
-      setError('Failed to save product.');
+      console.error("Submit error:", err);
+      setError("Failed to save product.");
     } finally {
       setLoading(false);
     }
@@ -104,33 +104,34 @@ export default function Admin() {
   const handleEdit = (product) => {
     setEditing(product);
     setForm({
-      item_name: product.item_name || '',
-      item_description: product.item_description || '',
-      brand: product.brand || '',
-      city: product.manufacturer_address?.city || '',
-      country: product.manufacturer_address?.country || '',
-      full_price: product.prices?.full_price?.toString() || '',
-      sale_price: product.prices?.sale_price?.toString() || '',
-      categories: product.categories?.join(', ') || '',
-      notes: product.notes || '',
+      item_name: product.item_name || "",
+      item_description: product.item_description || "",
+      brand: product.brand || "",
+      city: product.manufacturer_address?.city || "",
+      country: product.manufacturer_address?.country || "",
+      full_price: product.prices?.full_price?.toString() || "",
+      sale_price: product.prices?.sale_price?.toString() || "",
+      categories: product.categories?.join(", ") || "",
+      notes: product.notes || "",
     });
     setModalOpen(true);
   };
 
   // Xóa sản phẩm
   const handleDelete = async (id) => {
-    if (!window.confirm('Are you sure you want to delete this product?')) return;
+    if (!window.confirm("Are you sure you want to delete this product?"))
+      return;
     setLoading(true);
-    setError('');
+    setError("");
     try {
       await fetch(`http://localhost:5070/admin/products/${id}`, {
-        method: 'DELETE',
-        headers: { 'x-admin-auth': 'authenticated' },
+        method: "DELETE",
+        headers: { "x-admin-auth": "authenticated" },
       });
       fetchProducts();
     } catch (err) {
-      console.error('Delete error:', err);
-      setError('Failed to delete product.');
+      console.error("Delete error:", err);
+      setError("Failed to delete product.");
     } finally {
       setLoading(false);
     }
@@ -139,15 +140,15 @@ export default function Admin() {
   const resetForm = () => {
     setEditing(null);
     setForm({
-      item_name: '',
-      item_description: '',
-      brand: '',
-      city: '',
-      country: '',
-      full_price: '',
-      sale_price: '',
-      categories: '',
-      notes: '',
+      item_name: "",
+      item_description: "",
+      brand: "",
+      city: "",
+      country: "",
+      full_price: "",
+      sale_price: "",
+      categories: "",
+      notes: "",
     });
     setModalOpen(false);
   };
@@ -160,7 +161,7 @@ export default function Admin() {
   const filteredProducts = products.filter(
     (p) =>
       p.item_name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      p.brand.toLowerCase().includes(searchQuery.toLowerCase())
+      p.brand.toLowerCase().includes(searchQuery.toLowerCase()),
   );
 
   return (
@@ -174,8 +175,9 @@ export default function Admin() {
       </div>
 
       {error && <div className="error-message">{error}</div>}
-      <button onClick={openAddModal} className="add-button">Add New Product</button>
-
+      <button onClick={openAddModal} className="add-button">
+        Add New Product
+      </button>
       {loading && <div className="loading">Loading...</div>}
 
       <div className="products-section">
@@ -206,10 +208,17 @@ export default function Admin() {
                 <td>{p.brand}</td>
                 <td>{p.prices?.full_price}</td>
                 <td>{p.prices?.sale_price}</td>
-                <td>{p.categories?.join(', ')}</td>
+                <td>{p.categories?.join(", ")}</td>
                 <td className="action-buttons">
-                  <button onClick={() => handleEdit(p)} className="edit-button">Edit</button>
-                  <button onClick={() => handleDelete(p._id)} className="delete-button">Delete</button>
+                  <button onClick={() => handleEdit(p)} className="edit-button">
+                    Edit
+                  </button>
+                  <button
+                    onClick={() => handleDelete(p._id)}
+                    className="delete-button"
+                  >
+                    Delete
+                  </button>
                 </td>
               </tr>
             ))}
@@ -228,14 +237,16 @@ export default function Admin() {
       {modalOpen && (
         <div className="modal-overlay">
           <div className="modal-content">
-            <h3>{editing ? 'Edit Product' : 'Add Product'}</h3>
+            <h3>{editing ? "Edit Product" : "Add Product"}</h3>
             <form onSubmit={handleSubmit}>
               <div className="form-group">
                 <label>Name:</label>
                 <input
                   type="text"
                   value={form.item_name}
-                  onChange={(e) => setForm({ ...form, item_name: e.target.value })}
+                  onChange={(e) =>
+                    setForm({ ...form, item_name: e.target.value })
+                  }
                   required
                 />
               </div>
@@ -244,7 +255,9 @@ export default function Admin() {
                 <label>Description:</label>
                 <textarea
                   value={form.item_description}
-                  onChange={(e) => setForm({ ...form, item_description: e.target.value })}
+                  onChange={(e) =>
+                    setForm({ ...form, item_description: e.target.value })
+                  }
                   required
                 />
               </div>
@@ -274,7 +287,9 @@ export default function Admin() {
                 <input
                   type="text"
                   value={form.country}
-                  onChange={(e) => setForm({ ...form, country: e.target.value })}
+                  onChange={(e) =>
+                    setForm({ ...form, country: e.target.value })
+                  }
                   required
                 />
               </div>
@@ -284,7 +299,9 @@ export default function Admin() {
                 <input
                   type="number"
                   value={form.full_price}
-                  onChange={(e) => setForm({ ...form, full_price: e.target.value })}
+                  onChange={(e) =>
+                    setForm({ ...form, full_price: e.target.value })
+                  }
                   required
                 />
               </div>
@@ -294,7 +311,9 @@ export default function Admin() {
                 <input
                   type="number"
                   value={form.sale_price}
-                  onChange={(e) => setForm({ ...form, sale_price: e.target.value })}
+                  onChange={(e) =>
+                    setForm({ ...form, sale_price: e.target.value })
+                  }
                   required
                 />
               </div>
@@ -304,7 +323,9 @@ export default function Admin() {
                 <input
                   type="text"
                   value={form.categories}
-                  onChange={(e) => setForm({ ...form, categories: e.target.value })}
+                  onChange={(e) =>
+                    setForm({ ...form, categories: e.target.value })
+                  }
                   required
                 />
               </div>
@@ -318,10 +339,18 @@ export default function Admin() {
               </div>
 
               <div className="form-buttons">
-                <button type="submit" disabled={loading} className="submit-button">
-                  {loading ? 'Saving...' : editing ? 'Update' : 'Add'} Product
+                <button
+                  type="submit"
+                  disabled={loading}
+                  className="submit-button"
+                >
+                  {loading ? "Saving..." : editing ? "Update" : "Add"} Product
                 </button>
-                <button type="button" onClick={resetForm} className="cancel-button">
+                <button
+                  type="button"
+                  onClick={resetForm}
+                  className="cancel-button"
+                >
                   Cancel
                 </button>
               </div>

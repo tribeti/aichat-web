@@ -1,0 +1,6 @@
+VITE_CLERK_PUBLISHABLE_KEY=""
+admin username = "admin-test"
+admin password = "123"
+
+test1 username = mem1
+test1 password = 111
