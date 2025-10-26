@@ -332,3 +332,46 @@
         width: 100%;
     }
 }
+/* Header chứa tiêu đề và nút logout */
+.admin-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #1e293b; /* xanh đậm */
+  color: #fff;
+  padding: 15px 30px;
+  border-radius: 12px;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
+}
+
+/* Nút Logout đẹp, có hiệu ứng hover */
+.logout-button {
+  background: linear-gradient(135deg, #ef4444, #dc2626); /* đỏ gradient */
+  color: #fff;
+  font-weight: 600;
+  border: none;
+  border-radius: 8px;
+  padding: 10px 20px;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  box-shadow: 0 2px 6px rgba(239, 68, 68, 0.3);
+}
+
+.logout-button:hover {
+  background: linear-gradient(135deg, #dc2626, #b91c1c);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 10px rgba(220, 38, 38, 0.5);
+}
+
+.logout-button:active {
+  transform: scale(0.96);
+}
+
+/* Đảm bảo tiêu đề Admin Panel đẹp và cân đối */
+.admin-header h2 {
+  font-size: 1.5rem;
+  letter-spacing: 1px;
+  font-weight: 600;
+  color: #f8fafc;
+  margin: 0;
+}

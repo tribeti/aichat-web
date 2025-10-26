@@ -22,6 +22,7 @@ import Register from "./pages/Register";
 import DetailPage from "./pages/DetailPage";
 import Admin from "./pages/Admin";
 
+
 function ProtectedRoute({ children }) {
   return (
     <>
@@ -38,6 +39,7 @@ function App() {
     <CartProvider>
       <Router>
         <Routes>
+          {/* Người dùng */}
           <Route path="/" element={<EcommerceStore />} />
           <Route path="/cart" element={<Cart />} />
           <Route
