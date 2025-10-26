@@ -35,6 +35,7 @@ const Register = () => {
               },
             },
           }}
+          signInUrl="/login"
         />
       </div>
 

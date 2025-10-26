@@ -23,7 +23,7 @@ const Login = () => {
           transform: "scale(1.75)",
         }}
       >
-        <SignIn />
+        <SignIn signUpUrl="/register" />
       </div>
       <style>
         {`
