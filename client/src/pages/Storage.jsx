@@ -17,7 +17,7 @@ export default function Storage() {
     setLoading(true);
     try {
       const res = await fetch(
-        `http://localhost:5070/products/category/storage?page=${page}&limit=20`
+        `http://localhost:5070/products/category/storage?page=${page}&limit=20`,
       );
       const data = await res.json();
       const mapped = data.products.map((item, index) => ({
@@ -25,7 +25,7 @@ export default function Storage() {
         name: item.item_name || "Sản phẩm chưa có tên",
         brand: item.brand || "Không rõ thương hiệu",
         price: item.prices?.sale_price || 0,
-        image: "https://placehold.co/400",
+        image: "storage.png",
       }));
       setProducts(mapped);
       setTotalPages(Math.ceil(data.total / 20));
