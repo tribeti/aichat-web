@@ -16,7 +16,7 @@ const Register = () => {
     >
       <div
         style={{
-          transform: "scale(1.2)",
+          transform: "scale(1.5)",
           background:
             "linear-gradient(135deg, rgba(255,255,255,0.95), rgba(255,255,255,0.85))",
           borderRadius: "24px",
@@ -26,15 +26,6 @@ const Register = () => {
         }}
       >
         <SignUp
-          appearance={{
-            elements: {
-              card: {
-                boxShadow: "none",
-                backgroundColor: "transparent",
-                width: "420px",
-              },
-            },
-          }}
           signInUrl="/login"
         />
       </div>

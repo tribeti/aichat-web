@@ -4,6 +4,9 @@ const Login = () => {
   return (
     <div
       style={{
+        position: "fixed",
+        inset: 0,
+        width: "100%",
         height: "100vh",
         display: "flex",
         justifyContent: "center",
@@ -16,11 +19,15 @@ const Login = () => {
     >
       <div
         style={{
-          backgroundColor: "rgba(255, 255, 255, 0.95)",
-          borderRadius: "20px",
-
-          boxShadow: "0 10px 30px rgba(0,0,0,0.15)",
           transform: "scale(1.75)",
+          position: "fixed",
+          top: "0",
+          right: "0",
+          width: '40%',
+          height: "100%",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
         }}
       >
         <SignIn signUpUrl="/register" />
@@ -34,7 +41,7 @@ const Login = () => {
           }
         `}
       </style>
-    </div>
+    </div >
   );
 };
 

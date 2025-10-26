@@ -16,7 +16,7 @@
     margin-bottom: 3rem;
     background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);
     border-radius: 20px;
-    box-shadow: 0 6px 15px rgba(0,0,0,0.15);
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
     color: #2c3e50;
 }
 
@@ -53,7 +53,7 @@
     background: #ecf9f1;
     padding: 1.2rem;
     border-radius: 12px;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
 }
 
 .job-openings {
@@ -61,7 +61,7 @@
     padding: 2rem;
     background: #ffffff;
     border-radius: 20px;
-    box-shadow: 0 6px 18px rgba(0,0,0,0.1);
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.1);
     transition: transform 0.3s ease;
 }
 
@@ -101,13 +101,13 @@
     padding: 1.5rem;
     border-radius: 15px;
     border: 1px solid #e6e6e6;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
     transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 .job-openings li:hover {
     transform: translateY(-7px);
-    box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
 }
 
 .job-openings h3 {
@@ -137,12 +137,12 @@
     border: none;
     border-radius: 50px;
     cursor: pointer;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
     transition: all 0.3s ease;
 }
 
 .apply-button:hover {
     transform: scale(1.08);
     background: linear-gradient(135deg, #ff5e62, #ff9966);
-    box-shadow: 0 6px 18px rgba(0,0,0,0.2);
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.2);
 }
