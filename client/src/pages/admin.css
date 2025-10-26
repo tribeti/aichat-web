@@ -1,20 +1,59 @@
 .admin-container {
     padding: 30px;
     font-family: "Arial, sans-serif";
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    background: linear-gradient(270deg, #667eea, #764ba2, #ff6a00, #f9d423);
+    background-size: 800% 800%;
+    animation: gradientMove 15s ease infinite;
     min-height: 100vh;
     font-size: 16px;
     color: #333;
 }
 
-.admin-header {
-    text-align: center;
-    margin-bottom: 30px;
-    background: linear-gradient(45deg, #ff6b6b, #feca57);
-    padding: 20px;
-    border-radius: 12px;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+/* Hiệu ứng chuyển động */
+@keyframes gradientMove {
+    0% {
+        background-position: 0% 50%;
+    }
+
+    50% {
+        background-position: 100% 50%;
+    }
+
+    100% {
+        background-position: 0% 50%;
+    }
 }
+
+.admin-header {
+    .admin-header {
+        text-align: center;
+        margin-bottom: 30px;
+        background: linear-gradient(270deg, #ff6b6b, #feca57, #48dbfb, #1dd1a1);
+        background-size: 600% 600%;
+        animation: headerGradient 10s ease infinite;
+        padding: 20px;
+        border-radius: 12px;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+        color: white;
+        font-weight: bold;
+    }
+}
+
+/* Hiệu ứng gradient động cho header */
+@keyframes headerGradient {
+    0% {
+        background-position: 0% 50%;
+    }
+
+    50% {
+        background-position: 100% 50%;
+    }
+
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
 
 .admin-header h2 {
     font-size: 36px;
@@ -332,46 +371,30 @@
         width: 100%;
     }
 }
+
 /* Header chứa tiêu đề và nút logout */
-.admin-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  background: #1e293b; /* xanh đậm */
-  color: #fff;
-  padding: 15px 30px;
-  border-radius: 12px;
-  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
-}
+
 
 /* Nút Logout đẹp, có hiệu ứng hover */
 .logout-button {
-  background: linear-gradient(135deg, #ef4444, #dc2626); /* đỏ gradient */
-  color: #fff;
-  font-weight: 600;
-  border: none;
-  border-radius: 8px;
-  padding: 10px 20px;
-  cursor: pointer;
-  transition: all 0.25s ease;
-  box-shadow: 0 2px 6px rgba(239, 68, 68, 0.3);
+    background: linear-gradient(135deg, #ef4444, #dc2626);
+    /* đỏ gradient */
+    color: #fff;
+    font-weight: 600;
+    border: none;
+    border-radius: 8px;
+    padding: 10px 20px;
+    cursor: pointer;
+    transition: all 0.25s ease;
+    box-shadow: 0 2px 6px rgba(239, 68, 68, 0.3);
 }
 
 .logout-button:hover {
-  background: linear-gradient(135deg, #dc2626, #b91c1c);
-  transform: translateY(-2px);
-  box-shadow: 0 4px 10px rgba(220, 38, 38, 0.5);
+    background: linear-gradient(135deg, #dc2626, #b91c1c);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 10px rgba(220, 38, 38, 0.5);
 }
 
 .logout-button:active {
-  transform: scale(0.96);
-}
-
-/* Đảm bảo tiêu đề Admin Panel đẹp và cân đối */
-.admin-header h2 {
-  font-size: 1.5rem;
-  letter-spacing: 1px;
-  font-weight: 600;
-  color: #f8fafc;
-  margin: 0;
+    transform: scale(0.96);
 }
