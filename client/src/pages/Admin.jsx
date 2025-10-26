@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Pagination from "../components/Pagination";
 import "./admin.css";
 import { useAuth } from "@clerk/clerk-react";
@@ -30,6 +30,10 @@ export default function Admin() {
     categories: "",
     notes: "",
   });
+
+  useEffect(() => {
+    fetchProducts();
+  }, []);
 
   const fetchProducts = async (page = 1) => {
     setLoading(true);
@@ -169,9 +173,9 @@ export default function Admin() {
       <div className="admin-header">
         <h2>Admin Panel</h2>
         {/*Nút đăng xuất */}
-        <button onClick={handleLogout} className="logout-button">
+        {/* <button onClick={handleLogout} className="logout-button">
           Logout
-        </button>
+        </button> */}
       </div>
 
       {error && <div className="error-message">{error}</div>}
