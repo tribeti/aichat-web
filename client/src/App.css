@@ -1,5 +1,13 @@
 @import "tailwindcss";
 
+@layer base {
+    * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+    }
+}
+
 .page-container {
     max-width: 1200px;
     margin: 0 auto;
@@ -38,21 +46,19 @@
     left: 0;
     width: 200%;
     height: 200%;
-    background: linear-gradient(
-        120deg,
-        #a1c4fd,
-        #c2e9fb,
-        #fbc2eb,
-        #a6c1ee,
-        #a1c4fd
-    );
+    background: linear-gradient(120deg,
+            #a1c4fd,
+            #c2e9fb,
+            #fbc2eb,
+            #a6c1ee,
+            #a1c4fd);
     background-size: 400% 400%;
     z-index: 0;
     opacity: 0.15;
     animation: moveGradient 8s linear infinite;
 }
 
-.product-card > * {
+.product-card>* {
     position: relative;
     z-index: 1;
 }
@@ -66,9 +72,11 @@
     0% {
         background-position: 0% 50%;
     }
+
     50% {
         background-position: 100% 50%;
     }
+
     100% {
         background-position: 0% 50%;
     }
@@ -122,11 +130,6 @@
     box-shadow: 0 6px 15px rgba(33, 150, 243, 0.4);
 }
 
-* {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-}
 
 body {
     font-family:
@@ -188,39 +191,6 @@ body {
 
 .chat-header {
     background: linear-gradient(135deg, #4a00e0 0%, #8e2de2 100%);
-    color: white;
-    padding: 15px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-.chat-title {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-}
-
-.chat-title h3 {
-    margin: 0;
-    font-size: 16px;
-}
-
-.close-button {
-    background: transparent;
-    border: none;
-    color: white;
-    cursor: pointer;
-    font-size: 18px;
-}
-
-.chat-messages {
-    flex: 1;
-    padding: 15px;
-    overflow-y: auto;
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
 }
 
 .message {
@@ -257,8 +227,6 @@ body {
 }
 
 .chat-input-container {
-    display: flex;
-    padding: 10px;
     border-top: 1px solid #e6e6e6;
 }
 
@@ -330,15 +298,13 @@ body {
     font-size: 50px;
     font-weight: 800;
     text-transform: uppercase;
-    background: linear-gradient(
-        270deg,
-        #ff6b6b,
-        #feca57,
-        #48dbfb,
-        #1dd1a1,
-        #5f27cd,
-        #ff6b6b
-    );
+    background: linear-gradient(270deg,
+            #ff6b6b,
+            #feca57,
+            #48dbfb,
+            #1dd1a1,
+            #5f27cd,
+            #ff6b6b);
     background-size: 600% 600%;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
@@ -350,9 +316,11 @@ body {
     0% {
         background-position: 0% 50%;
     }
+
     50% {
         background-position: 100% 50%;
     }
+
     100% {
         background-position: 0% 50%;
     }
@@ -538,6 +506,7 @@ body {
     color: #777;
     font-size: 14px;
 }
+
 /* Add to cart notification */
 .add-to-cart-success {
     position: fixed;
@@ -558,6 +527,7 @@ body {
         transform: translateX(100%);
         opacity: 0;
     }
+
     to {
         transform: translateX(0);
         opacity: 1;

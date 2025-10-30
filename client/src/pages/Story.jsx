@@ -1,4 +1,3 @@
-import "../Story.css";
 import Footer from "../components/Footer";
 import Navbar from "../components/Navbar";
 
@@ -6,8 +5,8 @@ export default function OurStory() {
   return (
     <>
       <Navbar />
-      <div className="our-story-container">
-        <div className="hero-section">
+      <div className="our-story-container max-w-5xl mx-auto p-10 leading-loose">
+        <div className="hero-section ">
           <h1 className="title font-bold text-cyan-500 mb-2 text-5xl">
             Our Story
           </h1>
@@ -17,7 +16,7 @@ export default function OurStory() {
         </div>
 
         <div className="story-content">
-          <p>
+          <p className="mb-7 text-lg text-justify">
             Câu chuyện của chúng tôi bắt đầu từ một niềm tin giản dị:{" "}
             <strong>
               mỗi ngôi nhà đều xứng đáng được thổi hồn bằng sự ấm áp và tình yêu
@@ -28,7 +27,7 @@ export default function OurStory() {
             đầy ý nghĩa.
           </p>
 
-          <p>
+          <p className="mb-7 text-lg text-justify">
             Ngày ấy, xưởng mộc nhỏ nằm nép mình trong một con phố yên bình.
             Tiếng cưa gỗ, mùi nhựa cây và bàn tay chai sạn của người thợ chính
             là khởi nguồn của mọi sản phẩm. Chúng tôi tin rằng nội thất không
@@ -40,7 +39,7 @@ export default function OurStory() {
             .
           </p>
 
-          <p>
+          <p className="mb-7 text-lg text-justify">
             Có những thời điểm khó khăn, ánh sáng trong xưởng tưởng chừng như
             tắt lịm. Nhưng niềm tin rằng mỗi chiếc bàn, mỗi chiếc ghế có thể
             mang lại niềm vui, sự kết nối và hạnh phúc đã giữ chúng tôi đứng
@@ -49,7 +48,7 @@ export default function OurStory() {
             những người thợ.
           </p>
 
-          <p>
+          <p className="mb-7 text-lg text-justify">
             Khi những sản phẩm đầu tiên được đưa đến tay khách hàng, chúng tôi
             đã nhìn thấy nụ cười, sự xúc động và cả niềm hạnh phúc trong ánh mắt
             họ. Chính những khoảnh khắc ấy khiến chúng tôi hiểu rằng, sứ mệnh
@@ -60,7 +59,7 @@ export default function OurStory() {
             .
           </p>
 
-          <p>
+          <p className="mb-7 text-lg text-justify">
             Ngày hôm nay, chúng tôi tự hào khi được đồng hành cùng hàng nghìn
             gia đình trên hành trình biến những ngôi nhà thành tổ ấm. Mỗi sản
             phẩm là sự kết hợp giữa chất liệu tự nhiên, thiết kế tinh tế và tâm
@@ -68,7 +67,7 @@ export default function OurStory() {
             bền vững, mà còn là giá trị tinh thần lâu dài cho mỗi khách hàng.
           </p>
 
-          <p className="highlight font-bold text-2xl text-center mt-10 text-green-600">
+          <p className="highlight font-bold text-lg text-center mt-10 text-green-600">
             Chúng tôi không chỉ bán nội thất, chúng tôi kiến tạo không gian
             sống. Chúng tôi chia sẻ câu chuyện – câu chuyện về tình yêu, về mái
             ấm, và về niềm tin rằng hạnh phúc được bắt đầu từ chính những điều

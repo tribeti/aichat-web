@@ -107,17 +107,17 @@ const ChatWidget = ({ products }) => {
     <div className={`chat-widget-container ${isOpen ? "open" : ""}`}>
       {isOpen ? (
         <>
-          <div className="chat-header">
-            <div className="chat-title">
+          <div className="chat-header text-amber-50 p-3.5 flex justify-between items-center">
+            <div className="chat-title flex items-center gap-2.5">
               <FaRobot />
-              <h3>Shop Assistant</h3>
+              <h3 className="m-0 text-lg">Shop Assistant</h3>
             </div>
-            <button className="close-button" onClick={toggleChat}>
+            <button className="close-button bg-transparent rounded-none text-lg" onClick={toggleChat}>
               <FaTimes />
             </button>
           </div>
 
-          <div className="chat-messages">
+          <div className="chat-messages flex-1 p-4 overflow-y-auto flex flex-col gap-2.5">
             {messages.map((message, index) => (
               <div key={index}>
                 <div
@@ -127,12 +127,12 @@ const ChatWidget = ({ products }) => {
                   }}
                 ></div>
               </div>
-            ))}
-
+            ))
+            }
             <div ref={messagesEndRef} />
-          </div>
+          </div >
 
-          <form className="chat-input-container" onSubmit={handleSendMessage}>
+          <form className="chat-input-container flex p-2.5" onSubmit={handleSendMessage}>
             <input
               type="text"
               className="message-input"
@@ -154,7 +154,7 @@ const ChatWidget = ({ products }) => {
           <FaCommentDots />
         </button>
       )}
-    </div>
+    </div >
   );
 };
 

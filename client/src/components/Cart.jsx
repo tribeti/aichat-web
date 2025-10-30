@@ -7,7 +7,7 @@ const Cart = () => {
   const { cart, removeFromCart, updateQuantity, getTotalPrice } = useCart();
 
   if (cart.length === 0) {
-    return <div className="cart-empty">Giỏ hàng của bạn đang trống.</div>;
+    return <div className="cart-empty text-center m-32 text-4xl text-gray-600">Giỏ hàng của bạn đang trống.</div>;
   }
 
   return (

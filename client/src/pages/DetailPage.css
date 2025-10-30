@@ -14,7 +14,6 @@
     --text: #1f2937;
 }
 
-/* Page background */
 .detail-page-root {
     background: linear-gradient(180deg, #fbfbff 0%, var(--bg) 100%);
     min-height: 100vh;
@@ -271,6 +270,7 @@ a.detail-back:hover {
         transform: translateX(100%);
         opacity: 0;
     }
+
     to {
         transform: translateX(0);
         opacity: 1;
