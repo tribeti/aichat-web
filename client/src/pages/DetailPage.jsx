@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from "react";
-import { useParams, Link, useNavigate } from "react-router-dom";
+import { useParams, Link, useNavigate, useLocation } from "react-router-dom";
 import "./DetailPage.css";
 import { useCart } from "../context/CartContext";
 
 export default function DetailPage() {
   const { id } = useParams();
   const navigate = useNavigate();
+  const location = useLocation();
+  const randomImage = location.state?.randomImage;
   const [item, setItem] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -15,12 +17,16 @@ export default function DetailPage() {
     const fetchItem = async () => {
       try {
         const res = await fetch(
-          `${
-            import.meta.env.VITE_API_URL || "http://localhost:5070"
+          `${import.meta.env.VITE_API_URL || "http://localhost:5070"
           }/products/${id}`
         );
         if (!res.ok) throw new Error("Item not found");
         const data = await res.json();
+
+        if (!data.image && randomImage) {
+          data.image = randomImage;
+        }
+
         setItem(data);
       } catch (err) {
         setError(err.message);
@@ -29,7 +35,7 @@ export default function DetailPage() {
       }
     };
     if (id) fetchItem();
-  }, [id]);
+  }, [id, randomImage]);
 
   if (loading) return <div className="detail-page-root">Loading...</div>;
   if (error) return <div className="detail-page-root">Error: {error}</div>;
@@ -53,7 +59,7 @@ export default function DetailPage() {
 
   const handleBuyNow = (product) => {
     addToCart(product);
-    navigate('/cart');
+    navigate("/cart");
   };
 
   return (
@@ -114,7 +120,6 @@ export default function DetailPage() {
             <div className="detail-description">{item.item_description}</div>
           )}
 
-          {/* Categories */}
           {item.categories && item.categories.length > 0 && (
             <div className="badges">
               {item.categories.map((cat, idx) => (
@@ -125,7 +130,6 @@ export default function DetailPage() {
             </div>
           )}
 
-          {/* Manufacturer info */}
           {item.manufacturer_address && (
             <div className="detail-grid">
               <div className="detail-item">
@@ -137,7 +141,6 @@ export default function DetailPage() {
             </div>
           )}
 
-          {/* Reviews */}
           {item.user_reviews && item.user_reviews.length > 0 && (
             <div className="reviews">
               <h3>Đánh giá người dùng</h3>

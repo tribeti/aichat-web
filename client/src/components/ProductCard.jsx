@@ -4,9 +4,11 @@ import { useNavigate } from "react-router-dom";
 
 function ProductCard({ id, name, price, image, onBuy }) {
   const navigate = useNavigate();
+
   const handleCardClick = () => {
-    if (id) navigate(`/detail/${id}`);
+    if (id) navigate(`/detail/${id}`, { state: { randomImage: image } });
   };
+
   return (
     <div
       className="product-card"

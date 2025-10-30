@@ -4,19 +4,28 @@ import type { Express, Request, Response } from "express";
 import { MongoClient, ObjectId } from "mongodb";
 import { callAgent } from "./agent.ts";
 import cors from "cors";
+import compression from "compression";
 
 const app: Express = express();
 
+app.use(compression())
 app.use(cors());
 app.use(express.json());
 
-const client = new MongoClient(process.env.MONGODB_ATLAS_URI as string);
+const client = new MongoClient(process.env.MONGODB_ATLAS_URI as string, {
+  maxPoolSize: 50,
+  minPoolSize: 10,
+});
 
 async function startServer() {
   try {
     await client.connect();
     await client.db("admin").command({ ping: 1 });
     console.log("Connected successfully to MongoDB Atlas");
+
+    const db = client.db("inv_db");
+    const collection = db.collection("items");
+    await collection.createIndex({ categories: 1 });
 
     // root
     app.get("/", (req: Request, res: Response) => {
@@ -32,12 +41,10 @@ async function startServer() {
         const limit = parseInt(req.query.limit as string) || 20;
         const skip = (page - 1) * limit;
 
-        const products = await collection
-          .find({})
-          .skip(skip)
-          .limit(limit)
-          .toArray();
-        const total = await collection.countDocuments({});
+        const [products, total] = await Promise.all([
+          collection.find({}).skip(skip).limit(limit).toArray(),
+          collection.countDocuments({}),
+        ]);
 
         res.json({ products, total, page, limit });
       } catch (error) {
@@ -56,13 +63,10 @@ async function startServer() {
         const limit = parseInt(req.query.limit as string) || 20;
         const skip = (page - 1) * limit;
 
-        const products = await collection
-          .find({ categories: category })
-          .skip(skip)
-          .limit(limit)
-          .toArray();
-
-        const total = await collection.countDocuments({ categories: category });
+        const [products, total] = await Promise.all([
+          collection.find({ categories: category }).skip(skip).limit(limit).toArray(),
+          collection.countDocuments({ categories: category }),
+        ]);
 
         res.json({ products, total, page, limit });
       } catch (error) {
@@ -116,82 +120,61 @@ async function startServer() {
       }
     });
 
-    // Admin middleware
-    const adminAuth = (req: Request, res: Response, next: Function) => {
-      const adminAuth = req.headers["x-admin-auth"];
-      if (adminAuth !== "authenticated") {
-        return res.status(403).json({ error: "Unauthorized" });
-      }
-      next();
-    };
-
     // Create product
-    app.post(
-      "/admin/products",
-      adminAuth,
-      async (req: Request, res: Response) => {
-        try {
-          const db = client.db("inv_db");
-          const collection = db.collection("items");
-          const product = req.body;
-          // Generate item_id if not provided
-          if (!product.item_id) {
-            product.item_id = new ObjectId().toString();
-          }
-          const result = await collection.insertOne(product);
-          res.json({ success: true, id: result.insertedId });
-        } catch (error) {
-          console.error("Error creating product:", error);
-          res.status(500).json({ error: "Failed to create product" });
+    app.post("/admin/products", async (req: Request, res: Response) => {
+      try {
+        const db = client.db("inv_db");
+        const collection = db.collection("items");
+        const product = req.body;
+        // Generate item_id if not provided
+        if (!product.item_id) {
+          product.item_id = new ObjectId().toString();
         }
-      },
-    );
+        const result = await collection.insertOne(product);
+        res.json({ success: true, id: result.insertedId });
+      } catch (error) {
+        console.error("Error creating product:", error);
+        res.status(500).json({ error: "Failed to create product" });
+      }
+    });
 
     // Update product
-    app.put(
-      "/admin/products/:id",
-      adminAuth,
-      async (req: Request, res: Response) => {
-        try {
-          const id = req.params.id;
-          const db = client.db("inv_db");
-          const collection = db.collection("items");
-          const updates = req.body;
-          const result = await collection.updateOne(
-            { _id: new ObjectId(id) },
-            { $set: updates },
-          );
-          if (result.matchedCount === 0) {
-            return res.status(404).json({ error: "Product not found" });
-          }
-          res.json({ success: true });
-        } catch (error) {
-          console.error("Error updating product:", error);
-          res.status(500).json({ error: "Failed to update product" });
+    app.put("/admin/products/:id", async (req: Request, res: Response) => {
+      try {
+        const id = req.params.id;
+        const db = client.db("inv_db");
+        const collection = db.collection("items");
+        const updates = req.body;
+        const result = await collection.updateOne(
+          { _id: new ObjectId(id) },
+          { $set: updates },
+        );
+        if (result.matchedCount === 0) {
+          return res.status(404).json({ error: "Product not found" });
         }
-      },
-    );
+        res.json({ success: true });
+      } catch (error) {
+        console.error("Error updating product:", error);
+        res.status(500).json({ error: "Failed to update product" });
+      }
+    });
 
     // Delete product
-    app.delete(
-      "/admin/products/:id",
-      adminAuth,
-      async (req: Request, res: Response) => {
-        try {
-          const id = req.params.id;
-          const db = client.db("inv_db");
-          const collection = db.collection("items");
-          const result = await collection.deleteOne({ _id: new ObjectId(id) });
-          if (result.deletedCount === 0) {
-            return res.status(404).json({ error: "Product not found" });
-          }
-          res.json({ success: true });
-        } catch (error) {
-          console.error("Error deleting product:", error);
-          res.status(500).json({ error: "Failed to delete product" });
+    app.delete("/admin/products/:id", async (req: Request, res: Response) => {
+      try {
+        const id = req.params.id;
+        const db = client.db("inv_db");
+        const collection = db.collection("items");
+        const result = await collection.deleteOne({ _id: new ObjectId(id) });
+        if (result.deletedCount === 0) {
+          return res.status(404).json({ error: "Product not found" });
         }
-      },
-    );
+        res.json({ success: true });
+      } catch (error) {
+        console.error("Error deleting product:", error);
+        res.status(500).json({ error: "Failed to delete product" });
+      }
+    });
 
     // init port and run server
     const PORT = process.env.PORT || 5070;

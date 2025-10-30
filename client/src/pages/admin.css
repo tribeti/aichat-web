@@ -25,19 +25,18 @@
 }
 
 .admin-header {
-    .admin-header {
-        text-align: center;
-        margin-bottom: 30px;
-        background: linear-gradient(270deg, #ff6b6b, #feca57, #48dbfb, #1dd1a1);
-        background-size: 600% 600%;
-        animation: headerGradient 10s ease infinite;
-        padding: 20px;
-        border-radius: 12px;
-        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
-        color: white;
-        font-weight: bold;
-    }
+    text-align: center;
+    margin-bottom: 30px;
+    background: linear-gradient(270deg, #ff6b6b, #feca57, #48dbfb, #1dd1a1);
+    background-size: 600% 600%;
+    animation: headerGradient 10s ease infinite;
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+    color: white;
+    font-weight: bold;
 }
+
 
 /* Hiệu ứng gradient động cho header */
 @keyframes headerGradient {
