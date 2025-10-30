@@ -20,14 +20,11 @@ const Login = () => {
       <div
         style={{
           transform: "scale(1.75)",
-          position: "fixed",
-          top: "0",
-          right: "0",
-          width: '40%',
+          width: '50%',
           height: "100%",
           display: "flex",
           alignItems: "center",
-          justifyContent: "center",
+          justifyContent: "center"
         }}
       >
         <SignIn signUpUrl="/register" />

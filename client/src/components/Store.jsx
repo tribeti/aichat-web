@@ -128,11 +128,6 @@ const EcommerceStore = () => {
           </div>
         </div>
         <div ref={featuredRef} className="container">
-          <h2
-            style={{ marginTop: "2rem", textAlign: "center", color: "#4a00e0" }}
-          >
-            Sản phẩm nổi bật
-          </h2>
           <div
             className="product-list"
             style={{

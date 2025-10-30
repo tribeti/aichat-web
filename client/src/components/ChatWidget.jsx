@@ -1,5 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import { FaRobot, FaPaperPlane, FaTimes, FaCommentDots } from "react-icons/fa";
+import { marked } from "marked";
+import DOMPurify from "dompurify";
 
 const ChatWidget = ({ products }) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -7,6 +9,11 @@ const ChatWidget = ({ products }) => {
   const [inputValue, setInputValue] = useState("");
   const [threadId, setThreadId] = useState(null);
   const messagesEndRef = useRef(null);
+
+  const formatResponse = (text) => {
+    const rawHtml = marked.parse(text || "");
+    return DOMPurify.sanitize(rawHtml);
+  };
 
   useEffect(() => {
     if (isOpen && messages.length === 0) {
@@ -94,13 +101,6 @@ const ChatWidget = ({ products }) => {
     } catch (error) {
       console.error("Error:", error);
     }
-  };
-
-  const formatResponse = (text) => {
-    return text
-      .replace(/\n\n/g, "<br><br>")
-      .replace(/\*\*(.*?)\*\*/g, "<strong>$1</strong>")
-      .replace(/\*(.*?)\*/g, "<em>$1</em>");
   };
 
   return (

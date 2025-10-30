@@ -5,6 +5,8 @@
   "dependencies": {
     "@clerk/clerk-react": "^5.53.3",
     "@tailwindcss/vite": "^4.1.16",
+    "dompurify": "^3.3.0",
+    "marked": "^16.4.1",
     "ogl": "^1.0.11",
     "react": "^19.2.0",
     "react-dom": "^19.2.0",

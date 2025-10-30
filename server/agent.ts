@@ -15,7 +15,17 @@ import { MongoClient } from "mongodb";
 import { z } from "zod";
 import "dotenv/config";
 
-// AI Translation function
+function addProductUrl(item: any): any {
+  const itemId = item._id?.toString() || item.id?.toString();
+  if (itemId) {
+    return {
+      ...item,
+      product_url: `/detail/${itemId}`
+    };
+  }
+  return item;
+}
+
 async function translateToEnglish(query: string): Promise<string> {
   try {
     const translationModel = new ChatGoogleGenerativeAI({
@@ -34,15 +44,13 @@ async function translateToEnglish(query: string): Promise<string> {
     return result.content.toString().trim();
   } catch (error) {
     console.log("Translation failed, using original query:", error);
-    return query; // Fallback to original query
+    return query;
   }
 }
 
-// Language detection function
 function isEnglish(text: string): boolean {
-  // Simple check - if text contains Vietnamese characters or common Vietnamese words, it's not English
   const vietnameseChars =
-    /[àáảãạăắằẳẵặâấầẩẫậèéẻẽẹêếềểễệìíỉĩịòóỏõọôốồổỗộơớờởỡợùúủũụưứừửữựỳýỷỹỵđ]/i;
+    /[àáảãạăắằẳẵặâấầẩẫậèéẻẽẹêếềểễệìíỉĩịòóỏõọôốồổỗộơờớởỡợùúủũụưừứửữựỳýỷỹỵđ]/i;
   const commonVietnameseWords = [
     "và",
     "của",
@@ -180,9 +188,11 @@ export async function callAgent(
               .limit(n)
               .toArray();
 
+            const textResultsWithUrl = textResults.map(addProductUrl);
+
             console.log(`Text search returned ${textResults.length} results`);
             return JSON.stringify({
-              results: textResults,
+              results: textResultsWithUrl,
               searchType: "text",
               originalQuery: originalQuery,
               translatedQuery: !isQueryInEnglish ? searchQuery : null,
@@ -191,8 +201,13 @@ export async function callAgent(
             });
           }
 
+          const resultsWithUrl = result.map(([doc, score]) => {
+            const itemWithUrl = addProductUrl(doc.metadata);
+            return [{ ...doc, metadata: itemWithUrl }, score];
+          });
+
           return JSON.stringify({
-            results: result,
+            results: resultsWithUrl,
             searchType: "vector",
             originalQuery: originalQuery,
             translatedQuery: !isQueryInEnglish ? searchQuery : null,
@@ -217,7 +232,7 @@ export async function callAgent(
           n: z
             .number()
             .optional()
-            .default(10)
+            .default(5)
             .describe("Number of results to return"),
         }),
       },
@@ -253,20 +268,20 @@ export async function callAgent(
             RESPONSE FORMATTING RULES:
             - Format responses in clean, readable, summarized paragraphs
             - Include product details in this EXACT format:
-              **(product name) - (price) USD**
+              [**Product Name - Price USD**](product_url) 🪑
 
               (localized label for "Description"): (product description)
             - Use emojis appropriately (🪑 for chairs, 🛏️ for beds, etc.)
             - Keep responses conversational and friendly
             - Always add two line breaks (\\n\\n) between products
-            - Always add two line breaks (\\n\\n) after product name and price before description
+            - Always add one line break (\\n) after product name hyperlink before description
 
             MULTILINGUAL RESPONSE POLICY:
             - You can communicate in ANY language the customer uses
             - Always reply in the SAME language the user is currently using
             - If the user switches languages mid-conversation, immediately switch all future responses to that new language
             - Maintain consistency: the entire reply must be in one language only (no mixing)
-            - The item_lookup tool automatically translates queries into English for database search, but your responses must always be in the user’s active language
+            - The item_lookup tool automatically translates queries into English for database search, but your responses must always be in the user's active language
 
             IMPORTANT MULTILINGUAL CAPABILITIES:
             - Your item_lookup tool now has AUTOMATIC TRANSLATION:
