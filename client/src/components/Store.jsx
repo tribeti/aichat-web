@@ -20,7 +20,7 @@ const EcommerceStore = () => {
     setLoading(true);
     try {
       const res = await fetch(
-        `http://localhost:5070/products?page=${page}&limit=20`,
+        `http://localhost:5070/products?page=${page}&limit=21`,
       );
       const data = await res.json();
       const mapped = data.products.map((item) => {
@@ -32,6 +32,7 @@ const EcommerceStore = () => {
           name: item.item_name || "Sản phẩm chưa có tên",
           brand: item.brand || "Không rõ thương hiệu",
           price: item.prices?.sale_price || 0,
+          description: item.item_description || "Mot san pham tuyet voi :)",
           image: randomImage,
         };
       });
@@ -157,6 +158,7 @@ const EcommerceStore = () => {
                   name={p.name}
                   price={p.price}
                   image={p.image}
+                  description={p.description}
                   onBuy={() => handleAddToCart(p)}
                 />
               ))
