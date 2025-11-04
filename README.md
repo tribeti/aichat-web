@@ -1,44 +1,137 @@
-# Hướng dẫn chạy code
+<h1 align="center">🛒 AIChat Web – Nền tảng thương mại điện tử tích hợp AI Chatbot 🤖</h1>
 
-## Bước 1 : Clone dự án
-```shell
+<p align="center">
+  <img src="https://img.shields.io/badge/Framework-React-blue?style=flat-square" />
+  <img src="https://img.shields.io/badge/Backend-Node.js-green?style=flat-square" />
+  <img src="https://img.shields.io/badge/Database-MongoDB-brightgreen?style=flat-square" />
+  <img src="https://img.shields.io/badge/AI-Gemini%202.5%20Flash-orange?style=flat-square" />
+</p>
+
+<p align="center">
+  Dự án thương mại điện tử với chatbot AI giúp người dùng tìm kiếm sản phẩm nhanh chóng, thông minh và tiện lợi.  
+  Sức mạnh đến từ mô hình <b>Gemini 2.5 Flash</b> và nền tảng hiện đại <b>React + Node.js + MongoDB</b>.
+</p>
+
+---
+
+## 🎬 Demo
+
+https://github.com/user-attachments/assets/138aa1ea-cb0e-49f4-ad37-77276269aed8
+
+---
+
+## 🚀 Tính năng nổi bật
+
+- 🤖 **AI Chatbot tích hợp** – Tư vấn sản phẩm, hỗ trợ người dùng thông minh theo ngữ cảnh.  
+- 🧠 **Sử dụng mô hình Gemini 2.5 Flash** – Nhanh, nhẹ và tối ưu cho hội thoại thương mại.  
+- 🛍️ **Giao diện hiện đại, thân thiện** – Thiết kế UI trực quan, dễ thao tác.  
+- 💾 **Cơ sở dữ liệu MongoDB Atlas** – Lưu trữ an toàn và mở rộng linh hoạt.  
+- 🔐 **Xác thực người dùng bằng Clerk** – Đăng nhập/đăng ký bảo mật và tiện lợi.  
+
+---
+
+## ⚙️ Cài đặt & Chạy dự án
+
+### 1️⃣ Clone repository
+```bash
 git clone https://github.com/tribeti/aichat-web.git
-```
+````
 
-## Bước 2 : Có .env
-### Liên hệ mình để có .env :)
+### 2️⃣ Cấu hình file môi trường `.env`
 
-## Bước 3 : Mở vscode hoặc bất kì IDE/ text editor nào (nói chung là app mà bạn dùng để code)
+Liên hệ mình để nhận file `.env`
+*(Hoặc xem mục [FAQ](#faq) để tự tạo các key cần thiết)*
 
-Mở terminal
-```shell
+### 3️⃣ Cài đặt và khởi động server
+
+```bash
 cd server
-npm i
+npm install
 npm run dev
 ```
 
-Mở 1 cái terminal khác
-```shell
+### 4️⃣ Cài đặt và khởi động client
+
+```bash
 cd client
-npm i
+npm install
 npm start
 ```
 
-## Bước 4 : Kiểm thử với giao diện
-1. Vào trong giao diện web [front-end](http://localhost:5173/)  
-1. Mở hộp thoại chat ở góc dưới bên phải  
-1. Chat với AI nếu phản hồi tức là thành công nếu không thì bấm F12 vào tab console và kiểm tra cái **[{...}]** ở dưới cùng bấm mũi tên mở ra, thử chat thêm 1 phát nữa vào nó sẽ hiện lỗi  
-1. Lúc này bạn có thể copy lỗi tra gg hoặc chatGPT đảm bảo ra
+### 5️⃣ Mở ứng dụng
 
-# FAQ
-1. Nếu muốn tự lấy key cho .env thì như nào ?  
-B1 : Vào [mongodb](https://account.mongodb.com/account/login) tạo tài khoản các kiểu và theo hướng dẫn (nhớ cái mật khẩu mà app tự tạo hoặc nếu muốn thì đổi mật khẩu)  
-B2 : Chọn driver thì chọn Node.js , tải thư viện về và dưới cùng là cái api key của MONGODB_ATLAS_URI (nhớ thay thế <db_pass> trong link thành cái mật khẩu thật)  
-B3 : Vào [google console](https://console.cloud.google.com/) tạo project các kiểu rồi vào mục **APIs & Services** sau đó nhìn bên tay trái của màn hình có nav bar với cái icon chìa khóa **Credentials** và chọn cái đó  
-B4 : Bấm nút Create credentials và chọn API KEY và nó sẽ cho bạn key của GOOGLE_API_KEY  
-B5 : Vào [https://clerk.com/](https://clerk.com/) tạo tài khoản và làm theo hướng dẫn và lấy key, sau đó bỏ vào trong file .env trong thư mục client
-3. Không seed database được hoặc sử dụng các tính năng liên quan tới AI ?  
-Lý do mình mắc phải là do apikey nó chưa bật tính năng gemini ai để bật thì đơn giản là trong terminal nó sẽ có 1 cái [link](https://console.cloud.google.com/apis/library/generativelanguage.googleapis.com) bấm vào là vào thẳng trang để bật lên luôn :)))  
-# Credits
-Video hướng dẫn chi tiết về dự án này : [Building an AI-Powered E-commerce Chat Assistant with MongoDB – Tutorial](https://www.youtube.com/watch?v=9tANiA0LKn4)  
-Repo chính thức : [github.com/kubowania/ecommerce-chat-helper](https://github.com/kubowania/ecommerce-chat-helper)
+Truy cập **[http://localhost:5173](http://localhost:5173)** để bắt đầu trải nghiệm 🚀
+
+---
+
+## 💬 Sử dụng Chatbot
+
+1. Mở giao diện web
+2. Click vào **hộp thoại chat** ở góc phải dưới màn hình
+3. Nhập tin nhắn và trò chuyện với AI
+4. Nếu chatbot không phản hồi:
+
+   * Nhấn `F12` → tab **Console**
+   * Xem lỗi `{...}` → click mũi tên để mở rộng
+   * Gửi lỗi đó lên Google hoặc ChatGPT để xử lý 🧑‍💻
+
+---
+
+## 🧩 FAQ
+
+### ❓ Làm sao để tự tạo `.env`?
+
+#### Bước 1: MongoDB
+
+* Truy cập [MongoDB Atlas](https://account.mongodb.com/account/login)
+* Tạo cluster → chọn **Driver: Node.js**
+* Lấy link `MONGODB_ATLAS_URI`
+  (nhớ thay `<db_pass>` bằng mật khẩu thật)
+
+#### Bước 2: Google Gemini API
+
+* Truy cập [Google Cloud Console](https://console.cloud.google.com/)
+* Tạo **Project** → vào **APIs & Services → Credentials**
+* Chọn **Create credentials → API Key**
+* Lấy `GOOGLE_API_KEY`
+* Bật API tại đây: [Generative Language API](https://console.cloud.google.com/apis/library/generativelanguage.googleapis.com)
+
+#### Bước 3: Clerk Authentication
+
+* Đăng ký tại [clerk.com](https://clerk.com/)
+* Tạo ứng dụng và copy các key
+
+  * `VITE_CLERK_PUBLISHABLE_KEY`
+  * `CLERK_SECRET_KEY`
+
+---
+
+## 🧠 Công nghệ sử dụng
+
+| Thành phần               | Mô tả                        |
+| ------------------------ | ---------------------------- |
+| **React + Vite**         | Front-end nhanh và tối ưu    |
+| **Node.js + Express**    | Backend REST API             |
+| **MongoDB Atlas**        | Cơ sở dữ liệu đám mây        |
+| **Clerk**                | Hệ thống xác thực người dùng |
+| **Gemini 2.5 Flash API** | AI Chatbot thông minh        |
+
+---
+
+## 🏗️ Nguồn tham khảo & Credits
+
+* 🎥 **Hướng dẫn gốc**: [Building an AI-Powered E-commerce Chat Assistant with MongoDB – Tutorial](https://www.youtube.com/watch?v=9tANiA0LKn4)
+* 💡 **Repo gốc**: [kubowania/ecommerce-chat-helper](https://github.com/kubowania/ecommerce-chat-helper)
+
+---
+
+## 🌟 Giúp dự án phát triển
+
+Nếu bạn thấy dự án hữu ích, hãy **⭐ Star** repo này để ủng hộ nhé!
+Mọi ý tưởng hoặc đóng góp đều được chào đón ❤️
+
+---
+
+<p align="center">
+  <b>Made with ❤️ by <a href="https://github.com/Hbest1804">Tu tien team</a></b>
+</p>
