@@ -24,6 +24,7 @@ export default function Storage() {
         id: item._id,
         name: item.item_name || "Sản phẩm chưa có tên",
         brand: item.brand || "Không rõ thương hiệu",
+        description: item.item_description || "Mot san pham tuyet voi :)",
         price: item.prices?.sale_price || 0,
         image: "storage.png",
       }));
@@ -69,6 +70,7 @@ export default function Storage() {
               name={item.name}
               price={item.price}
               image={item.image}
+              description={item.description}
               onBuy={() => handleAddToCart(item)}
             />
           ))}

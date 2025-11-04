@@ -17,13 +17,14 @@ export default function Beds() {
     setLoading(true);
     try {
       const res = await fetch(
-        `http://localhost:5070/products/category/beds?page=${page}&limit=20`
+        `http://localhost:5070/products/category/beds?page=${page}&limit=21`,
       );
       const data = await res.json();
       const mapped = data.products.map((item, index) => ({
         id: item._id,
         name: item.item_name || "Sản phẩm chưa có tên",
         brand: item.brand || "Không rõ thương hiệu",
+        description: item.item_description || "Mot san pham tuyet voi :)",
         price: item.prices?.sale_price || 0,
         image: "bed.jpeg",
       }));
@@ -68,6 +69,7 @@ export default function Beds() {
               id={item.id}
               name={item.name}
               price={item.price}
+              description={item.description}
               image={item.image}
               onBuy={() => handleAddToCart(item)}
             />

@@ -17,7 +17,7 @@ export default function Chairs() {
     setLoading(true);
     try {
       const res = await fetch(
-        `http://localhost:5070/products/category/chairs?page=${page}&limit=20`
+        `http://localhost:5070/products/category/chairs?page=${page}&limit=21`,
       );
       const data = await res.json();
       const mapped = data.products.map((item, index) => ({
@@ -25,6 +25,7 @@ export default function Chairs() {
         name: item.item_name || "Sản phẩm chưa có tên",
         brand: item.brand || "Không rõ thương hiệu",
         price: item.prices?.sale_price || 0,
+        description: item.item_description || "Mot san pham tuyet voi :)",
         image: "chair.jpeg",
       }));
       setProducts(mapped);
@@ -69,6 +70,7 @@ export default function Chairs() {
               name={item.name}
               price={item.price}
               image={item.image}
+              description={item.description}
               onBuy={() => handleAddToCart(item)}
             />
           ))}

@@ -12,7 +12,7 @@
 }
 
 .page-container {
-    max-width: 1200px;
+    max-width: 1600px;
     margin: 0 auto;
     padding: 2rem;
 }
@@ -178,13 +178,6 @@ body {
     margin: 0 auto;
     padding: 0 20px;
     max-width: 1600px;
-}
-
-.product-list {
-    display: grid;
-    grid-template-columns: repeat(5, 1fr);
-    gap: 30px;
-    justify-items: center;
 }
 
 .header {

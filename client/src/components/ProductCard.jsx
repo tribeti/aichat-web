@@ -29,7 +29,7 @@ function ProductCard({ id, name, price, image, description, onBuy }) {
         <CardHeader>
           <CardTitle>{name}</CardTitle>
         </CardHeader>
-        <CardContent className="h-16">
+        <CardContent className="h-28">
           <p>{description}</p>
         </CardContent>
         <CardFooter className="justify-between gap-3 max-sm:flex-col max-sm:items-stretch">

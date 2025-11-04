@@ -17,7 +17,7 @@ export default function Tables() {
     setLoading(true);
     try {
       const res = await fetch(
-        `http://localhost:5070/products/category/tables?page=${page}&limit=20`
+        `http://localhost:5070/products/category/tables?page=${page}&limit=21`,
       );
       const data = await res.json();
       const mapped = data.products.map((item, index) => ({
@@ -25,6 +25,7 @@ export default function Tables() {
         name: item.item_name || "Sản phẩm chưa có tên",
         brand: item.brand || "Không rõ thương hiệu",
         price: item.prices?.sale_price || 0,
+        description: item.item_description || "Mot san pham tuyet voi :)",
         image: "table.jpeg",
       }));
       setProducts(mapped);
@@ -61,7 +62,15 @@ export default function Tables() {
     <>
       <Navbar />
       <div className="page-container">
-        <div className="product-list">
+        <div
+          className="product-list"
+          style={{
+            display: "flex",
+            gap: "2rem",
+            flexWrap: "wrap",
+            justifyContent: "center",
+          }}
+        >
           {products.map((item, idx) => (
             <ProductCard
               key={idx}
@@ -69,6 +78,7 @@ export default function Tables() {
               name={item.name}
               price={item.price}
               image={item.image}
+              description={item.description}
               onBuy={() => handleAddToCart(item)}
             />
           ))}
