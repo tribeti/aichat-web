@@ -77,7 +77,7 @@ Truy cập **[http://localhost:5173](http://localhost:5173)** để bắt đầu
 
 ---
 
-## 🧩 FAQ
+## FAQ
 
 ### ❓ Làm sao để tự tạo `.env`?
 
