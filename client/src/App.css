@@ -1,5 +1,4 @@
 @import "tailwindcss";
-@import "tw-animate-css";
 
 @custom-variant dark (&:is(.dark *));
 
@@ -199,15 +198,13 @@ body {
     font-size: 50px;
     font-weight: 800;
     text-transform: uppercase;
-    background: linear-gradient(
-        270deg,
-        #ff6b6b,
-        #feca57,
-        #48dbfb,
-        #1dd1a1,
-        #5f27cd,
-        #ff6b6b
-    );
+    background: linear-gradient(270deg,
+            #ff6b6b,
+            #feca57,
+            #48dbfb,
+            #1dd1a1,
+            #5f27cd,
+            #ff6b6b);
     background-size: 600% 600%;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
