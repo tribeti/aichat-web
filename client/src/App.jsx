@@ -64,9 +64,7 @@ function App() {
             path="/admin"
             element={
               <SignedIn>
-                <Protect role="org:admin">
-                  <Admin />
-                </Protect>
+                <Admin />
               </SignedIn>
             }
           />

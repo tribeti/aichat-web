@@ -6,11 +6,18 @@ import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, Responsive
 
 export default function Admin() {
   const { isLoaded, has } = useAuth();
-  const isAdmin = has({ role: "org:admin" });
 
   if (!isLoaded) {
     return <p>Loading...</p>;
   }
+
+  const isAdmin = has({ role: "org:admin" });
+
+  if (!isAdmin) {
+    return <p className="access-denied">TRUY CẬP BỊ TỪ CHỐI. CHỈ DÀNH CHO QUẢN TRỊ VIÊN.</p>;
+  }
+
+
 
   const [products, setProducts] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
