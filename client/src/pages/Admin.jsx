@@ -2,22 +2,34 @@ import React, { useState, useEffect } from "react";
 import Pagination from "../components/Pagination";
 import "./admin.css";
 import { useAuth } from "@clerk/clerk-react";
-import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, PieChart, Pie, Cell } from 'recharts';
+import {
+  BarChart,
+  Bar,
+  XAxis,
+  YAxis,
+  CartesianGrid,
+  Tooltip,
+  Legend,
+  ResponsiveContainer,
+  PieChart,
+  Pie,
+  Cell,
+} from "recharts";
 
 export default function Admin() {
   const { isLoaded, has } = useAuth();
-
   if (!isLoaded) {
     return <p>Loading...</p>;
   }
 
   const isAdmin = has({ role: "org:admin" });
-
   if (!isAdmin) {
-    return <p className="access-denied">TRUY CẬP BỊ TỪ CHỐI. CHỈ DÀNH CHO QUẢN TRỊ VIÊN.</p>;
+    return (
+      <p className="access-denied">
+        TRUY CẬP BỊ TỪ CHỐI. CHỈ DÀNH CHO QUẢN TRỊ VIÊN.
+      </p>
+    );
   }
-
-
 
   const [products, setProducts] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
@@ -38,7 +50,7 @@ export default function Admin() {
     categories: "",
     notes: "",
   });
-  const [activeTab, setActiveTab] = useState('products');
+  const [activeTab, setActiveTab] = useState("products");
   const [salesData, setSalesData] = useState([]);
   const [customerData, setCustomerData] = useState([]);
   const [customerList, setCustomerList] = useState([]);
@@ -46,12 +58,8 @@ export default function Admin() {
     totalProducts: 0,
     totalSales: 0,
     activeCustomers: 0,
-    revenue: 0
+    revenue: 0,
   });
-
-  useEffect(() => {
-    fetchProducts();
-  }, []);
 
   useEffect(() => {
     fetchProducts();
@@ -205,22 +213,25 @@ export default function Admin() {
       console.error("Error fetching reports data:", err);
       // Fallback to sample data if API fails
       const categories = {};
-      products.forEach(product => {
-        product.categories?.forEach(cat => {
+      products.forEach((product) => {
+        product.categories?.forEach((cat) => {
           categories[cat] = (categories[cat] || 0) + 1;
         });
       });
 
-      const salesDataSample = Object.keys(categories).map(cat => ({
+      const salesDataSample = Object.keys(categories).map((cat) => ({
         name: cat,
-        sales: categories[cat] * Math.floor(Math.random() * 50) + 10
+        sales: categories[cat] * Math.floor(Math.random() * 50) + 10,
       }));
 
       const customerDataSample = [
-        { name: 'New Customers', value: Math.floor(Math.random() * 100) + 50 },
-        { name: 'Returning Customers', value: Math.floor(Math.random() * 100) + 30 },
-        { name: 'VIP Customers', value: Math.floor(Math.random() * 50) + 10 },
-        { name: 'Corporate', value: Math.floor(Math.random() * 30) + 5 }
+        { name: "New Customers", value: Math.floor(Math.random() * 100) + 50 },
+        {
+          name: "Returning Customers",
+          value: Math.floor(Math.random() * 100) + 30,
+        },
+        { name: "VIP Customers", value: Math.floor(Math.random() * 50) + 10 },
+        { name: "Corporate", value: Math.floor(Math.random() * 30) + 5 },
       ];
 
       setSalesData(salesDataSample);
@@ -230,7 +241,7 @@ export default function Admin() {
         totalProducts: products.length,
         totalSales: 0,
         activeCustomers: 0,
-        revenue: 0
+        revenue: 0,
       });
     }
   };
@@ -239,14 +250,14 @@ export default function Admin() {
   const renderTabNavigation = () => (
     <div className="tab-navigation">
       <button
-        className={`tab-button ${activeTab === 'products' ? 'active' : ''}`}
-        onClick={() => setActiveTab('products')}
+        className={`tab-button ${activeTab === "products" ? "active" : ""}`}
+        onClick={() => setActiveTab("products")}
       >
         Products
       </button>
       <button
-        className={`tab-button ${activeTab === 'reports' ? 'active' : ''}`}
-        onClick={() => setActiveTab('reports')}
+        className={`tab-button ${activeTab === "reports" ? "active" : ""}`}
+        onClick={() => setActiveTab("reports")}
       >
         Reports & Analytics
       </button>
@@ -282,13 +293,20 @@ export default function Admin() {
                 cx="50%"
                 cy="50%"
                 labelLine={false}
-                label={({ name, percent }) => `${name} ${(percent * 100).toFixed(0)}%`}
+                label={({ name, percent }) =>
+                  `${name} ${(percent * 100).toFixed(0)}%`
+                }
                 outerRadius={80}
                 fill="#8884d8"
                 dataKey="value"
               >
                 {customerData.map((entry, index) => (
-                  <Cell key={`cell-${index}`} fill={['#0088FE', '#00C49F', '#FFBB28', '#FF8042'][index % 4]} />
+                  <Cell
+                    key={`cell-${index}`}
+                    fill={
+                      ["#0088FE", "#00C49F", "#FFBB28", "#FF8042"][index % 4]
+                    }
+                  />
                 ))}
               </Pie>
               <Tooltip />
@@ -358,7 +376,7 @@ export default function Admin() {
 
       {error && <div className="error-message">{error}</div>}
 
-      {activeTab === 'products' && (
+      {activeTab === "products" && (
         <>
           <button onClick={openAddModal} className="add-button">
             Add New Product
@@ -395,7 +413,10 @@ export default function Admin() {
                     <td>{p.prices?.sale_price}</td>
                     <td>{p.categories?.join(", ")}</td>
                     <td className="action-buttons">
-                      <button onClick={() => handleEdit(p)} className="edit-button">
+                      <button
+                        onClick={() => handleEdit(p)}
+                        className="edit-button"
+                      >
                         Edit
                       </button>
                       <button
@@ -420,12 +441,12 @@ export default function Admin() {
         </>
       )}
 
-      {activeTab === 'reports' && renderReports()}
+      {activeTab === "reports" && renderReports()}
 
       {/* Modal thêm/sửa sản phẩm */}
       {modalOpen && (
         <div className="modal-overlay">
-          <div className="modal-content">
+          <div className="modal-content max-w-5xl">
             <h3>{editing ? "Edit Product" : "Add Product"}</h3>
             <form onSubmit={handleSubmit}>
               <div className="form-group">

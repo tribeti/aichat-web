@@ -11,17 +11,11 @@ import OurStory from "./pages/Story";
 import Careers from "./pages/Careers";
 import Storage from "./pages/Storage";
 import Sofas from "./pages/Sofas";
-import {
-  SignedIn,
-  SignedOut,
-  RedirectToSignIn,
-  Protect,
-} from "@clerk/clerk-react";
+import { SignedIn, SignedOut, RedirectToSignIn } from "@clerk/clerk-react";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
 import DetailPage from "./pages/DetailPage";
 import Admin from "./pages/Admin";
-
 
 function ProtectedRoute({ children }) {
   return (
@@ -39,7 +33,6 @@ function App() {
     <CartProvider>
       <Router>
         <Routes>
-          {/* Người dùng */}
           <Route path="/" element={<EcommerceStore />} />
           <Route path="/cart" element={<Cart />} />
           <Route
@@ -63,9 +56,9 @@ function App() {
           <Route
             path="/admin"
             element={
-              <SignedIn>
+              <ProtectedRoute>
                 <Admin />
-              </SignedIn>
+              </ProtectedRoute>
             }
           />
         </Routes>

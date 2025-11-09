@@ -20,11 +20,11 @@ const Login = () => {
       <div
         style={{
           transform: "scale(1.75)",
-          width: '50%',
+          width: "50%",
           height: "100%",
           display: "flex",
           alignItems: "center",
-          justifyContent: "center"
+          justifyContent: "center",
         }}
       >
         <SignIn signUpUrl="/register" />
@@ -38,7 +38,7 @@ const Login = () => {
           }
         `}
       </style>
-    </div >
+    </div>
   );
 };
 

@@ -37,7 +37,6 @@
     font-weight: bold;
 }
 
-
 /* Hiệu ứng gradient động cho header */
 @keyframes headerGradient {
     0% {
@@ -52,7 +51,6 @@
         background-position: 0% 50%;
     }
 }
-
 
 .admin-header h2 {
     font-size: 36px;
@@ -232,7 +230,6 @@
     padding: 40px;
     border-radius: 15px;
     width: 90%;
-    max-width: 550px;
     max-height: 80%;
     overflow-y: auto;
     box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
@@ -372,7 +369,6 @@
 }
 
 /* Header chứa tiêu đề và nút logout */
-
 
 /* Nút Logout đẹp, có hiệu ứng hover */
 .logout-button {
@@ -520,7 +516,7 @@
     background-color: #f9f9f9;
 }
 
-@import url('https://fonts.googleapis.com/css2?family=Alumni+Sans+Pinstripe:ital@0;1&family=Bitcount+Ink:wght@100..900&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Alumni+Sans+Pinstripe:ital@0;1&family=Bitcount+Ink:wght@100..900&display=swap");
 
 .access-denied {
     display: flex;
@@ -536,7 +532,7 @@
     border-radius: 10px;
     box-shadow: 0 6px 18px rgba(200, 60, 60, 0.06);
     line-height: 10;
-    animation: accessFadeIn .45s ease forwards;
+    animation: accessFadeIn 0.45s ease forwards;
     font-size: 60px;
     font-family: "Alumni-Sans-Pinstripe", sans-serif;
 }
