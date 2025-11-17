@@ -78,7 +78,7 @@ export default function Careers() {
                         const Icon = item.icon;
                         return (
                           <div
-                            key={idx}
+                            key={item.title}
                             className="flex gap-4 rounded-lg border border-border-light dark:border-border-dark bg-card-light dark:bg-card-dark p-6 flex-col items-start"
                           >
                             <div className="text-primary text-3xl">
