@@ -122,7 +122,7 @@ export default function Careers() {
                         },
                       ].map((job, index) => (
                         <div
-                          key={index}
+                          key={job.title}
                           className="flex flex-col sm:flex-row justify-between gap-4 p-6 bg-card-light dark:bg-card-dark rounded-lg border border-border-light dark:border-border-dark"
                         >
                           <div className="flex flex-col gap-1">
