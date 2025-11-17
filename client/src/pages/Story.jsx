@@ -182,9 +182,8 @@ export default function OurStory() {
                     <div className="col-span-2 row-span-2 rounded-xl overflow-hidden">
                       <img
                         className="w-full h-full object-cover"
-                        data-alt="A team of furniture designers collaborating around a wooden table."
                         src="https://lh3.googleusercontent.com/aida-public/AB6AXuC3iyWP0C0X-gDw76tk6glb8swDUsUYeoTSK6HRUKvS_KuHCx1qLgN7Ds4Do4yCQQop8JthL-V9XpZDPJUUqn5jdh7gzwG7TmHvxJfe3z-RPa9sfMHaeY7buD15QcFrX-V274r1iW4SwGvBi156-kZ3GGU5a03ZcvYo8Lwdq6MR7VaHzNkyuXLI6FyBULoIzpp1ROkaFcAp24u87cy7gsV2ZiZ8rIbXzbaIiOuguswsYq9IV5SnP0lwayyyVrrS2gicIxgKoD87P-U"
-                        alt=""
+                        alt="A team of furniture designers collaborating around a wooden table."
                       />
                     </div>
                     <div className="rounded-xl overflow-hidden">
