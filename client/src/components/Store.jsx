@@ -104,7 +104,7 @@ const EcommerceStore = () => {
               </h2>
             </div>
 
-            <button className="flex min-w-[84px] max-w-[480px] bg-zinc-800 cursor-pointer items-center justify-center overflow-hidden rounded-lg h-12 px-6 bg-cta text-white text-base font-bold leading-normal tracking-wide hover:bg-opacity-90">
+            <button onClick={() => featuredRef.current?.scrollIntoView({ behavior: 'smooth' })} className="flex min-w-[84px] max-w-[480px] bg-zinc-800 cursor-pointer items-center justify-center overflow-hidden rounded-lg h-12 px-6 bg-cta text-white text-base font-bold leading-normal tracking-wide hover:bg-opacity-90">
               <span className="truncate">Khám Phá Bộ Sưu Tập</span>
             </button>
           </div>
