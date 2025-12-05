@@ -1,4 +1,3 @@
-import Aurora from "./Aurora";
 import ChatWidget from "./ChatWidget";
 import Navbar from "./Navbar";
 import ProductCard from "./ProductCard";
@@ -87,47 +86,29 @@ const EcommerceStore = () => {
         onSearch={handleSearch}
       />
       <main>
-        <div className="hero">
-          <Aurora
-            colorStops={["#3A29FF", "#FF94B4", "#FF3232"]}
-            blend={0.5}
-            amplitude={1.0}
-            speed={0.5}
-          />
-          <div className="container">
-            <h1 style={{ fontWeight: "bold", fontSize: "2.5rem" }}>
-              Chào mừng đến ShopSmart!
-            </h1>
-            <p style={{ fontSize: "1.2rem" }}>
-              Mua sắm dễ dàng, hiện đại, giá tốt mỗi ngày.
-            </p>
-            <button
-              onClick={() => {
-                const element = featuredRef.current;
-                if (element) {
-                  const y =
-                    element.getBoundingClientRect().top +
-                    window.pageYOffset -
-                    100;
-                  window.scrollTo({ top: y, behavior: "smooth" });
-                }
-              }}
-              style={{
-                background: "#e91e63",
-                color: "#fff",
-                border: "none",
-                borderRadius: "30px",
-                padding: "12px 32px",
-                fontSize: "1.1rem",
-                fontWeight: "bold",
-                marginTop: "1rem",
-                boxShadow: "0 2px 8px rgba(0,0,0,0.12)",
-              }}
-            >
-              Khám phá ngay
+        <section className="mx-auto px-4 py-8 md:py-16">
+          <div
+            className="flex min-h-1/2 md:min-h-screen flex-col gap-6 bg-cover bg-center bg-no-repeat rounded-xl items-start justify-end px-6 pb-10 md:px-12 md:pb-12"
+            style={{
+              backgroundImage:
+                'linear-gradient(rgba(0, 0, 0, 0.05) 0%, rgba(0, 0, 0, 0.3) 100%), url("https://lh3.googleusercontent.com/aida-public/AB6AXuBXkY2fjuC6B7lj4lg-bC8RoYNZq_W7yb8vQzbZW1jbv_jPHouMzbesU0KKE5wghh96GvWtBhHbU-FOk0WHzOts0Zn1Qgj1dnhDfKH2iwR5sJ33b5MLg9mDs0WefYrQOn7kS0rsDh27vMCU5_ifyieQxGqgHiYhUr7fvuRxJYauRrChqupfzus4vRIlqfrXvm1DJUO9lBCxOKh-hyzUY9oe7lWloHX64Ka5tqVgfJaWHKOY0JQauhN1G-ojnAbc0KfyiiKFsZWr8ec")',
+            }}
+          >
+            <div className="flex flex-col gap-4 text-left max-w-2xl">
+              <h1 className="text-white text-4xl font-extrabold leading-tight tracking-tighter md:text-6xl">
+                Không Gian Sống Tối Giản, Đậm Chất Bắc Âu
+              </h1>
+              <h2 className="text-white text-base font-normal leading-normal md:text-lg">
+                Khám phá những thiết kế nội thất tinh tế, mang lại sự ấm cúng và
+                thanh lịch cho ngôi nhà của bạn.
+              </h2>
+            </div>
+
+            <button onClick={() => featuredRef.current?.scrollIntoView({ behavior: 'smooth' })} className="flex min-w-[84px] max-w-[480px] bg-zinc-800 cursor-pointer items-center justify-center overflow-hidden rounded-lg h-12 px-6 bg-cta text-white text-base font-bold leading-normal tracking-wide hover:bg-opacity-90">
+              <span className="truncate">Khám Phá Bộ Sưu Tập</span>
             </button>
           </div>
-        </div>
+        </section>
         <div ref={featuredRef} className="container">
           <div
             className="product-list"
